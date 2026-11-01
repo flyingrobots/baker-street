@@ -47,6 +47,10 @@ sequential. Nobody earns an independence badge by changing hats.
 
 ## Use it
 
+Start with [installation instructions](docs/INSTALL.md), the
+[v3.0.0 skill package](https://github.com/flyingrobots/baker-street/releases/tag/v3.0.0),
+and the [minimal worked example](examples/triage/README.md).
+
 This repository includes the complete skill and its development companion.
 The skill entry point is [SKILL.md](SKILL.md) at the repository root. Install
 or load that folder using your agent host's skill mechanism; keep `references/`,
@@ -185,6 +189,7 @@ harness tests, fresh-context tasks, author review, limitations, and observed fai
 | `SKILL.md`, `references/`, `roles/` | V3 protocol, shared records, action charter, and investigator briefs |
 | `scripts/`, `agents/`, `assets/` | Packet builder, host metadata, and artwork |
 | `tests/` | Harness and packet-builder tests |
+| `examples/triage/` | Minimal source-only worked example and packet header |
 | `evals/fixtures/`, `evals/catalog.json`, `evals/run.py` | 27 documentary cases and their preparation/grading tools |
 | `evals/recorded-smoke/` | Preserved V1 and V2 trial records |
 | `evals/results/v3/` | Preserved V3 responses, failures, reruns, digests, and test transcript |

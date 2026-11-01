@@ -1,0 +1,26 @@
+{
+  "case_id": "EXAMPLE-TRIAGE",
+  "target": "examples/triage/clamp.py",
+  "requested_decision": "Does clamp satisfy the stated integer interval contract?",
+  "sealed_basis": {
+    "path": "examples/triage/clamp.py",
+    "sha256": "bafd82b4c7c832ebdbf088d988c5498768542d748cb62c6b14471ed8c8b0f61f"
+  },
+  "scope": "Integer inputs only; source inspection, no execution or target edits.",
+  "tier": "triage",
+  "plain": true,
+  "budget": "5 minutes; stop after source reasoning and a scoped decision check.",
+  "authorized_actions": "Read source; write a case outside the target. No execution, edits, commits, or publication.",
+  "authorized_tools": "Read files and write the case record.",
+  "execution": "No target execution authorized.",
+  "write_directory": "A separate case directory selected by the host.",
+  "evidence_locations": [
+    "examples/triage/clamp.py",
+    "examples/triage/README.md"
+  ],
+  "capabilities": "Host-dependent; report actual support and limitations.",
+  "separation": "Holmes source pass followed by a disclosed front-office sequential self-check.",
+  "phase": "initial Holmes testimony",
+  "audience": "Python callers supplying integers",
+  "acceptance_criteria": "Integers below 0 map to 0, 0 through 10 are unchanged, and integers above 10 map to 10."
+}
