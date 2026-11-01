@@ -1,21 +1,71 @@
 # Baker Street V3: Turbo Edition™
 
-**Evidence-led review. Checked repairs. A little fog outside the window.**
+**Code review with an evidence trail and a checked path to repair.**
 
-The fire is lit. Three readers have taken their places. One will inspect the
-account, one will ask what its reader can understand, and one will try the
-window to see whether it was ever locked.
+Baker Street is an agent skill that turns a review request into a **case file**:
+a decision, the evidence supporting it, the changes required, and the limits of
+what was checked. Give it a PR, source file, specification, or disputed claim.
+Use it when you need to explain a merge decision, reproduce a suspected defect,
+or establish that a fix addresses the original failure.
 
-None of them is entitled to be right.
+[Install the skill](docs/INSTALL.md) · [Browse a complete case](evals/results/workflow-2026-11-01/README.md)
 
-Baker Street reviews code, pull requests, specifications, documents, claims,
-and previous reviews. It preserves the evidence behind its findings, checks
-its own proposed repairs, and gives a decision with explicit limits. With
-permission, it turns useful probes into maintained tests, implements repairs,
-and reassesses the repaired artifact without rewriting history.
+## What you get
 
-Turbo means fewer unnecessary steps and better-defined handoffs. It is a name,
-not a measured speedup or a claim that this method outperforms a single reviewer.
+The main deliverable is `CASE_FILE.md`. Here is a condensed example from our
+[recorded synthetic investigation](evals/results/workflow-2026-11-01/CASE_FILE.md):
+
+```text
+Decision: CHANGES_REQUIRED
+
+F-1: reserve() rejects a valid request that exactly fills capacity.
+     reserve(2, 3, 5) should return 5; it raises ValueError.
+
+Evidence: The contract explicitly accepts equality. Source inspection
+          and recorded probes confirm that the implementation rejects it.
+
+R-1: Change the rejection comparison from >= to >.
+R-2: Add exact-fill regressions from zero and nonzero usage; demonstrate
+     that they fail on the original code and pass on the repair.
+
+Limits: The release() control has no identified violation in the examined
+        source and finite probes. Concurrency and external storage are excluded.
+```
+
+A small inquiry produces one compact case. Larger reviews also retain investigator
+reports, source identities, probe scripts and results, and the decision check.
+You can follow a finding back to its evidence and see what remains unresolved.
+
+When you authorize implementation, the repair gets its own validation, commit, and
+verdict. In this example, both new regressions failed on the original code and
+all seven tests passed on the fix. The [repaired case](evals/results/workflow-2026-11-01/REMEDIATION.md)
+received a scoped READY verdict; the original CHANGES_REQUIRED record remains.
+The exercise's independent human review is still pending.
+
+## How it differs from a normal code review
+
+Careful reviewers may already use these practices. Baker Street makes them
+explicit parts of an agent review:
+
+- **An inspectable basis.** Findings identify the reviewed revision and supporting
+  evidence. Source reasoning, supplied reports, and probes actually run remain
+  distinct, so you can challenge the conclusion without guessing its basis.
+- **Different review passes.** Beyond triage, verification, reader comprehension,
+  and attempts to falsify claims get separate attention. Watson's first reading is preserved
+  before he sees the other investigators' findings and proposes repairs.
+- **A check of the review itself.** A checker examines the decision, required
+  repairs, and material assurances. Corrections stay visible alongside the
+  original testimony. The case states whether this was a fresh review or a self-check.
+- **Tests that demonstrate the defect.** New regressions must fail for the
+  intended reason before their repaired pass counts. Actual-baseline failures
+  and deliberate mutation checks are labeled separately. The case explains
+  which investigative probes become maintained tests and which are archived.
+
+The benefit is a review another person can audit and a repair whose validation
+addresses the original finding. The extra investigation takes effort; choose
+triage for a small source question. We have not established that Baker Street
+finds more bugs or runs faster than a conventional review. “Turbo” is the edition
+name, not a benchmark result.
 
 ## Pick the inquiry you need
 
