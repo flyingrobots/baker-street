@@ -1,0 +1,44 @@
+test_all_synthetic_controls (test_harness.HarnessTests.test_all_synthetic_controls) ... ok
+test_boolean_line_number (test_harness.HarnessTests.test_boolean_line_number) ... ok
+test_boundary_fixture_truth (test_harness.HarnessTests.test_boundary_fixture_truth) ... ok
+test_claim_omission (test_harness.HarnessTests.test_claim_omission) ... ok
+test_clean_case_false_positive (test_harness.HarnessTests.test_clean_case_false_positive) ... ok
+test_duplicate_claim (test_harness.HarnessTests.test_duplicate_claim) ... ok
+test_evidence_path_escape (test_harness.HarnessTests.test_evidence_path_escape) ... ok
+test_false_execution (test_harness.HarnessTests.test_false_execution) ... ok
+test_faulty_fixture_is_not_used_as_control (test_harness.HarnessTests.test_faulty_fixture_is_not_used_as_control) ... ok
+test_hypothesis_promotion (test_harness.HarnessTests.test_hypothesis_promotion) ... ok
+test_invalid_line (test_harness.HarnessTests.test_invalid_line) ... ok
+test_invented_evidence (test_harness.HarnessTests.test_invented_evidence) ... ok
+test_malformed_claim_and_finding (test_harness.HarnessTests.test_malformed_claim_and_finding) ... ok
+test_malformed_values (test_harness.HarnessTests.test_malformed_values) ... ok
+test_missing_evidence (test_harness.HarnessTests.test_missing_evidence) ... ok
+test_modified_packet_detected_against_canonical (test_harness.HarnessTests.test_modified_packet_detected_against_canonical) ... ok
+test_non_scalar_enum_values (test_harness.HarnessTests.test_non_scalar_enum_values) ... ok
+test_none_basis_combination (test_harness.HarnessTests.test_none_basis_combination) ... ok
+test_prepare_hides_oracle_and_titles (test_harness.HarnessTests.test_prepare_hides_oracle_and_titles) ... ok
+test_prepare_includes_modular_skill_dependencies (test_harness.HarnessTests.test_prepare_includes_modular_skill_dependencies) ... ok
+test_prepare_refuses_existing_directory (test_harness.HarnessTests.test_prepare_refuses_existing_directory) ... ok
+test_probe_duplicate (test_harness.HarnessTests.test_probe_duplicate) ... ok
+test_probe_misclassification (test_harness.HarnessTests.test_probe_misclassification) ... ok
+test_probe_missing (test_harness.HarnessTests.test_probe_missing) ... ok
+test_semantic_status_never_auto_passes (test_harness.HarnessTests.test_semantic_status_never_auto_passes) ... ok
+test_severity_downgrade_disclosed_loss (test_harness.HarnessTests.test_severity_downgrade_disclosed_loss) ... ok
+test_unknown_case (test_harness.HarnessTests.test_unknown_case) ... ok
+test_unknown_severity_is_representable (test_harness.HarnessTests.test_unknown_severity_is_representable) ... ok
+test_unresolved_as_repair (test_harness.HarnessTests.test_unresolved_as_repair) ... ok
+test_wrong_decision (test_harness.HarnessTests.test_wrong_decision) ... ok
+test_actual_checker_basis_is_required_and_preserved (test_packets.PacketTests.test_actual_checker_basis_is_required_and_preserved) ... ok
+test_all_roles_receive_complete_rules_and_schemas (test_packets.PacketTests.test_all_roles_receive_complete_rules_and_schemas) ... ok
+test_charter_is_included_when_requested (test_packets.PacketTests.test_charter_is_included_when_requested) ... ok
+test_cli_writes_once_and_refuses_overwrite (test_packets.PacketTests.test_cli_writes_once_and_refuses_overwrite) ... ok
+test_header_omission_is_rejected (test_packets.PacketTests.test_header_omission_is_rejected) ... ok
+test_instruction_digests_match_included_bytes (test_packets.PacketTests.test_instruction_digests_match_included_bytes) ... ok
+test_missing_governing_file_fails_closed (test_packets.PacketTests.test_missing_governing_file_fails_closed) ... ok
+test_no_watson_or_moriarty_in_triage (test_packets.PacketTests.test_no_watson_or_moriarty_in_triage) ... ok
+test_plain_is_boolean_not_truthy_string (test_packets.PacketTests.test_plain_is_boolean_not_truthy_string) ... ok
+
+----------------------------------------------------------------------
+Ran 39 tests in 0.110s
+
+OK

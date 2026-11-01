@@ -1,0 +1,35 @@
+{
+  "decisions": [
+    "INVESTIGATION_REQUIRED"
+  ],
+  "claims": {
+    "C1": {
+      "assessment": [
+        "REFUTED"
+      ],
+      "evidence_path": "input/run.log",
+      "evidence_lines": [
+        3,
+        4,
+        5
+      ]
+    },
+    "C2": {
+      "assessment": [
+        "UNRESOLVED"
+      ],
+      "evidence_path": "input/run.log",
+      "evidence_lines": [
+        3,
+        4,
+        5
+      ]
+    }
+  },
+  "required_findings": [],
+  "max_active_findings": null,
+  "semantic_checks": [
+    "Distinguish harness failure from product failure.",
+    "No failing assertions is not a pass when no tests ran."
+  ]
+}

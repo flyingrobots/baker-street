@@ -1,0 +1,2 @@
+Baseline + B: NameError: parseCount is not defined.
+Baseline + A + B: consumer integration check passed.

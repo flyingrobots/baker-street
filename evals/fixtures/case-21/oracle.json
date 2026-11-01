@@ -1,0 +1,31 @@
+{
+  "decisions": [
+    "CHANGES_REQUIRED"
+  ],
+  "claims": {
+    "C1": {
+      "assessment": [
+        "REFUTED"
+      ],
+      "evidence_path": "input/evidence.md",
+      "evidence_lines": [
+        2
+      ]
+    },
+    "C2": {
+      "assessment": [
+        "REFUTED"
+      ],
+      "evidence_path": "input/evidence.md",
+      "evidence_lines": [
+        1
+      ]
+    }
+  },
+  "required_findings": [],
+  "max_active_findings": null,
+  "semantic_checks": [
+    "Require the note without escalating to BLOCKED.",
+    "Do not infer that every missing acceptance item is a disqualifier."
+  ]
+}

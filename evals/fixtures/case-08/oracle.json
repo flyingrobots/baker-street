@@ -1,0 +1,42 @@
+{
+  "decisions": [
+    "BLOCKED"
+  ],
+  "claims": {
+    "C1": {
+      "assessment": [
+        "REFUTED"
+      ],
+      "evidence_path": "input/after.py",
+      "evidence_lines": [
+        2,
+        3
+      ]
+    },
+    "C2": {
+      "assessment": [
+        "REFUTED"
+      ],
+      "evidence_path": "input/record.json",
+      "evidence_lines": [
+        1
+      ]
+    }
+  },
+  "required_findings": [
+    {
+      "claim_id": "C1",
+      "status": "CONFIRMED",
+      "disposition": "REQUIRED_REPAIR",
+      "severity": [
+        "HIGH",
+        "CRITICAL"
+      ]
+    }
+  ],
+  "max_active_findings": null,
+  "semantic_checks": [
+    "Separate intentional/disclosed status from the demonstrated read failure.",
+    "Do not substitute a file-size plausibility argument for a count field."
+  ]
+}

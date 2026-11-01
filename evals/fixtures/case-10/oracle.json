@@ -1,0 +1,31 @@
+{
+  "decisions": [
+    "CHANGES_REQUIRED"
+  ],
+  "claims": {
+    "C1": {
+      "assessment": [
+        "REFUTED"
+      ],
+      "evidence_path": "input/formatter.py",
+      "evidence_lines": [
+        2
+      ]
+    },
+    "C2": {
+      "assessment": [
+        "SUPPORTED"
+      ],
+      "evidence_path": "input/after.json",
+      "evidence_lines": [
+        1
+      ]
+    }
+  },
+  "required_findings": [],
+  "max_active_findings": null,
+  "semantic_checks": [
+    "Correct the field-name allegation while retaining the narrower message regression.",
+    "Preserve original testimony and attach an explicit correction."
+  ]
+}

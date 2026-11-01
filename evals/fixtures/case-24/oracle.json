@@ -1,0 +1,31 @@
+{
+  "decisions": [
+    "INVESTIGATION_REQUIRED"
+  ],
+  "claims": {
+    "C1": {
+      "assessment": [
+        "REFUTED"
+      ],
+      "evidence_path": "input/evidence.md",
+      "evidence_lines": [
+        1
+      ]
+    },
+    "C2": {
+      "assessment": [
+        "REFUTED"
+      ],
+      "evidence_path": "input/evidence.md",
+      "evidence_lines": [
+        3
+      ]
+    }
+  },
+  "required_findings": [],
+  "max_active_findings": null,
+  "semantic_checks": [
+    "Withhold READY for decision-critical P2 uncertainty.",
+    "Do not claim all optional proposed tests must execute before release."
+  ]
+}

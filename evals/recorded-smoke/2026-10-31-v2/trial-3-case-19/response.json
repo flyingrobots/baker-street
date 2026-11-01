@@ -1,0 +1,138 @@
+{
+  "decision": "CHANGES_REQUIRED",
+  "claims": [
+    {
+      "id": "C1",
+      "assessment": "REFUTED",
+      "basis": [
+        "SOURCE",
+        "REPORTED",
+        "INFERENCE"
+      ],
+      "evidence": [
+        {
+          "path": "input/target.md",
+          "start": 1,
+          "end": 1
+        },
+        {
+          "path": "input/identities.md",
+          "start": 1,
+          "end": 2
+        }
+      ],
+      "rationale": "The original BLOCKED verdict concerns O, whose required boundary case failed. R is a separate repaired candidate. Repairing R does not invalidate the correct verdict for O.",
+      "limits": "The original failure and artifact identities are supplied records, not independently reproduced or verified repository state. No error in the original adjudication is evidenced."
+    },
+    {
+      "id": "C2",
+      "assessment": "REFUTED",
+      "basis": [
+        "SOURCE",
+        "REPORTED"
+      ],
+      "evidence": [
+        {
+          "path": "input/identities.md",
+          "start": 2,
+          "end": 3
+        },
+        {
+          "path": "input/target.md",
+          "start": 1,
+          "end": 1
+        }
+      ],
+      "rationale": "The supplied identity record states that the subject branch still points to O, while R is separate and has not been merged. It contradicts the proposition that the subject branch already contains the repair.",
+      "limits": "No live branch inspection or full commit identities are available; this assessment applies to the frozen supplied account."
+    },
+    {
+      "id": "C3",
+      "assessment": "SUPPORTED",
+      "basis": [
+        "REPORTED"
+      ],
+      "evidence": [
+        {
+          "path": "input/checks.log",
+          "start": 1,
+          "end": 2
+        },
+        {
+          "path": "input/identities.md",
+          "start": 2,
+          "end": 3
+        }
+      ],
+      "rationale": "The supplied record reports passing boundary regression and relevant integration checks on R, followed by a fresh review finding no remaining blockers within the stated scope. That supports a separate, scoped READY assessment for R on reported evidence.",
+      "limits": "This is not independently executed validation. Commands, detailed outputs, scope definition, runtime identities, and full artifact identities are absent. READY for R establishes neither universal correctness nor readiness of O or the subject branch."
+    }
+  ],
+  "findings": [
+    {
+      "id": "F1",
+      "claim_ids": [
+        "C1"
+      ],
+      "status": "CONFIRMED",
+      "severity": "MODERATE",
+      "origin": "INTRODUCED",
+      "disposition": "REQUIRED_REPAIR",
+      "impact": "If adopted, the draft's instruction to replace the original verdict would erase a correct BLOCKED decision for O and mislead readers about the historical artifact. This is a documentary integrity defect requiring preservation of the original verdict and a separate remediation assessment.",
+      "evidence": [
+        {
+          "path": "input/draft.md",
+          "start": 1,
+          "end": 1
+        },
+        {
+          "path": "input/identities.md",
+          "start": 1,
+          "end": 2
+        },
+        {
+          "path": "input/target.md",
+          "start": 1,
+          "end": 1
+        }
+      ]
+    },
+    {
+      "id": "F2",
+      "claim_ids": [
+        "C2",
+        "C3"
+      ],
+      "status": "CONFIRMED",
+      "severity": "HIGH",
+      "origin": "INTRODUCED",
+      "disposition": "REQUIRED_REPAIR",
+      "impact": "The draft declares the subject branch healed even though it remains at O, whose required boundary case failed. A release or integration decision based on this account could accept the unrepaired artifact by transferring R's reported readiness to O. Actual downstream acceptance or deployment is not evidenced.",
+      "evidence": [
+        {
+          "path": "input/draft.md",
+          "start": 1,
+          "end": 1
+        },
+        {
+          "path": "input/identities.md",
+          "start": 1,
+          "end": 3
+        },
+        {
+          "path": "input/checks.log",
+          "start": 1,
+          "end": 2
+        }
+      ]
+    }
+  ],
+  "limits": [
+    "Focused documentary adjudication of the proposed remediation account using only the supplied packet; no agents, probes, supplied-code execution, external access, target edits, commits, or publication.",
+    "Supplied checks and reviewer conclusions are reported evidence. No independent execution, live repository inspection, or independent reviewer verification was performed.",
+    "O and R are symbolic identities; full object IDs, detailed scope, test artifacts, and environment records are unavailable.",
+    "The overall CHANGES_REQUIRED decision concerns the fixable remediation account. It preserves O's original BLOCKED verdict and recognizes a separate reported, scoped READY assessment for R.",
+    "Valid only for the recorded artifacts, environment, and examined scope; reassess affected claims when they change."
+  ],
+  "next_action": "Revise the account to retain O's original BLOCKED verdict and append a separate remediation record stating that R is READY within the reported review and test scope, remains unmerged, and is not the subject branch. Identify the passing checks and fresh review as reported evidence. Verify integration and the resulting subject identity before claiming the subject branch is healed."
+}

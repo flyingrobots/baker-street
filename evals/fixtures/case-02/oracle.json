@@ -1,0 +1,28 @@
+{
+  "decisions": [
+    "BLOCKED"
+  ],
+  "claims": {
+    "C1": {
+      "assessment": [
+        "REFUTED"
+      ],
+      "evidence_path": "input/validator.py",
+      "evidence_lines": [
+        2
+      ]
+    }
+  },
+  "required_findings": [
+    {
+      "claim_id": "C1",
+      "status": "CONFIRMED",
+      "disposition": "REQUIRED_REPAIR"
+    }
+  ],
+  "max_active_findings": null,
+  "semantic_checks": [
+    "Identify value 10 as the counterexample.",
+    "Tie BLOCKED to the explicit intended-use criterion, not to a blanket severity convention."
+  ]
+}

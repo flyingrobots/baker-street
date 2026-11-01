@@ -1,0 +1,10 @@
+{
+  "sha256": {
+    "TASK.md": "849661886f18f1c1dfe7c520d8378cd9fffc96866587d226a5f44e166940da5c",
+    "input/draft-case.md": "5909c9b1a57c0db9e2c837f537cc716e1bab9334f6763f946159f3debfe73fce",
+    "input/moriarty.md": "3be1a1ba86fe393c7b1db8fa34f0a5dd48fcaa614e7f94bd9114185539f182fc",
+    "input/target.md": "d439a83618755f29b51f116ecf94ef6bc027cc7363635ae407daef1099e4cef5",
+    "skill/SKILL.md": "1558af21885517c03810fd390ef0887c49e50a06b692151a1c3ff9cb92a94908",
+    "skill/references/records.md": "d493ac19ec935eaaa9b7a843ade2e3c711dba34ee7df09f9eda6e8e2e1927021"
+  }
+}

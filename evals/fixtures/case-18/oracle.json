@@ -1,0 +1,32 @@
+{
+  "decisions": [
+    "CHANGES_REQUIRED"
+  ],
+  "claims": {
+    "C1": {
+      "assessment": [
+        "REFUTED"
+      ],
+      "evidence_path": "input/checks.log",
+      "evidence_lines": [
+        1
+      ]
+    },
+    "C2": {
+      "assessment": [
+        "SUPPORTED"
+      ],
+      "evidence_path": "input/checks.log",
+      "evidence_lines": [
+        2
+      ]
+    }
+  },
+  "required_findings": [],
+  "max_active_findings": null,
+  "semantic_checks": [
+    "Declare B\u2019s dependency on A or package a coherent group.",
+    "Do not force one repair per commit while advertising unverified independence.",
+    "The supplied check supports this base and group, not arbitrary other branches."
+  ]
+}

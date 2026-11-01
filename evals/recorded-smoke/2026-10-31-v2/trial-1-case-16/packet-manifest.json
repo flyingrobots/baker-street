@@ -1,0 +1,12 @@
+{
+  "sha256": {
+    "TASK.md": "e29010d7b86a57cd75cdbdd787e121b707feaac5b5e4e6b105ff0574fde4f4a2",
+    "input/contracts.md": "83ce0eabcad9989faad31aefe89e6e8501f27fdc4f16c173632444b8f945a92a",
+    "input/draft.md": "8a83449d53a65c6b466efcf78c8d8824067ddf52edd9e7f497835cde7f3424d4",
+    "input/inventory.md": "a649421b389e4181dae4fa18bbc787a95b9fd84133caf59ef92f3fe86dcaa334",
+    "input/target.md": "4829b34f309fff5b6c910733ddd6d8b3bf292c82d4302d0de1d47853f66e18ce",
+    "skill/SKILL.md": "1c4e9d1291f7eb432e2d545564e42a30dd7a3690521231e20f7084b56b8ffbda",
+    "skill/references/records.md": "1893dc66c425e74cee57d9e7ebb502de00f410f37889783a59de93ffafabd907",
+    "skill/references/repairs.md": "3c3264bb1a38303350f5f8571eb5607e00291ee6e364cef84f1113b6602f155b"
+  }
+}

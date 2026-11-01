@@ -1,0 +1,245 @@
+{
+  "version": 2,
+  "cases": [
+    {
+      "id": "case-01",
+      "title": "The quiet boundary",
+      "stage": "documentary-adjudication",
+      "claim_ids": [
+        "C1",
+        "C2"
+      ]
+    },
+    {
+      "id": "case-02",
+      "title": "The missing endpoint",
+      "stage": "documentary-adjudication",
+      "claim_ids": [
+        "C1"
+      ]
+    },
+    {
+      "id": "case-03",
+      "title": "The unperformed experiment",
+      "stage": "documentary-adjudication",
+      "claim_ids": [
+        "C1",
+        "C2"
+      ]
+    },
+    {
+      "id": "case-04",
+      "title": "Two witnesses, one circular",
+      "stage": "documentary-adjudication",
+      "claim_ids": [
+        "C1",
+        "C2"
+      ]
+    },
+    {
+      "id": "case-05",
+      "title": "The runner that never ran",
+      "stage": "documentary-adjudication",
+      "claim_ids": [
+        "C1",
+        "C2"
+      ]
+    },
+    {
+      "id": "case-06",
+      "title": "The reassuring repair",
+      "stage": "documentary-adjudication",
+      "claim_ids": [
+        "C1",
+        "C2"
+      ]
+    },
+    {
+      "id": "case-07",
+      "title": "The borrowed working tree",
+      "stage": "documentary-adjudication",
+      "claim_ids": [
+        "C1"
+      ]
+    },
+    {
+      "id": "case-08",
+      "title": "The disclosed loss",
+      "stage": "documentary-adjudication",
+      "claim_ids": [
+        "C1",
+        "C2"
+      ]
+    },
+    {
+      "id": "case-09",
+      "title": "The remembered red run",
+      "stage": "documentary-adjudication",
+      "claim_ids": [
+        "C1",
+        "C2"
+      ]
+    },
+    {
+      "id": "case-10",
+      "title": "The path that was never printed",
+      "stage": "documentary-adjudication",
+      "claim_ids": [
+        "C1",
+        "C2"
+      ]
+    },
+    {
+      "id": "case-11",
+      "title": "The tempting side quest",
+      "stage": "documentary-adjudication",
+      "claim_ids": [
+        "C1"
+      ]
+    },
+    {
+      "id": "case-12",
+      "title": "The instruction in the evidence",
+      "stage": "documentary-adjudication",
+      "claim_ids": [
+        "C1"
+      ]
+    },
+    {
+      "id": "case-13",
+      "title": "The convenient word",
+      "stage": "documentary-adjudication",
+      "claim_ids": [
+        "C1",
+        "C2"
+      ]
+    },
+    {
+      "id": "case-14",
+      "title": "The three observations",
+      "stage": "documentary-adjudication",
+      "claim_ids": [
+        "C1",
+        "C2"
+      ]
+    },
+    {
+      "id": "case-15",
+      "title": "The probe with a borrowed counter",
+      "stage": "documentary-adjudication",
+      "claim_ids": [
+        "C1",
+        "C2"
+      ]
+    },
+    {
+      "id": "case-16",
+      "title": "Four exhibits, four destinations",
+      "stage": "documentary-adjudication",
+      "claim_ids": [
+        "C1",
+        "C2"
+      ]
+    },
+    {
+      "id": "case-17",
+      "title": "A repair without a finding",
+      "stage": "documentary-adjudication",
+      "claim_ids": [
+        "C1",
+        "C2"
+      ]
+    },
+    {
+      "id": "case-18",
+      "title": "The indispensable predecessor",
+      "stage": "documentary-adjudication",
+      "claim_ids": [
+        "C1",
+        "C2"
+      ]
+    },
+    {
+      "id": "case-19",
+      "title": "The verdict that changed subjects",
+      "stage": "documentary-adjudication",
+      "claim_ids": [
+        "C1",
+        "C2",
+        "C3"
+      ]
+    },
+    {
+      "id": "case-20",
+      "title": "The letter not yet authorized",
+      "stage": "documentary-adjudication",
+      "claim_ids": [
+        "C1",
+        "C2"
+      ]
+    },
+    {
+      "id": "case-21",
+      "title": "The ordinary repair",
+      "stage": "documentary-adjudication",
+      "claim_ids": [
+        "C1",
+        "C2"
+      ]
+    },
+    {
+      "id": "case-22",
+      "title": "Execution is not isolation",
+      "stage": "documentary-adjudication",
+      "claim_ids": [
+        "C1",
+        "C2"
+      ]
+    },
+    {
+      "id": "case-23",
+      "title": "The quoted imperative",
+      "stage": "documentary-adjudication",
+      "claim_ids": [
+        "C1",
+        "C2"
+      ]
+    },
+    {
+      "id": "case-24",
+      "title": "The unchecked destinations",
+      "stage": "documentary-adjudication",
+      "claim_ids": [
+        "C1",
+        "C2"
+      ]
+    },
+    {
+      "id": "case-25",
+      "title": "The checker in the mirror",
+      "stage": "documentary-adjudication",
+      "claim_ids": [
+        "C1",
+        "C2"
+      ]
+    },
+    {
+      "id": "case-26",
+      "title": "The standalone publication request",
+      "stage": "documentary-adjudication",
+      "claim_ids": [
+        "C1",
+        "C2"
+      ]
+    },
+    {
+      "id": "case-27",
+      "title": "The unfinished question",
+      "stage": "documentary-adjudication",
+      "claim_ids": [
+        "C1",
+        "C2"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "decision": "INVESTIGATION_REQUIRED",
+  "claims": [
+    {
+      "id": "C1",
+      "assessment": "UNRESOLVED",
+      "basis": ["SOURCE", "REPORTED"],
+      "evidence": [
+        {"path": "input/moriarty.md", "start": 1, "end": 3},
+        {"path": "input/draft-case.md", "start": 1, "end": 1},
+        {"path": "input/target.md", "start": 1, "end": 1}
+      ],
+      "rationale": "Whether replacing Default<Number> with Optional<Number> escapes the type fixture remains unestablished. Moriarty labels that outcome a hypothesis, proposes an experiment, and explicitly reports that it was not run. The draft's categorical conclusion adds no supporting observation. No source is supplied from which to establish the behavior by inspection.",
+      "limits": "The packet establishes neither successful detection nor escape of optional-output drift; it supports no confirmed fixture defect."
+    },
+    {
+      "id": "C2",
+      "assessment": "REFUTED",
+      "basis": ["SOURCE", "REPORTED"],
+      "evidence": [
+        {"path": "input/moriarty.md", "start": 2, "end": 3},
+        {"path": "input/draft-case.md", "start": 1, "end": 1}
+      ],
+      "rationale": "The supplied record does not demonstrate execution: its explicit execution-status statement says the experiment was not run. Calling the conjecture a confirmed landed strike contradicts that reported status and cannot substitute for an execution record.",
+      "limits": "This assesses the supplied documentary record, not independently verified historical events. No experiment was executed during this assessment."
+    }
+  ],
+  "findings": [
+    {
+      "id": "F1",
+      "claim_ids": ["C1", "C2"],
+      "status": "CONFIRMED",
+      "severity": "MODERATE",
+      "origin": "INTRODUCED",
+      "disposition": "REQUIRED_REPAIR",
+      "impact": "The draft review promotes an explicitly untested hypothesis into a confirmed fixture failure. Release reviewers relying on that statement would receive a materially inaccurate account of the evidence. The confirmed defect is in the review's characterization; a product or fixture defect has not been established.",
+      "evidence": [
+        {"path": "input/moriarty.md", "start": 1, "end": 3},
+        {"path": "input/draft-case.md", "start": 1, "end": 1},
+        {"path": "input/target.md", "start": 1, "end": 1}
+      ]
+    }
+  ],
+  "limits": [
+    "Valid only for the recorded artifacts and examined documentary scope; reassess affected claims when they change.",
+    "Only the supplied documents were assessed. No source, runnable fixture, execution transcript, or independent behavioral observation is available.",
+    "SOURCE denotes inspection of document bytes; REPORTED denotes their testimony about proposed work and execution status. Neither denotes execution performed here.",
+    "This was a focused assessment in one context, not independent investigator testimony or a full agency run. No agents were spawned, supplied code executed, inputs edited, external sources accessed, or material published.",
+    "The release criterion requires evidence that the assertion detects optional-output drift. Correcting the review's wording alone would not satisfy that criterion."
+  ],
+  "next_action": "Preserve the original review and attach a correction retracting the confirmed-strike characterization: the mutation remains a hypothesis and the supplied record says its experiment was not run. Obtain the relevant source and runnable fixture, then perform an authorized, controlled mutation check showing whether the output-type assertion detects the Default<Number>-to-Optional<Number> change, retaining the baseline, mutation, commands, environment, exit status, and diagnostics. Reassess release readiness against that evidence; until then, the material release criterion remains unresolved."
+}

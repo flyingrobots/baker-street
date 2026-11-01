@@ -1,0 +1,36 @@
+{
+  "decisions": [
+    "INVESTIGATION_REQUIRED"
+  ],
+  "claims": {
+    "C1": {
+      "assessment": [
+        "SUPPORTED"
+      ],
+      "evidence_path": "input/author.md",
+      "evidence_lines": [
+        1
+      ],
+      "allowed_basis": [
+        "SOURCE",
+        "REPORTED",
+        "INFERENCE"
+      ]
+    },
+    "C2": {
+      "assessment": [
+        "REFUTED"
+      ],
+      "evidence_path": "input/inspection.md",
+      "evidence_lines": [
+        2
+      ]
+    }
+  },
+  "required_findings": [],
+  "max_active_findings": null,
+  "semantic_checks": [
+    "Keep reported counts separate from reproduction.",
+    "Do not accuse the author of fabrication; the record does not establish that."
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "case_id": "case-03",
+  "contract_status": "PASS",
+  "semantic_status": "PENDING_HUMAN_REVIEW",
+  "errors": [],
+  "semantic_checks": [
+    "Do not promote the proposed mutation into a demonstrated defect.",
+    "The draft case overclaims; require the experiment or adequate source evidence before settling C1."
+  ],
+  "limitations": [
+    "Checks validate specified classifications, evidence locations and structural consistency.",
+    "They do not establish that prose follows from citations, that tools ran, or that agent isolation held.",
+    "This is a focused stage evaluation, not a complete three-agent investigation."
+  ],
+  "packet_integrity_errors": []
+}

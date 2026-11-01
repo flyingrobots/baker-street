@@ -1,0 +1,63 @@
+{
+  "decision": "INVESTIGATION_REQUIRED",
+  "claims": [
+    {
+      "id": "C1",
+      "assessment": "UNRESOLVED",
+      "basis": ["SOURCE"],
+      "evidence": [
+        {"path": "input/finding.md", "start": 1, "end": 2},
+        {"path": "input/target.md", "start": 1, "end": 1}
+      ],
+      "rationale": "The runtime defect remains a hypothesis. The finding explicitly says neither source inspection nor a mutation experiment has established it, and the packet supplies no implementation or runnable tests. This record does not support treating the defect as established.",
+      "limits": "The absence of establishing evidence does not establish that the defect is absent. The intended output contract, actual runtime default, affected conditions, and need for a runtime change remain unknown."
+    },
+    {
+      "id": "C2",
+      "assessment": "REFUTED",
+      "basis": ["SOURCE", "INFERENCE"],
+      "evidence": [
+        {"path": "input/charter.md", "start": 1, "end": 2},
+        {"path": "input/finding.md", "start": 1, "end": 2},
+        {"path": "input/plan.md", "start": 1, "end": 1}
+      ],
+      "rationale": "The charter permits implementation of confirmed, adjudicated REQUIRED_REPAIR items scoped to THIS_CHANGE and requires investigation of uncertain prerequisites first. R1 instead proposes an immediate runtime change to cure the expressly hypothetical F1. Its eligibility for immediate implementation is contradicted by those prerequisites.",
+      "limits": "R1 might become eligible after evidence establishes the defect and adjudication confirms the repair's necessity and scope. The packet does not establish that a runtime-default change is the correct repair."
+    }
+  ],
+  "findings": [
+    {
+      "id": "F1",
+      "claim_ids": ["C1"],
+      "status": "HYPOTHESIS",
+      "severity": "INFORMATIONAL",
+      "origin": "UNKNOWN",
+      "disposition": "INVESTIGATE",
+      "impact": "The declared output may accidentally be optional. If confirmed, that could affect consumers relying on the output contract, but neither the triggering conditions nor actual runtime consequences are established. INFORMATIONAL describes the present evidentiary record, not an estimate of a confirmed defect's severity.",
+      "evidence": [
+        {"path": "input/finding.md", "start": 1, "end": 2}
+      ]
+    },
+    {
+      "id": "F2",
+      "claim_ids": ["C2"],
+      "status": "CONFIRMED",
+      "severity": "MODERATE",
+      "origin": "INTRODUCED",
+      "disposition": "REQUIRED_REPAIR",
+      "impact": "The proposed plan directs maintainers to change a runtime default immediately despite an unresolved prerequisite and a charter requiring confirmed repairs. This is a material defect in the implementation plan: following it would exceed the stated repair scope. It does not establish that any runtime change has occurred or that consumers have been harmed.",
+      "evidence": [
+        {"path": "input/charter.md", "start": 1, "end": 2},
+        {"path": "input/finding.md", "start": 1, "end": 2},
+        {"path": "input/plan.md", "start": 1, "end": 1}
+      ]
+    }
+  ],
+  "limits": [
+    "Focused documentary adjudication of the frozen supplied packet only; no external sources, independent witnesses, runtime execution, or target edits were used.",
+    "SOURCE denotes inspection of the supplied documents, not inspection or execution of the absent implementation. No supplied execution transcript establishes runtime behavior.",
+    "The runtime defect, intended contract, correct repair, affected population, and runtime severity remain unestablished. The confirmed finding concerns the proposed plan's conflict with its charter.",
+    "Valid only for the recorded artifacts and examined documentary scope; reassess affected claims when new evidence becomes available."
+  ],
+  "next_action": "Do not implement R1 on this record. Revise the plan to investigate F1 first by obtaining the intended output contract and relevant implementation evidence, with a controlled test where needed. Adjudicate the result; proceed with a bounded repair only if it is confirmed, REQUIRED_REPAIR, and THIS_CHANGE under the existing charter. No additional permission is needed for work already authorized by that charter, but the missing evidence cannot be replaced by authorization."
+}

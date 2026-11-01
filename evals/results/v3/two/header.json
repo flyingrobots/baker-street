@@ -1,0 +1,32 @@
+{
+  "case_id": "v3-two",
+  "target": "/workspace/scratch/dbe9dc8cb21c/smoke-v3/two/input",
+  "requested_decision": "Assess the requested acceptance decision in the supplied files.",
+  "sealed_basis": {
+    "evidence.md": "20bf5a8e63408f76d231de6dafbd0cc01209da995f64e6062ef9f076032b07f0",
+    "draft.md": "a2745d46bcc742e8fa5c00abed8b513ec6316186b5e83fe30e34d582cf36d527"
+  },
+  "scope": "Only the supplied contract and evidence; no external lookup.",
+  "budget": "One bounded source review; reserve time for reporting.",
+  "authorized_actions": [
+    "Read supplied input",
+    "Write response in assigned directory"
+  ],
+  "authorized_tools": [
+    "Read local files",
+    "Write assigned response; no execution of target code or delegation"
+  ],
+  "execution": "Source inspection only; no target execution authorized.",
+  "write_directory": "/workspace/scratch/dbe9dc8cb21c/smoke-v3/two/result",
+  "evidence_locations": [
+    "/workspace/scratch/dbe9dc8cb21c/smoke-v3/two/input"
+  ],
+  "capabilities": "Fresh role context; read/write tools available; no claimed filesystem sandbox.",
+  "separation": "Separate context; shared filesystem; prompt-only read boundary.",
+  "phase": "decision",
+  "audience": "Maintainer",
+  "acceptance_criteria": "As stated in the supplied contract/draft.",
+  "tier": "focused",
+  "plain": true,
+  "reviewer_basis": "FRESH_AGENT"
+}

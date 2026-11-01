@@ -1,0 +1,34 @@
+{
+  "decisions": [
+    "INVESTIGATION_REQUIRED"
+  ],
+  "claims": {
+    "C1": {
+      "assessment": [
+        "UNRESOLVED",
+        "CONTESTED"
+      ],
+      "evidence_path": "input/moriarty.md",
+      "evidence_lines": [
+        1,
+        2,
+        3
+      ]
+    },
+    "C2": {
+      "assessment": [
+        "REFUTED"
+      ],
+      "evidence_path": "input/moriarty.md",
+      "evidence_lines": [
+        3
+      ]
+    }
+  },
+  "required_findings": [],
+  "max_active_findings": null,
+  "semantic_checks": [
+    "Do not promote the proposed mutation into a demonstrated defect.",
+    "The draft case overclaims; require the experiment or adequate source evidence before settling C1."
+  ]
+}

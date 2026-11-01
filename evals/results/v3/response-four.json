@@ -1,0 +1,46 @@
+{
+  "decision": "CHANGES_REQUIRED",
+  "claims": [
+    {
+      "id": "C1",
+      "assessment": "REFUTED",
+      "basis": ["SOURCE", "INFERENCE"],
+      "evidence": [
+        {"path": "input/evidence.md", "start": 1, "end": 2}
+      ],
+      "rationale": "C1 asserts that the required migration note is present. The supplied criteria require that note before merge, but the full submitted documentation contains only 'Version 2 is available.' That announcement supplies no migration note.",
+      "limits": "The packet provides no migration details from which to draft or validate the missing note, and establishes no runtime consequence of its absence."
+    },
+    {
+      "id": "C2",
+      "assessment": "REFUTED",
+      "basis": ["SOURCE"],
+      "evidence": [
+        {"path": "input/evidence.md", "start": 1, "end": 3}
+      ],
+      "rationale": "C2 asserts that the missing note is an established disqualifier of essential intended use. The criteria explicitly classify its absence as an ordinary bounded documentation repair, not an essential-use disqualifier. With no other acceptance obligations open, the supported decision is CHANGES_REQUIRED rather than BLOCKED.",
+      "limits": "This conclusion applies only to the supplied fictional acceptance criteria; it does not establish whether any actual migration preserves essential use."
+    }
+  ],
+  "findings": [
+    {
+      "id": "F1",
+      "claim_ids": ["C1", "C2"],
+      "status": "CONFIRMED",
+      "severity": "LOW",
+      "origin": "UNKNOWN",
+      "disposition": "REQUIRED_REPAIR",
+      "impact": "When this change is considered for merge, reviewers and documentation readers receive only a version announcement and lack the required migration note. The submission therefore fails the stated documentation acceptance condition. The demonstrated impairment is bounded to that omission; no essential-use failure is established.",
+      "evidence": [
+        {"path": "input/evidence.md", "start": 1, "end": 3}
+      ]
+    }
+  ],
+  "limits": [
+    "This is a documentary adjudication confined to input/target.md and input/evidence.md; conclusions are valid only for those supplied artifacts and criteria.",
+    "The skill, shared rules and record definitions were read. No supplied code was executed, no agents were delegated, and no external evidence was accessed.",
+    "A sequential self-check covered both claims, the required repair and the decision. No independent or blind review is claimed.",
+    "No prior documentation or change history was supplied, so the omission's origin remains unknown."
+  ],
+  "next_action": "Add the required migration note before merge, then inspect the revised documentation against the supplied acceptance criterion. No other required action is established within this scope."
+}

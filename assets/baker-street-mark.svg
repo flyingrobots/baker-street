@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+  <title>Baker Street magnifying glass</title>
+  <path d="M15 15L21 21" stroke="#103544" stroke-width="4" stroke-linecap="round"/>
+  <path d="M15 15L21 21" stroke="#22C3E6" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="10" cy="10" r="8" fill="#103544"/>
+  <circle cx="10" cy="10" r="6" fill="#22C3E6"/>
+  <circle cx="10" cy="10" r="4" fill="#E8FAFF"/>
+</svg>

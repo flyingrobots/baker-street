@@ -1,0 +1,35 @@
+{
+  "decisions": [
+    "INVESTIGATION_REQUIRED"
+  ],
+  "claims": {
+    "C1": {
+      "assessment": [
+        "SUPPORTED"
+      ],
+      "evidence_path": "input/corpus.log",
+      "evidence_lines": [
+        1,
+        2,
+        3
+      ]
+    },
+    "C2": {
+      "assessment": [
+        "REFUTED"
+      ],
+      "evidence_path": "input/corpus.log",
+      "evidence_lines": [
+        1,
+        2,
+        3
+      ]
+    }
+  },
+  "required_findings": [],
+  "max_active_findings": null,
+  "semantic_checks": [
+    "Refute the inference to universality, not parity itself.",
+    "Give a scoped result and state that actual universal parity remains unresolved."
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "decisions": [
+    "CHANGES_REQUIRED"
+  ],
+  "claims": {
+    "C1": {
+      "assessment": [
+        "REFUTED"
+      ],
+      "evidence_path": "input/measurement.log",
+      "evidence_lines": [
+        1
+      ]
+    },
+    "C2": {
+      "assessment": [
+        "SUPPORTED"
+      ],
+      "evidence_path": "input/measurement.log",
+      "evidence_lines": [
+        2
+      ]
+    }
+  },
+  "required_findings": [],
+  "max_active_findings": null,
+  "semantic_checks": [
+    "Correct any to unknown without treating the log as independently reproduced."
+  ]
+}

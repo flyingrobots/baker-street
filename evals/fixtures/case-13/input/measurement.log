@@ -1,0 +1,2 @@
+IsAny<ParseOutput> = false
+IsUnknown<ParseOutput> = true

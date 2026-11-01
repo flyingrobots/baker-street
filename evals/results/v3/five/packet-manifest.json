@@ -1,0 +1,16 @@
+{
+  "sha256": {
+    "TASK.md": "739441ab5d080aba0aed0c0ef71c003509da45a09ffa79c39bde70602c5aa079",
+    "input/evidence.md": "1a434b92f8437e00b9117517ccb24beddd3a39fde88c3fe779da9ed96cfca219",
+    "input/target.md": "77b01627690839f8784c3f6275712854f84dcb340a57142a187eb87ae2a6fa0a",
+    "skill/SKILL.md": "6abadb60f076824d4ced800c625482392d7f8400d1d0da709813686f8f08ffaa",
+    "skill/references/charter.md": "36410b883be64acc1d455ac9298a2465f243fcae1760dbf37df5ca613f9fa45b",
+    "skill/references/core.md": "fba270ca7490d519a2f2dc34ed4364066d9ce67a3cf1a7bea5923ab626f27d30",
+    "skill/references/records.md": "8b6ecb204315dd9e51452b11a92b7a5c54950d09eda209ca8a670c905a5048e0",
+    "skill/roles/checker.md": "bcff000ca73c357ee6be08f87c69be0dfa3d2b5a22234e25422a1b17b6649f24",
+    "skill/roles/holmes.md": "1c54ef87290d12e03db5b835d6e92ca30587a04056bc25067852abdfb8d2c19c",
+    "skill/roles/moriarty.md": "94db4584af47107ac3095d5c447d696d41c9da696e9039b949b8942ac3bfd9ee",
+    "skill/roles/watson.md": "386a7cc5e4e427da845658ce34cc7ccb86805fc25609e6865bf3134941bf5ac5",
+    "skill/scripts/build_packet.py": "49d985befd206c6d4c4900f5348fc9ea2f0834c4b53f321a18172dd651a72d89"
+  }
+}

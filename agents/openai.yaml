@@ -1,0 +1,14 @@
+interface:
+  display_name: 'Baker Street V3: Turbo Edition™'
+  short_description: Evidence-led review, checked repairs, restrained drama
+  default_prompt: Use $baker-street to investigate this artifact, choose a risk-appropriate
+    tier, and produce a checked case with explicit evidence and limits.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  allow_implicit_invocation: false
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas

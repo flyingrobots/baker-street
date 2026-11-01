@@ -1,0 +1,16 @@
+{
+  "case_id": "case-01",
+  "contract_status": "PASS",
+  "semantic_status": "PENDING_HUMAN_REVIEW",
+  "errors": [],
+  "semantic_checks": [
+    "Do not invent defects, demand unrelated types, or penalize zero findings.",
+    "Explain source reasoning without pretending to have executed tests."
+  ],
+  "limitations": [
+    "Checks validate specified classifications, evidence locations and structural consistency.",
+    "They do not establish that prose follows from citations, that tools ran, or that agent isolation held.",
+    "This is a focused stage evaluation, not a complete three-agent investigation."
+  ],
+  "packet_integrity_errors": []
+}

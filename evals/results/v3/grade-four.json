@@ -1,0 +1,15 @@
+{
+  "case_id": "case-21",
+  "contract_status": "PASS",
+  "semantic_status": "PENDING_HUMAN_REVIEW",
+  "errors": [],
+  "semantic_checks": [
+    "Require the note without escalating to BLOCKED.",
+    "Do not infer that every missing acceptance item is a disqualifier."
+  ],
+  "limitations": [
+    "Checks validate specified classifications, evidence locations and structural consistency.",
+    "They do not establish that prose follows from citations, that tools ran, or that agent isolation held.",
+    "This is a focused stage evaluation, not a complete three-agent investigation."
+  ]
+}

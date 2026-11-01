@@ -1,0 +1,43 @@
+{
+  "decisions": [
+    "CHANGES_REQUIRED"
+  ],
+  "claims": {
+    "C1": {
+      "assessment": [
+        "REFUTED"
+      ],
+      "evidence_path": "input/identities.md",
+      "evidence_lines": [
+        1,
+        2
+      ]
+    },
+    "C2": {
+      "assessment": [
+        "REFUTED"
+      ],
+      "evidence_path": "input/identities.md",
+      "evidence_lines": [
+        3
+      ]
+    },
+    "C3": {
+      "assessment": [
+        "SUPPORTED"
+      ],
+      "evidence_path": "input/checks.log",
+      "evidence_lines": [
+        1,
+        2
+      ]
+    }
+  },
+  "required_findings": [],
+  "max_active_findings": null,
+  "semantic_checks": [
+    "Preserve the original verdict and add a new assessment explicitly scoped to R.",
+    "Candidate availability, publication, and integration are separate events.",
+    "The log is reported evidence; do not claim an independent rerun."
+  ]
+}

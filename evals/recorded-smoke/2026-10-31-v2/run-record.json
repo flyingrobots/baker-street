@@ -1,0 +1,50 @@
+{
+  "date": "2026-10-31",
+  "timezone": "America/Los_Angeles",
+  "stage": "focused documentary adjudication",
+  "context": "fresh subagent contexts via fork_turns=none",
+  "filesystem_isolation": "packet-only access instructed on shared filesystem; not sandbox enforced",
+  "model_version": "parent model inherited; exact version not exposed",
+  "sampling_and_cost": "not recorded",
+  "tool_trace": "not exported; no claim of independent host-action verification",
+  "runs": [
+    {
+      "trial": 1,
+      "case_id": "case-16",
+      "skill_sha256": "1c4e9d1291f7eb432e2d545564e42a30dd7a3690521231e20f7084b56b8ffbda",
+      "record_format_sha256": "1893dc66c425e74cee57d9e7ebb502de00f410f37889783a59de93ffafabd907",
+      "contract_status": "PASS",
+      "response_sha256": "6138a73415ee9a7f0cd1e26a3c631aa3f7d0f1a04236241af6b86a4f5a93667b",
+      "author_agent_review": "Consistent with the requested narrow rubric on author-agent inspection."
+    },
+    {
+      "trial": 2,
+      "case_id": "case-17",
+      "skill_sha256": "1c4e9d1291f7eb432e2d545564e42a30dd7a3690521231e20f7084b56b8ffbda",
+      "record_format_sha256": "1893dc66c425e74cee57d9e7ebb502de00f410f37889783a59de93ffafabd907",
+      "contract_status": "PASS",
+      "response_sha256": "6d5e56ab69e53622ffb7e25e4cedebed2a1d10e70cb9598ea0cabe90cd9c9762",
+      "author_agent_review": "Semantic concern: INFORMATIONAL used as an uncertainty label; motivated adding UNKNOWN severity to the final edition."
+    },
+    {
+      "trial": 3,
+      "case_id": "case-19",
+      "skill_sha256": "1c4e9d1291f7eb432e2d545564e42a30dd7a3690521231e20f7084b56b8ffbda",
+      "record_format_sha256": "1893dc66c425e74cee57d9e7ebb502de00f410f37889783a59de93ffafabd907",
+      "contract_status": "PASS",
+      "response_sha256": "b5c02960f6d4a285164c3a706ad2fc0b4cb0b58b1f7e6522250c88eb6d920899",
+      "author_agent_review": "Consistent with the requested narrow rubric on author-agent inspection."
+    },
+    {
+      "trial": 4,
+      "case_id": "case-17",
+      "skill_sha256": "e43cbd90b8031f4c1e0a020d917459449c48c1aeb8f2c5df89770c025728bf80",
+      "record_format_sha256": "69d9da685f43c1dc5a2f04931c64a9153f9f862e6181f94b91b13d2d03c5544b",
+      "contract_status": "PASS",
+      "response_sha256": "5e4d995353fbcb5c7ebc589f587fa49042579a3c6011c89aa3259f43b4b3cd75",
+      "author_agent_review": "Targeted repeat used HYPOTHESIS and UNKNOWN severity, with implementation deferred. One trial; no causal/generalization claim."
+    }
+  ],
+  "human_semantic_review": "pending",
+  "comparisons": "no baseline, voice comparison, or full agency workflow test"
+}

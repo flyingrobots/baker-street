@@ -1,0 +1,11 @@
+{
+  "sha256": {
+    "TASK.md": "849661886f18f1c1dfe7c520d8378cd9fffc96866587d226a5f44e166940da5c",
+    "input/after.py": "ffdc82a5931485dbe08ccf7960fcf62ead985983f1dffdd38ddc12048ef9d869",
+    "input/before.py": "7be9045bf9511fb7d6dc77ef4d4a4d1401a2119e9b6208aaa7b262d416cebbc0",
+    "input/repair.md": "4b47c7ff16a56fa246da0ac37b9bb205270529b8a2cd88f13bef8d9d686fd984",
+    "input/target.md": "68a5ace5f97d29bd24f0af83bcade4c54f13ede7dcb516121d2f118d40074ece",
+    "skill/SKILL.md": "1558af21885517c03810fd390ef0887c49e50a06b692151a1c3ff9cb92a94908",
+    "skill/references/records.md": "d493ac19ec935eaaa9b7a843ade2e3c711dba34ee7df09f9eda6e8e2e1927021"
+  }
+}

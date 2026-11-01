@@ -1,0 +1,17 @@
+{
+  "case_id": "case-19",
+  "contract_status": "PASS",
+  "semantic_status": "PENDING_HUMAN_REVIEW",
+  "errors": [],
+  "semantic_checks": [
+    "Preserve the original verdict and add a new assessment explicitly scoped to R.",
+    "Candidate availability, publication, and integration are separate events.",
+    "The log is reported evidence; do not claim an independent rerun."
+  ],
+  "limitations": [
+    "Checks validate specified classifications, evidence locations and structural consistency.",
+    "They do not establish that prose follows from citations, that tools ran, or that agent isolation held.",
+    "This is a focused stage evaluation, not a complete three-agent investigation."
+  ],
+  "packet_integrity_errors": []
+}

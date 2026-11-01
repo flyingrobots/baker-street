@@ -1,0 +1,34 @@
+{
+  "decisions": [
+    "CHANGES_REQUIRED"
+  ],
+  "claims": {
+    "C1": {
+      "assessment": [
+        "REFUTED"
+      ],
+      "evidence_path": "input/probe.py",
+      "evidence_lines": [
+        6,
+        7
+      ]
+    },
+    "C2": {
+      "assessment": [
+        "SUPPORTED"
+      ],
+      "evidence_path": "input/probe.py",
+      "evidence_lines": [
+        1,
+        4
+      ]
+    }
+  },
+  "required_findings": [],
+  "max_active_findings": null,
+  "semantic_checks": [
+    "Withdraw the product-divergence finding and preserve the faulty probe as corrected evidence.",
+    "Do not promote the invalid assertion as a product regression.",
+    "Distinguish supplied isolation results from an experiment performed now."
+  ]
+}

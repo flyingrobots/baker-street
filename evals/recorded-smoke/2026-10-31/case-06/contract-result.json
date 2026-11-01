@@ -1,0 +1,16 @@
+{
+  "case_id": "case-06",
+  "contract_status": "PASS",
+  "semantic_status": "PENDING_HUMAN_REVIEW",
+  "errors": [],
+  "semantic_checks": [
+    "Supply an affected input such as 500 and scope the consumer guidance.",
+    "Review replacement prose as a fresh claim, not as trusted remediation."
+  ],
+  "limitations": [
+    "Checks validate specified classifications, evidence locations and structural consistency.",
+    "They do not establish that prose follows from citations, that tools ran, or that agent isolation held.",
+    "This is a focused stage evaluation, not a complete three-agent investigation."
+  ],
+  "packet_integrity_errors": []
+}

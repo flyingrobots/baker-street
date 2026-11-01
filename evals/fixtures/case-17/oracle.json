@@ -1,0 +1,34 @@
+{
+  "decisions": [
+    "INVESTIGATION_REQUIRED"
+  ],
+  "claims": {
+    "C1": {
+      "assessment": [
+        "UNRESOLVED"
+      ],
+      "evidence_path": "input/finding.md",
+      "evidence_lines": [
+        1,
+        2
+      ]
+    },
+    "C2": {
+      "assessment": [
+        "REFUTED"
+      ],
+      "evidence_path": "input/charter.md",
+      "evidence_lines": [
+        1,
+        2
+      ]
+    }
+  },
+  "required_findings": [],
+  "max_active_findings": null,
+  "semantic_checks": [
+    "Investigate the hypothesis before implementation; do not convert it into a confirmed finding to satisfy --heal.",
+    "The uncertain declaration does not establish a runtime-default defect.",
+    "Use UNKNOWN severity when impact cannot be assessed; do not use INFORMATIONAL as a confidence label."
+  ]
+}

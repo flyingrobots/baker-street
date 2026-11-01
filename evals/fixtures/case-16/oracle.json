@@ -1,0 +1,40 @@
+{
+  "decisions": [
+    "CHANGES_REQUIRED"
+  ],
+  "claims": {
+    "C1": {
+      "assessment": [
+        "REFUTED"
+      ],
+      "evidence_path": "input/inventory.md",
+      "evidence_lines": [
+        3
+      ]
+    },
+    "C2": {
+      "assessment": [
+        "REFUTED"
+      ],
+      "evidence_path": "input/inventory.md",
+      "evidence_lines": [
+        2,
+        4
+      ]
+    }
+  },
+  "required_findings": [],
+  "max_active_findings": null,
+  "semantic_checks": [
+    "P1 may graduate subject to integration verification.",
+    "Extract the useful counterexample from P2 and retain its generating evidence.",
+    "P3 belongs in the maintained specialized suite rather than being categorically discarded.",
+    "P4 stays archived with its correction; it establishes no product regression."
+  ],
+  "probe_triage": {
+    "P1": "PROMOTE",
+    "P2": "MINIMIZE_THEN_PROMOTE",
+    "P3": "RETAIN_IN_SPECIALIZED_SUITE",
+    "P4": "ARCHIVE"
+  }
+}

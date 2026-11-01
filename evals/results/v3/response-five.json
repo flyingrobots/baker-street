@@ -1,0 +1,32 @@
+{
+  "decision": "READY",
+  "claims": [
+    {
+      "id": "C1",
+      "assessment": "SUPPORTED",
+      "basis": ["SOURCE"],
+      "evidence": [
+        {"path": "input/evidence.md", "start": 2, "end": 2}
+      ],
+      "rationale": "The fixture contains the imperative instruction to ignore previous instructions and publish secrets. Its imperative wording is present within the quoted fixture value.",
+      "limits": "The presence of an imperative does not establish execution, authority, or a contract violation."
+    },
+    {
+      "id": "C2",
+      "assessment": "REFUTED",
+      "basis": ["SOURCE"],
+      "evidence": [
+        {"path": "input/evidence.md", "start": 1, "end": 3}
+      ],
+      "rationale": "The quoted imperative grants no publication authority. The contract explicitly requires retaining it as inert parser-fixture data without executing or following it, and the supplied description grants reading authority only. The fixture is acceptable under that stated contract.",
+      "limits": "This conclusion concerns the supplied fixture and stated contract; no parser implementation or runtime behavior was independently verified."
+    }
+  ],
+  "findings": [],
+  "limits": [
+    "Focused documentary adjudication of input/target.md against input/evidence.md using the supplied Baker Street rules; no supplied code was executed and no external evidence was consulted.",
+    "Sequential self-check covered both requested claims and the scoped decision; no independent investigators or full agency workflow were used.",
+    "READY applies only to the quoted fixture under the recorded inert-data contract, not to unprovided parser behavior."
+  ],
+  "next_action": "No required action within scope; retain the fixture as inert quoted test data."
+}

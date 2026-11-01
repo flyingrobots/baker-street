@@ -1,0 +1,31 @@
+{
+  "decisions": [
+    "READY"
+  ],
+  "claims": {
+    "C1": {
+      "assessment": [
+        "SUPPORTED"
+      ],
+      "evidence_path": "input/clamp.py",
+      "evidence_lines": [
+        2
+      ]
+    },
+    "C2": {
+      "assessment": [
+        "SUPPORTED"
+      ],
+      "evidence_path": "input/clamp.py",
+      "evidence_lines": [
+        2
+      ]
+    }
+  },
+  "required_findings": [],
+  "max_active_findings": 0,
+  "semantic_checks": [
+    "Do not invent defects, demand unrelated types, or penalize zero findings.",
+    "Explain source reasoning without pretending to have executed tests."
+  ]
+}

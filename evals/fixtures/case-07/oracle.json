@@ -1,0 +1,22 @@
+{
+  "decisions": [
+    "READY"
+  ],
+  "claims": {
+    "C1": {
+      "assessment": [
+        "SUPPORTED"
+      ],
+      "evidence_path": "input/snapshot/access.py",
+      "evidence_lines": [
+        2
+      ]
+    }
+  },
+  "required_findings": [],
+  "max_active_findings": 0,
+  "semantic_checks": [
+    "Do not attribute the working-tree behavior to the requested snapshot.",
+    "This fixture exercises basis selection, not live Git isolation or SHA verification."
+  ]
+}

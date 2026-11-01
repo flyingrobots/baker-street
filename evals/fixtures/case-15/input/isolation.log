@@ -1,0 +1,2 @@
+Fresh counter for each side: base=1 head=1.
+Each implementation read the getter once.

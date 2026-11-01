@@ -1,0 +1,31 @@
+{
+  "case_id": "v3-three",
+  "target": "/workspace/scratch/dbe9dc8cb21c/smoke-v3/three/input",
+  "requested_decision": "Assess the requested acceptance decision in the supplied files.",
+  "sealed_basis": {
+    "validator.py": "c131b45850b917168da501207776cbcdb9379aaa9c80fe9421741c62e04c6ab5",
+    "contract.md": "dcf5e4cca9ded61d0d9e5f6b3b916a854462be4a67e8844309e97ded68a8c9c9"
+  },
+  "scope": "Only the supplied contract and evidence; no external lookup.",
+  "budget": "One bounded source review; reserve time for reporting.",
+  "authorized_actions": [
+    "Read supplied input",
+    "Write response in assigned directory"
+  ],
+  "authorized_tools": [
+    "Read local files",
+    "Write assigned response; no execution of target code or delegation"
+  ],
+  "execution": "Source inspection only; no target execution authorized.",
+  "write_directory": "/workspace/scratch/dbe9dc8cb21c/smoke-v3/three/result",
+  "evidence_locations": [
+    "/workspace/scratch/dbe9dc8cb21c/smoke-v3/three/input"
+  ],
+  "capabilities": "Fresh role context; read/write tools available; no claimed filesystem sandbox.",
+  "separation": "Separate context; shared filesystem; prompt-only read boundary.",
+  "phase": "initial",
+  "audience": "Maintainer",
+  "acceptance_criteria": "As stated in the supplied contract/draft.",
+  "tier": "focused",
+  "plain": true
+}

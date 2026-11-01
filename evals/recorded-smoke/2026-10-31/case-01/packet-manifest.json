@@ -1,0 +1,10 @@
+{
+  "sha256": {
+    "TASK.md": "849661886f18f1c1dfe7c520d8378cd9fffc96866587d226a5f44e166940da5c",
+    "input/clamp.py": "cdc069063ff910c0af8c31fb47f350ff6712be065f94b2547a47f988aa4f01ca",
+    "input/release.md": "ee57ab4aca7c92d3e2db0e5632ecdeabab11756eb04735a7d5a1bca6eacf684f",
+    "input/target.md": "d60e5467a5669cc2b8613903d8c7419ae5edd27fc1d1247c0e0a6034496ab74d",
+    "skill/SKILL.md": "1558af21885517c03810fd390ef0887c49e50a06b692151a1c3ff9cb92a94908",
+    "skill/references/records.md": "d493ac19ec935eaaa9b7a843ade2e3c711dba34ee7df09f9eda6e8e2e1927021"
+  }
+}

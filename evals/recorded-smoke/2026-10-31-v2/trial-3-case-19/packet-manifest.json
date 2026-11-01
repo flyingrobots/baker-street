@@ -1,0 +1,12 @@
+{
+  "sha256": {
+    "TASK.md": "e29010d7b86a57cd75cdbdd787e121b707feaac5b5e4e6b105ff0574fde4f4a2",
+    "input/checks.log": "70be72f2c71fb76544304c57de9fbb559c204bfa84db8ec5f88d6243bdbf7e80",
+    "input/draft.md": "25a3f52022544b127415324a5a80c6e2f3979a4f71127ccc5ba810cb0423f6e8",
+    "input/identities.md": "f9ed428287abf93db23ba9096d850bfbf22f1d568d71914a44cf51604fc3577d",
+    "input/target.md": "32538d5f603471a0743a831968d350caecf8d6f39e0692a23d26f7cd67570d31",
+    "skill/SKILL.md": "1c4e9d1291f7eb432e2d545564e42a30dd7a3690521231e20f7084b56b8ffbda",
+    "skill/references/records.md": "1893dc66c425e74cee57d9e7ebb502de00f410f37889783a59de93ffafabd907",
+    "skill/references/repairs.md": "3c3264bb1a38303350f5f8571eb5607e00291ee6e364cef84f1113b6602f155b"
+  }
+}

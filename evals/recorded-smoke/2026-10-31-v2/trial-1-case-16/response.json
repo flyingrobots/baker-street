@@ -1,0 +1,102 @@
+{
+  "decision": "CHANGES_REQUIRED",
+  "claims": [
+    {
+      "id": "C1",
+      "assessment": "REFUTED",
+      "basis": ["SOURCE", "REPORTED", "INFERENCE"],
+      "evidence": [
+        {"path": "input/draft.md", "start": 1, "end": 1},
+        {"path": "input/contracts.md", "start": 2, "end": 2},
+        {"path": "input/inventory.md", "start": 3, "end": 3}
+      ],
+      "rationale": "The assertion that every cross-version check belongs only in the case archive is contradicted by P3's documented purpose and maintenance destination. The migration contract requires supported v1 records to remain readable by v2; the supplied inventory describes a pinned cross-version matrix and a maintained compatibility suite with sufficient budget. That supports retaining P3 in the specialized suite rather than applying a categorical archive rule.",
+      "limits": "The matrix's behavior, completeness, and reproducibility were reported, not independently executed or inspected as code. This establishes a documentary triage destination, not successful integration or universal migration coverage."
+    },
+    {
+      "id": "C2",
+      "assessment": "REFUTED",
+      "basis": ["SOURCE", "REPORTED", "INFERENCE"],
+      "evidence": [
+        {"path": "input/draft.md", "start": 2, "end": 2},
+        {"path": "input/contracts.md", "start": 1, "end": 2},
+        {"path": "input/inventory.md", "start": 1, "end": 4}
+      ],
+      "rationale": "All four exhibits are not eligible for unchanged promotion into the ordinary unit suite. P1 already fits that suite and expresses the inclusive count boundary. P2 requires extraction and minimization of its useful counterexample. P3 belongs in the budgeted compatibility suite. P4's shared-counter comparison is invalid and its accusation is withdrawn, so the original probe should be archived with its correction.",
+      "limits": "The inventory supplies reported behavior and suite capacities; no probe was executed, minimized, or integrated during this review. P1's reported failure is on a deliberate off-by-one mutant, not proof of historical production failure."
+    }
+  ],
+  "findings": [
+    {
+      "id": "F1",
+      "claim_ids": ["C1"],
+      "status": "CONFIRMED",
+      "severity": "MODERATE",
+      "origin": "UNKNOWN",
+      "disposition": "REQUIRED_REPAIR",
+      "impact": "If maintainers follow the draft's blanket archive rule, P3 is excluded from maintained checks despite its documented migration-contract purpose and an available compatibility-suite budget. This is a bounded error in the triage guidance that would forgo useful regression coverage; no resulting migration failure or data loss is established.",
+      "evidence": [
+        {"path": "input/draft.md", "start": 1, "end": 1},
+        {"path": "input/contracts.md", "start": 2, "end": 2},
+        {"path": "input/inventory.md", "start": 3, "end": 3}
+      ]
+    },
+    {
+      "id": "F2",
+      "claim_ids": ["C2"],
+      "status": "CONFIRMED",
+      "severity": "MODERATE",
+      "origin": "UNKNOWN",
+      "disposition": "REQUIRED_REPAIR",
+      "impact": "If maintainers promote all four exhibits unchanged, the ordinary unit suite receives a costly unreduced fuzzer, a matrix assigned to a specialized environment, and an invalid shared-state comparison. The guidance fails to preserve useful contract checks within their maintenance budgets and could preserve a withdrawn accusation as a regression oracle. No actual integration, CI failure, or product regression is established.",
+      "evidence": [
+        {"path": "input/draft.md", "start": 2, "end": 2},
+        {"path": "input/inventory.md", "start": 1, "end": 4}
+      ]
+    }
+  ],
+  "probe_triage": [
+    {
+      "id": "P1",
+      "disposition": "PROMOTE",
+      "rationale": "Acceptance of 10 follows directly from the inclusive count contract. The inventory reports isolated inputs, intended failure on an off-by-one mutant, success on the corrected candidate, and an existing fit with the maintained unit runner. It is eligible for ordinary-suite promotion on this documentary basis; actual integration and failure/success verification remain to be performed and recorded.",
+      "evidence": [
+        {"path": "input/contracts.md", "start": 1, "end": 1},
+        {"path": "input/inventory.md", "start": 1, "end": 1}
+      ]
+    },
+    {
+      "id": "P2",
+      "disposition": "MINIMIZE_THEN_PROMOTE",
+      "rationale": "The reported standalone reproducer has a contract-based oracle and can become a small unit assertion. Reduce it while preserving the intended failure, then validate it with the unit runner. The large costly corpus need not enter the unit suite unchanged; preserve the original harness and its relationship to the minimized assertion as case evidence.",
+      "evidence": [
+        {"path": "input/contracts.md", "start": 1, "end": 1},
+        {"path": "input/inventory.md", "start": 2, "end": 2}
+      ]
+    },
+    {
+      "id": "P3",
+      "disposition": "RETAIN_IN_SPECIALIZED_SUITE",
+      "rationale": "The v1-writer/v2-reader matrix protects the explicit migration contract. Pinned versions and seeds support reproducibility, and the maintained scheduled compatibility suite has sufficient budget. Retain it there with its dependencies, reproduction procedure, budget, and result interpretation documented; being cross-version is not a reason to archive it exclusively.",
+      "evidence": [
+        {"path": "input/contracts.md", "start": 2, "end": 2},
+        {"path": "input/inventory.md", "start": 3, "end": 3}
+      ]
+    },
+    {
+      "id": "P4",
+      "disposition": "ARCHIVE",
+      "rationale": "The original comparison shared a counter, so its oracle does not establish a getter regression. The inventory reports matching isolated runs and explicitly withdraws the accusation. Preserve the invalid probe and correction as case evidence; it is unsuitable for maintained regression coverage and cannot support a confirmed product defect.",
+      "evidence": [
+        {"path": "input/inventory.md", "start": 4, "end": 4}
+      ]
+    }
+  ],
+  "limits": [
+    "This is a focused documentary adjudication of the supplied frozen inputs and promotion eligibility. SOURCE denotes inspection of those documents; execution outcomes in the inventory are REPORTED evidence.",
+    "No supplied code was executed, no external sources were consulted, and no probes were integrated or inputs edited. The record does not establish actual suite behavior, complete migration coverage, or current product correctness.",
+    "No independent agents were commissioned; claim, triage, and decision checks were performed sequentially within this review. No historical draft comparison is supplied, so the origins of the guidance errors remain unknown.",
+    "Valid only for the recorded artifacts and examined scope; reassess affected claims if those inputs change."
+  ],
+  "next_action": "Revise the draft to use the four probe-specific dispositions above and preserve P4's withdrawal. Before later integration, validate the promoted P1 assertion, minimize and validate P2, and document P3's specialized-suite execution requirements. Those implementation actions have not been performed in this documentary review."
+}

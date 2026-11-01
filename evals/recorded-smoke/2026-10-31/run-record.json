@@ -1,0 +1,35 @@
+{
+  "date": "2026-10-31",
+  "timezone": "America/Los_Angeles",
+  "kind": "three selected documentary stage smoke trials",
+  "runs_per_case": 1,
+  "context": "fresh subagent contexts via fork_turns=none",
+  "filesystem_isolation": "shared filesystem; packet-only access instructed, not sandbox-enforced",
+  "candidate_model": "parent model inherited; exact model version not recorded by host tool",
+  "sampling_settings": "not exposed",
+  "budget_measurements": "not recorded",
+  "tool_trace": "not exported; response self-reports are not independent execution evidence",
+  "skill_sha256": "1558af21885517c03810fd390ef0887c49e50a06b692151a1c3ff9cb92a94908",
+  "cases": [
+    {
+      "case_id": "case-01",
+      "contract_status": "PASS",
+      "response_sha256": "859ba3825492808b3d0ec1aa3d7881fc8051ceac3e0cbb0568409e311b8d0eef",
+      "packet_integrity_errors": []
+    },
+    {
+      "case_id": "case-03",
+      "contract_status": "PASS",
+      "response_sha256": "fbdcb9a78a828da4f9eec580f62714acb917b38a229daac8e6c20547a8fcfe9f",
+      "packet_integrity_errors": []
+    },
+    {
+      "case_id": "case-06",
+      "contract_status": "PASS",
+      "response_sha256": "4e28d0221ee9fbe2da6d5a50aa7850aa369c05ec24557b36020d2c4a8b64a7c3",
+      "packet_integrity_errors": []
+    }
+  ],
+  "semantic_review": "Author-agent inspection performed; independent human review pending.",
+  "comparison": "No baseline or plain-voice comparison; no causal claim of improvement."
+}

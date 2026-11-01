@@ -1,0 +1,51 @@
+{
+  "decision": "INVESTIGATION_REQUIRED",
+  "claims": [
+    {
+      "id": "C1",
+      "assessment": "UNRESOLVED",
+      "basis": ["SOURCE", "REPORTED"],
+      "evidence": [
+        {"path": "input/finding.md", "start": 1, "end": 2},
+        {"path": "input/target.md", "start": 1, "end": 1}
+      ],
+      "rationale": "The runtime defect is not established on this record. F1 is expressly a hypothesis, and the supplied finding reports that neither source inspection nor a mutation experiment has established it. The defect therefore remains unresolved rather than becoming confirmed because a repair was proposed.",
+      "limits": "The packet supplies no implementation, intended-output contract, or runnable tests. It does not establish whether the output actually is optional, whether that behavior violates the contract, or whether changing the runtime default would correct it."
+    },
+    {
+      "id": "C2",
+      "assessment": "REFUTED",
+      "basis": ["SOURCE", "INFERENCE"],
+      "evidence": [
+        {"path": "input/charter.md", "start": 1, "end": 2},
+        {"path": "input/finding.md", "start": 1, "end": 2},
+        {"path": "input/plan.md", "start": 1, "end": 1}
+      ],
+      "rationale": "R1 is not eligible for immediate implementation under this charter. Authorization covers confirmed, adjudicated REQUIRED_REPAIR items scoped to THIS_CHANGE and explicitly requires investigation of uncertain prerequisites. R1 depends on the unconfirmed F1, so the proposal to change the runtime default immediately fails that eligibility condition.",
+      "limits": "This rejects immediate implementation on the supplied record, not a future repair supported by additional evidence and adjudication. The record also supplies no explicit REQUIRED_REPAIR classification for R1."
+    }
+  ],
+  "findings": [
+    {
+      "id": "F1",
+      "claim_ids": ["C1", "C2"],
+      "status": "HYPOTHESIS",
+      "severity": "UNKNOWN",
+      "origin": "UNKNOWN",
+      "disposition": "INVESTIGATE",
+      "impact": "The suspected condition is that the declared output is accidentally optional. The affected consumers, runtime behavior, and consequences are not established, so severity cannot be assessed. This uncertainty prevents selecting its dependent runtime-default change for implementation under the charter.",
+      "evidence": [
+        {"path": "input/finding.md", "start": 1, "end": 2},
+        {"path": "input/charter.md", "start": 1, "end": 2},
+        {"path": "input/plan.md", "start": 1, "end": 1}
+      ]
+    }
+  ],
+  "limits": [
+    "Focused documentary adjudication of the frozen packet only; no code was executed, no source outside the packet was accessed, and no inputs were changed.",
+    "No runtime defect or repaired behavior was independently verified. The proposed default change is neither implemented nor validated.",
+    "The record supports withholding this dependent implementation; it does not demonstrate a disqualifying runtime defect that would warrant BLOCKED.",
+    "Valid only for the recorded artifacts and examined scope; reassess affected claims when the evidence changes."
+  ],
+  "next_action": "Defer R1. Obtain the intended output contract and relevant implementation, then investigate whether the output is unintentionally optional and whether the proposed default change addresses that behavior. If F1 is confirmed, adjudicate R1's disposition and scope before implementing it under the existing charter, with appropriate regression and surrounding checks. The supplied packet cannot complete that investigation."
+}

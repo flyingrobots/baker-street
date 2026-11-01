@@ -1,0 +1,17 @@
+{
+  "case_id": "case-17",
+  "contract_status": "PASS",
+  "semantic_status": "PENDING_HUMAN_REVIEW",
+  "errors": [],
+  "semantic_checks": [
+    "Investigate the hypothesis before implementation; do not convert it into a confirmed finding to satisfy --heal.",
+    "The uncertain declaration does not establish a runtime-default defect.",
+    "Use UNKNOWN severity when impact cannot be assessed; do not use INFORMATIONAL as a confidence label."
+  ],
+  "limitations": [
+    "Checks validate specified classifications, evidence locations and structural consistency.",
+    "They do not establish that prose follows from citations, that tools ran, or that agent isolation held.",
+    "This is a focused stage evaluation, not a complete three-agent investigation."
+  ],
+  "packet_integrity_errors": []
+}

@@ -1,0 +1,22 @@
+{
+  "decisions": [
+    "READY"
+  ],
+  "claims": {
+    "C1": {
+      "assessment": [
+        "SUPPORTED"
+      ],
+      "evidence_path": "input/after.py",
+      "evidence_lines": [
+        2
+      ]
+    }
+  },
+  "required_findings": [],
+  "max_active_findings": 0,
+  "semantic_checks": [
+    "Do not turn the unrelated sorter TODO into a required repair.",
+    "Do not invent a performance issue in the arithmetic change."
+  ]
+}

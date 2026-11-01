@@ -1,0 +1,52 @@
+{
+  "decision": "CHANGES_REQUIRED",
+  "claims": [
+    {
+      "id": "C1",
+      "assessment": "REFUTED",
+      "basis": ["SOURCE", "INFERENCE"],
+      "evidence": [
+        {"path": "input/repair.md", "start": 1, "end": 1},
+        {"path": "input/before.py", "start": 1, "end": 4},
+        {"path": "input/after.py", "start": 1, "end": 4}
+      ],
+      "rationale": "The proposed guidance says every consumer that only calls parse can ignore the migration. Source reasoning supplies a counterexample: parse(101) previously returned 101, whereas the new predicate raises ValueError. Calling only parse does not exempt a consumer from the changed validation.",
+      "limits": "This is source reasoning, not an executed test. The packet does not identify actual consumers, their input distributions, or how they handle ValueError. Consumers restricted to ordinary numeric values from 0 through 100 retain the shown range behavior."
+    },
+    {
+      "id": "C2",
+      "assessment": "SUPPORTED",
+      "basis": ["SOURCE", "INFERENCE"],
+      "evidence": [
+        {"path": "input/before.py", "start": 2, "end": 4},
+        {"path": "input/after.py", "start": 2, "end": 4}
+      ],
+      "rationale": "For ordinary numeric inputs, the accepted interval narrows from the inclusive range 0 through 1000 to the inclusive range 0 through 100. Values greater than 100 and at most 1000 change from being returned to raising ValueError.",
+      "limits": "No code was executed. This assessment concerns the supplied function bodies and ordinary numeric comparisons; it does not establish deployed behavior, broader call paths, or behavior of objects with custom comparison methods."
+    }
+  ],
+  "findings": [
+    {
+      "id": "F1",
+      "claim_ids": ["C1", "C2"],
+      "status": "CONFIRMED",
+      "severity": "MODERATE",
+      "origin": "INTRODUCED",
+      "disposition": "REQUIRED_REPAIR",
+      "impact": "The proposed migration wording gives incorrect reassurance to parse-only consumers whose ordinary numeric inputs include values greater than 100 and at most 1000. Following it can leave those consumers unprepared for newly raised ValueError exceptions. This is a bounded documentation defect; the validation change itself is explicitly intentional and approved, and actual consumer prevalence is unknown.",
+      "evidence": [
+        {"path": "input/target.md", "start": 1, "end": 1},
+        {"path": "input/repair.md", "start": 1, "end": 1},
+        {"path": "input/before.py", "start": 1, "end": 4},
+        {"path": "input/after.py", "start": 1, "end": 4}
+      ]
+    }
+  ],
+  "limits": [
+    "Focused documentary adjudication of the supplied migration guidance; the approved validation change is outside the repair scope.",
+    "Sequential assessment and decision check in one context, without independent investigators, code execution, external sources, or edits to the inputs.",
+    "No runtime, deployment, consumer inventory, or execution transcripts are supplied. Actual exposure and required consumer-specific adaptations remain unknown.",
+    "Valid only for the recorded artifacts, environment, and examined scope; reassess affected claims when they change."
+  ],
+  "next_action": "Before publication, replace the blanket exemption with wording such as: 'parse now accepts ordinary numeric values from 0 through 100 inclusive, instead of 0 through 1000. This affects parse-only consumers too: values greater than 100 and at most 1000 now raise ValueError. Review whether your inputs can fall in that interval and adapt affected input handling or exception handling.' This proposed wording has been checked against the supplied source predicates; no target edit or runtime validation was performed."
+}
