@@ -1,0 +1,12 @@
+test_reject_over_capacity (candidate_tests.CapacityTests.test_reject_over_capacity) ... ok
+test_reject_over_release (candidate_tests.CapacityTests.test_reject_over_release) ... ok
+test_release_all (candidate_tests.CapacityTests.test_release_all) ... ok
+test_release_some (candidate_tests.CapacityTests.test_release_some) ... ok
+test_reserve_below_capacity (candidate_tests.CapacityTests.test_reserve_below_capacity) ... ok
+test_reserve_exact_fill_from_partial_usage (candidate_tests.CapacityTests.test_reserve_exact_fill_from_partial_usage) ... ok
+test_reserve_exact_fill_from_zero (candidate_tests.CapacityTests.test_reserve_exact_fill_from_zero) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.000s
+
+OK

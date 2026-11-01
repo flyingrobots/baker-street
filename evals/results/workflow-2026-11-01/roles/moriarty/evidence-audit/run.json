@@ -1,0 +1,23 @@
+{
+  "command": [
+    "python3",
+    "-B",
+    "roles/moriarty/evidence_audit.py"
+  ],
+  "cwd": ".",
+  "python": "3.9.6",
+  "script_sha256": "e0f672180de7572a637c692d6af648612d40d7cc5b35073cebe26395d8fcc49a",
+  "exit_code": 0,
+  "seconds": 0.0563,
+  "stopped": null,
+  "controls": {
+    "wall_seconds": 20,
+    "cpu_seconds": 10,
+    "per_file_bytes": 1048576,
+    "role_bytes_monitored": 1048576,
+    "per_stream_bytes": 65536,
+    "network": "instruction-only prohibition",
+    "filesystem": "shared host; no OS read isolation",
+    "memory": "no memory quota; reviewed finite tiny probes only"
+  }
+}

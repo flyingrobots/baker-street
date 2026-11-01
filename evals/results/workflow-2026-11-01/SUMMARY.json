@@ -1,0 +1,64 @@
+{
+  "case_id": "BS-WORKFLOW-2026-11-01",
+  "recorded_at": "2026-11-01T20:12:16.376855+00:00",
+  "scope": "One disclosed synthetic defect and one clean function control; not a held-out or comparative benchmark",
+  "original_head": "666ee650d87d008dea3e74292f96c52cb1e1d9f7",
+  "repair_head": "4522b92ee31452a0d038d4c83f16b327760b03ad",
+  "published_skill_tag": "v3.0.0",
+  "published_skill_commit": "2c28ccc33a31f15b86108bf435e8eb3288ccd07e",
+  "phases": {
+    "three_initial_investigators": "COMPLETE",
+    "watson_first_frozen_before_same_context_recall": "COMPLETE",
+    "original_fresh_check_and_errata_recheck": "COMPLETE",
+    "original_decision": "CHANGES_REQUIRED",
+    "bounded_repair_and_diagnostic_regressions": "COMPLETE",
+    "fresh_repaired_candidate_check": "HOLDS",
+    "repaired_decision": "READY",
+    "independent_human_review": "PENDING"
+  },
+  "coordinator_observations": {
+    "known_defects": 1,
+    "identified_supported_defects": 1,
+    "clean_control_functions": 1,
+    "unsupported_active_findings_on_control": 0,
+    "record_corrections": 2
+  },
+  "regression": {
+    "same_test_sha256": "aea6abd512daad8eaadb4bbc04f7945eeb1fba1323be50f009b9554da8b04404",
+    "red": {
+      "tests": 7,
+      "passed": 5,
+      "application_errors": 2,
+      "skips": 0,
+      "exit": 1
+    },
+    "green": {
+      "tests": 7,
+      "passed": 7,
+      "skips": 0,
+      "exit": 0
+    },
+    "surrounding": {
+      "cases": 851,
+      "mismatches": 0,
+      "additional_overlapping_demonstrations": 6
+    }
+  },
+  "human_reviewer": "James Ross volunteered in user conversation; assessment pending",
+  "limits": [
+    "Coordinator authored fixture and repair and knew the seed.",
+    "Separate agent contexts share a model family and host; no statistical independence claim.",
+    "Access prohibitions were instructional, not OS isolation; no comprehensive host action trace.",
+    "Initial inquiries used Python 3.9.6; coordinator RED/GREEN used 3.13.15.",
+    "Packet-building runtime history is reported, not independently captured.",
+    "Exact model revision/sampling settings and full per-role token costs were not exposed in retained evidence.",
+    "No production safety, general effectiveness, speedup, or comparative advantage demonstrated."
+  ],
+  "resources": {
+    "case_data_budget_bytes": 10485760,
+    "logs_budget_bytes": 1048576,
+    "heavy_builds": false,
+    "docker_used": false,
+    "capture": "20s wall, 10s CPU, 1MiB per file and monitored role bytes, 64KiB per stream; no memory quota; finite reviewed probes only"
+  }
+}

@@ -1,0 +1,10 @@
+test_reject_over_capacity (test_capacity.CapacityTests) ... ok
+test_reject_over_release (test_capacity.CapacityTests) ... ok
+test_release_all (test_capacity.CapacityTests) ... ok
+test_release_some (test_capacity.CapacityTests) ... ok
+test_reserve_below_capacity (test_capacity.CapacityTests) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.000s
+
+OK

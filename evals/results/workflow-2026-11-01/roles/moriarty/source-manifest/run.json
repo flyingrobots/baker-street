@@ -1,0 +1,23 @@
+{
+  "command": [
+    "python3",
+    "-B",
+    "roles/moriarty/manifest_probe.py"
+  ],
+  "cwd": ".",
+  "python": "3.9.6",
+  "script_sha256": "708bc55a0c6737781bf642ee947b319dab0974c5599f8c0ca0771f2ba8243a50",
+  "exit_code": 0,
+  "seconds": 0.0628,
+  "stopped": null,
+  "controls": {
+    "wall_seconds": 20,
+    "cpu_seconds": 10,
+    "per_file_bytes": 1048576,
+    "role_bytes_monitored": 1048576,
+    "per_stream_bytes": 65536,
+    "network": "instruction-only prohibition",
+    "filesystem": "shared host; no OS read isolation",
+    "memory": "no memory quota; reviewed finite tiny probes only"
+  }
+}

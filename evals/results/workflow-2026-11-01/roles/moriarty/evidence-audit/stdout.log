@@ -1,0 +1,17 @@
+{"source": "CONTRACT.md", "sha256": "e117f946f77499cd1bc254a49e97ea408370c409d67e40eabff10145600fb3b1", "unchanged": true}
+{"source": "capacity.py", "sha256": "85209d664496919cd2acbca588aafe68a3277733973f660f53bec0b9868c3ead", "unchanged": true}
+{"source": "test_capacity.py", "sha256": "82fe2b7db9124c83ddf9867a39d34a2126e369f0484bfa00162207dc56751a50", "unchanged": true}
+{"bytes": 490, "path": "roles/moriarty/baseline.py", "sha256": "f5705fa27d5705cabed6f1fc98384e09465f5fca64ca4d451a08c46c49f17f9b"}
+{"bytes": 602, "path": "roles/moriarty/contract-grid/run.json", "sha256": "2d911dc9d254ab69945ed3f853b7ea32b6817a5a2668be4dbabf361dba8f4659"}
+{"bytes": 0, "path": "roles/moriarty/contract-grid/stderr.log", "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"}
+{"bytes": 2939, "path": "roles/moriarty/contract-grid/stdout.log", "sha256": "51d8d6cc0e91761e462349ae6ead18bda38e40012160214f358494a227007284"}
+{"bytes": 3265, "path": "roles/moriarty/contract_probe.py", "sha256": "c0de203c1c9cb6181e4597197774e7a0212a8a5136a4fe2e8adefd3fa2bf399e"}
+{"bytes": 842, "path": "roles/moriarty/evidence_audit.py", "sha256": "e0f672180de7572a637c692d6af648612d40d7cc5b35073cebe26395d8fcc49a"}
+{"bytes": 967, "path": "roles/moriarty/manifest_probe.py", "sha256": "708bc55a0c6737781bf642ee947b319dab0974c5599f8c0ca0771f2ba8243a50"}
+{"bytes": 602, "path": "roles/moriarty/source-manifest/run.json", "sha256": "fb03eb2cf92d4b60283bd58c2d9bf30493d09a8396a0c186534c271f4b9b3b26"}
+{"bytes": 0, "path": "roles/moriarty/source-manifest/stderr.log", "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"}
+{"bytes": 1574, "path": "roles/moriarty/source-manifest/stdout.log", "sha256": "5950db7dbf28b947a2d1a7195cf5becd2914f2a30b8b7dd0e96a13146071fab6"}
+{"bytes": 596, "path": "roles/moriarty/supplied-tests/run.json", "sha256": "1824c31c2ec0fe7edec1f33bf3cf4d866ccacb68b4c383de6a87640e2bdfd0ac"}
+{"bytes": 397, "path": "roles/moriarty/supplied-tests/stderr.log", "sha256": "103a732cbea3b898ebc26c6d72d42d16346544011b51a8a702056d46b19db85e"}
+{"bytes": 37, "path": "roles/moriarty/supplied-tests/stdout.log", "sha256": "7155ebe4ddd90de96ede15a7e733f25d67cc3247729c58549b75f1ff9c456d5d"}
+{"role_bytes_before_this_capture_outputs_and_testimony": 12311}

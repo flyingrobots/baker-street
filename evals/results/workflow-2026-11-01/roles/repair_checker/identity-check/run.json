@@ -1,0 +1,23 @@
+{
+  "command": [
+    "python3",
+    "-B",
+    "roles/repair_checker/identity_check.py"
+  ],
+  "cwd": ".",
+  "python": "3.9.6",
+  "script_sha256": "b8cf3261f2674bafc9ef013e7699325718593cac9efe3ad62c522ba6c7159f8a",
+  "exit_code": 0,
+  "seconds": 0.3323,
+  "stopped": null,
+  "controls": {
+    "wall_seconds": 20,
+    "cpu_seconds": 10,
+    "per_file_bytes": 1048576,
+    "role_bytes_monitored": 1048576,
+    "per_stream_bytes": 65536,
+    "network": "instruction-only prohibition",
+    "filesystem": "shared host; no OS read isolation",
+    "memory": "no memory quota; reviewed finite tiny probes only"
+  }
+}

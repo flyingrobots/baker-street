@@ -1,0 +1,23 @@
+{
+  "command": [
+    "python3",
+    "-B",
+    "roles/moriarty/contract_probe.py"
+  ],
+  "cwd": ".",
+  "python": "3.9.6",
+  "script_sha256": "c0de203c1c9cb6181e4597197774e7a0212a8a5136a4fe2e8adefd3fa2bf399e",
+  "exit_code": 1,
+  "seconds": 0.0539,
+  "stopped": null,
+  "controls": {
+    "wall_seconds": 20,
+    "cpu_seconds": 10,
+    "per_file_bytes": 1048576,
+    "role_bytes_monitored": 1048576,
+    "per_stream_bytes": 65536,
+    "network": "instruction-only prohibition",
+    "filesystem": "shared host; no OS read isolation",
+    "memory": "no memory quota; reviewed finite tiny probes only"
+  }
+}

@@ -1,0 +1,32 @@
+test_reject_over_capacity (candidate_tests.CapacityTests.test_reject_over_capacity) ... ok
+test_reject_over_release (candidate_tests.CapacityTests.test_reject_over_release) ... ok
+test_release_all (candidate_tests.CapacityTests.test_release_all) ... ok
+test_release_some (candidate_tests.CapacityTests.test_release_some) ... ok
+test_reserve_below_capacity (candidate_tests.CapacityTests.test_reserve_below_capacity) ... ok
+test_reserve_exact_fill_from_partial_usage (candidate_tests.CapacityTests.test_reserve_exact_fill_from_partial_usage) ... ERROR
+test_reserve_exact_fill_from_zero (candidate_tests.CapacityTests.test_reserve_exact_fill_from_zero) ... ERROR
+
+======================================================================
+ERROR: test_reserve_exact_fill_from_partial_usage (candidate_tests.CapacityTests.test_reserve_exact_fill_from_partial_usage)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/baker-street-workflow-l_fdvdix/repair/test_capacity.py", line 14, in test_reserve_exact_fill_from_partial_usage
+    result = reserve(2, 3, 5)
+  File "/private/tmp/baker-street-workflow-l_fdvdix/original/capacity.py", line 10, in reserve
+    raise ValueError("capacity exceeded")
+ValueError: capacity exceeded
+
+======================================================================
+ERROR: test_reserve_exact_fill_from_zero (candidate_tests.CapacityTests.test_reserve_exact_fill_from_zero)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/baker-street-workflow-l_fdvdix/repair/test_capacity.py", line 9, in test_reserve_exact_fill_from_zero
+    result = reserve(0, 1, 1)
+  File "/private/tmp/baker-street-workflow-l_fdvdix/original/capacity.py", line 10, in reserve
+    raise ValueError("capacity exceeded")
+ValueError: capacity exceeded
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.000s
+
+FAILED (errors=2)

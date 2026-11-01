@@ -1,0 +1,23 @@
+{
+  "command": [
+    "python3",
+    "-B",
+    "roles/front_office/surrounding.py"
+  ],
+  "cwd": ".",
+  "python": "3.13.15",
+  "script_sha256": "412422c38e41c11a6ce9b1b305118169461a98e8445183a42a73cfc5de870222",
+  "exit_code": 0,
+  "seconds": 0.0179,
+  "stopped": null,
+  "controls": {
+    "wall_seconds": 20,
+    "cpu_seconds": 10,
+    "per_file_bytes": 1048576,
+    "role_bytes_monitored": 1048576,
+    "per_stream_bytes": 65536,
+    "network": "instruction-only prohibition",
+    "filesystem": "shared host; no OS read isolation",
+    "memory": "no memory quota; reviewed finite tiny probes only"
+  }
+}

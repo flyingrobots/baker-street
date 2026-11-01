@@ -1,0 +1,8 @@
+{
+  "frozen_at": "2026-11-01T19:54:13.908552+00:00",
+  "sha256": {
+    "roles/holmes/HOLMES.md": "cbda72de8a2251e3304598889b69900793dd915b8989b48563a99d23c98c8bef",
+    "roles/watson/WATSON_FIRST.md": "f94029ab9e3f73d7543ec66e3c52ecb95a15c09c370e553c6abf880a19df2643",
+    "roles/moriarty/MORIARTY.md": "4febc0d980d30963eaec0dc710c1914a16ac8b4171cf96e89fec4574243ed182"
+  }
+}

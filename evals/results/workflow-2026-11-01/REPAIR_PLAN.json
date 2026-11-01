@@ -1,0 +1,29 @@
+{
+  "recorded_at": "2026-11-01T20:03:51.036422+00:00",
+  "selected_repairs": [
+    "R-1",
+    "R-2"
+  ],
+  "finding": "F-1",
+  "base_head": "666ee650d87d008dea3e74292f96c52cb1e1d9f7",
+  "branch": "fix/baker-exact-fill",
+  "worktree": "repair/",
+  "scope": [
+    "one reserve comparison",
+    "two exact-fill regression tests"
+  ],
+  "unchanged": [
+    "CONTRACT.md",
+    "release function",
+    "five original tests",
+    "original source and testimony"
+  ],
+  "commit_plan": "One coherent commit for R-1 and R-2 after diagnostic RED and candidate GREEN; no broken intermediate commit.",
+  "acceptance": [
+    "Both identical new test methods reject original with application ValueError and pass repaired source",
+    "All seven tests pass repaired source",
+    "Contract-derived finite surrounding corpus agrees with repaired source, including release control",
+    "Fresh repair checker reviews exact committed candidate and full diff"
+  ],
+  "status": "PLANNED; waiting for original-case record recheck before editing"
+}

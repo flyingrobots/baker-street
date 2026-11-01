@@ -1,0 +1,14 @@
+{
+  "timestamp": "2026-11-01T20:12:16.376855+00:00",
+  "source_case_root": "/private/tmp/baker-street-workflow-l_fdvdix",
+  "exported_directory": "evals/results/workflow-2026-11-01",
+  "excluded": [
+    ".git metadata",
+    "__pycache__"
+  ],
+  "preserved_source_file_count": 85,
+  "preserved_source_bytes": 408672,
+  "preserved_log_bytes": 25993,
+  "verification": "Every selected scratch file compared byte-for-byte after copy. SHA256SUMS includes export receipt; it excludes only itself.",
+  "git_history": "case-history.bundle contains both original and repaired commits; independently cloned before export."
+}

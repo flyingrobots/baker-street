@@ -179,8 +179,11 @@ checks validate specified classifications and structural consistency. They leave
 reasoning are not a pass. Packet-builder tests check assembly, not agent behavior.
 
 Read [the evaluation protocol](docs/EVALUATION.md), [actual validation](docs/VALIDATION.md),
-and [editor's notes](docs/EDITOR-NOTES.md). The validation report distinguishes
-harness tests, fresh-context tasks, author review, limitations, and observed failures.
+and [editor's notes](docs/EDITOR-NOTES.md). The historical validation report
+distinguishes harness tests, fresh-context tasks, author review, limitations,
+and observed failures. The [November 2026 follow-up](docs/VALIDATION-WORKFLOW.md)
+adds CI, release verification, and a complete synthetic investigation with
+repair evidence; its independent human review is pending.
 
 ## Repository contents and history
 
@@ -193,6 +196,7 @@ harness tests, fresh-context tasks, author review, limitations, and observed fai
 | `evals/fixtures/`, `evals/catalog.json`, `evals/run.py` | 27 documentary cases and their preparation/grading tools |
 | `evals/recorded-smoke/` | Preserved V1 and V2 trial records |
 | `evals/results/v3/` | Preserved V3 responses, failures, reruns, digests, and test transcript |
+| `evals/results/workflow-2026-11-01/` | Complete synthetic investigation, raw probes, checked repair, Git history bundle, and pending human review |
 | `docs/` | Evaluation protocol, editor's notes, validation reports, and import provenance |
 | `baker-street-v3-repository.patch` | Original companion package, retained unchanged |
 

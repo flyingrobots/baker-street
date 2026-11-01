@@ -1,0 +1,13 @@
+{"boundary": [2, 2, 5], "expected": ["int", 4], "actual": ["int", 4]}
+{"boundary": [2, 3, 5], "expected": ["int", 5], "actual": ["int", 5]}
+{"boundary": [2, 4, 5], "expected": ["ValueError"], "actual": ["ValueError"]}
+{"boundary": [0, 1, 1], "expected": ["int", 1], "actual": ["int", 1]}
+{"boundary": [0, 0, 0], "expected": ["ValueError"], "actual": ["ValueError"]}
+{"boundary": [5, 1, 5], "expected": ["ValueError"], "actual": ["ValueError"]}
+{"cases": 729, "group": "reserve_integer_grid", "mismatches": []}
+{"cases": 81, "group": "release_integer_grid", "mismatches": []}
+{"cases": 21, "group": "reserve_type_rejection", "mismatches": []}
+{"cases": 14, "group": "release_type_rejection", "mismatches": []}
+{"cases": 3, "group": "reserve_large_integer", "mismatches": []}
+{"cases": 3, "group": "release_large_integer", "mismatches": []}
+{"total_grid_type_large_cases": 851, "total_mismatches": 0, "seed": "N/A: exhaustive fixed domains"}

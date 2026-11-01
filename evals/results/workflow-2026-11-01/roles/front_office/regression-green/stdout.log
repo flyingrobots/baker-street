@@ -1,0 +1,2 @@
+{"candidate": "repair", "source_sha256": "f90899ed006a18dfcf100b98e8dd36761792a104edeb735a2db9639005db8d99", "test_sha256": "aea6abd512daad8eaadb4bbc04f7945eeb1fba1323be50f009b9554da8b04404", "python": "3.13.15"}
+{"tests_run": 7, "failures": 0, "errors": 0, "skipped": 0}

@@ -138,10 +138,19 @@ Report per-case results and denominators. Keep these measures separate:
 Do not combine these into a single flattering grade. High recall with many
 false accusations is a tradeoff, not automatic superiority.
 
-## Whole-workflow evaluations to add next
+## Whole-workflow evidence and remaining evaluations
 
-The current fixtures target adjudication. They do not test the complete agency
-workflow. Add isolated Git repositories and host instrumentation for:
+The 27 documentary fixtures target adjudication. A separate
+[2026-11-01 workflow exercise](../evals/results/workflow-2026-11-01/README.md)
+now preserves three investigator contexts, frozen Watson testimony and recall,
+a fresh check with visible corrections, an actual repair commit, diagnostic
+RED/GREEN, and a fresh repaired-candidate check. Independent human assessment
+is pending. Its shared-host, instructional isolation and single synthetic case
+limits are explicit; it is not a comprehensive test of the protocol.
+
+The following remains a broader coverage agenda. The recorded exercise covers
+parts of it; add isolated Git repositories and host instrumentation to evaluate
+the rest and strengthen the current evidence:
 
 1. Blind Watson freezing his first deposition before receiving sibling findings.
 2. Holmes and Moriarty using separate probe directories and fresh contexts.

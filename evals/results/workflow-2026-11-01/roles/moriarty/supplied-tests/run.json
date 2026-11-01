@@ -1,0 +1,23 @@
+{
+  "command": [
+    "python3",
+    "-B",
+    "roles/moriarty/baseline.py"
+  ],
+  "cwd": ".",
+  "python": "3.9.6",
+  "script_sha256": "f5705fa27d5705cabed6f1fc98384e09465f5fca64ca4d451a08c46c49f17f9b",
+  "exit_code": 0,
+  "seconds": 0.0759,
+  "stopped": null,
+  "controls": {
+    "wall_seconds": 20,
+    "cpu_seconds": 10,
+    "per_file_bytes": 1048576,
+    "role_bytes_monitored": 1048576,
+    "per_stream_bytes": 65536,
+    "network": "instruction-only prohibition",
+    "filesystem": "shared host; no OS read isolation",
+    "memory": "no memory quota; reviewed finite tiny probes only"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "timestamp": "2026-11-01T20:12:16.376855+00:00",
+  "sha256": {
+    "REMEDIATION.md": "3e5bf52597d347345d515f3df7b0cc087d6de3e791c22f864c659e3f31f76b8d",
+    "REMEDIATION_DRAFT.md": "1f237b53dfbb306673c4cad96e8b93e2efd5cdc5bef19b95aab75caf9071d6dc",
+    "roles/repair_checker/REPAIR_CHECK.md": "b18f0ccf305b17a6f9484b5739c5130300504bd1639605a49a0fd0575b793059",
+    "repair.diff": "0e43d33d961d5959ff21e9fd12f2ea4e28675439c6d3a97cbaf34d0d7ee2cee8",
+    "repair-identity.json": "855436a217e401c80d0795863badfea3b913bbc7bc9e637541d9781d3b9c7045",
+    "case-history.bundle": "931746e496124b4fd0ccee788de0b1390bb80d308042545ec08cf9caca4f55d7"
+  }
+}

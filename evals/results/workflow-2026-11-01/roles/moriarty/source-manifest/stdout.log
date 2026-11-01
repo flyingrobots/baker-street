@@ -1,0 +1,10 @@
+{"bytes": 830, "path": "original/capacity.py", "sealed_match": true, "sha256": "85209d664496919cd2acbca588aafe68a3277733973f660f53bec0b9868c3ead"}
+{"bytes": 583, "path": "original/test_capacity.py", "sealed_match": true, "sha256": "82fe2b7db9124c83ddf9867a39d34a2126e369f0484bfa00162207dc56751a50"}
+{"bytes": 1179, "path": "original/CONTRACT.md", "sealed_match": true, "sha256": "e117f946f77499cd1bc254a49e97ea408370c409d67e40eabff10145600fb3b1"}
+{"bytes": 263, "path": "sealed-source.json", "sealed_match": "N/A", "sha256": "533e13a1aa094b34c925a7c506218541322fdc974d1b205dc7a0550f4875aade"}
+{"bytes": 3408, "path": "capture.py", "sealed_match": "N/A", "sha256": "d757693b464f1a95db2f40616ae0c6e16c3d800976cfe531d75d35774b472532"}
+{"bytes": 21193, "path": "packets/moriarty.md", "sealed_match": "N/A", "sha256": "cac87977411b3da88dba06fc4d785e04b7747cf3180a37970e11d3c5c4b652b9"}
+{"bytes": 490, "path": "roles/moriarty/baseline.py", "sealed_match": "N/A", "sha256": "f5705fa27d5705cabed6f1fc98384e09465f5fca64ca4d451a08c46c49f17f9b"}
+{"bytes": 3265, "path": "roles/moriarty/contract_probe.py", "sealed_match": "N/A", "sha256": "c0de203c1c9cb6181e4597197774e7a0212a8a5136a4fe2e8adefd3fa2bf399e"}
+{"bytes": 967, "path": "roles/moriarty/manifest_probe.py", "sealed_match": "N/A", "sha256": "708bc55a0c6737781bf642ee947b319dab0974c5599f8c0ca0771f2ba8243a50"}
+{"timestamp_utc": "2026-11-01T19:50:43.238556+00:00", "python": "3.9.6 (default, Oct 19 2026, 19:18:13) \n[Clang 21.0.0 (clang-2100.4.1.1)]", "executable": "/Applications/Xcode.app/Contents/Developer/usr/bin/python3"}

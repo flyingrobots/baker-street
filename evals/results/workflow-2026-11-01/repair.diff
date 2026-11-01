@@ -1,0 +1,34 @@
+diff --git a/capacity.py b/capacity.py
+index 39b7e35..e876796 100644
+--- a/capacity.py
++++ b/capacity.py
+@@ -6,7 +6,7 @@ def reserve(used, count, capacity):
+         raise ValueError("counts must be integers")
+     if not 0 <= used <= capacity or count <= 0:
+         raise ValueError("invalid counts")
+-    if used + count >= capacity:
++    if used + count > capacity:
+         raise ValueError("capacity exceeded")
+     return used + count
+ 
+diff --git a/test_capacity.py b/test_capacity.py
+index 4fa32e0..f200405 100644
+--- a/test_capacity.py
++++ b/test_capacity.py
+@@ -5,6 +5,16 @@ class CapacityTests(unittest.TestCase):
+     def test_reserve_below_capacity(self):
+         self.assertEqual(reserve(2, 3, 8), 5)
+ 
++    def test_reserve_exact_fill_from_zero(self):
++        result = reserve(0, 1, 1)
++        self.assertIs(type(result), int)
++        self.assertEqual(result, 1)
++
++    def test_reserve_exact_fill_from_partial_usage(self):
++        result = reserve(2, 3, 5)
++        self.assertIs(type(result), int)
++        self.assertEqual(result, 5)
++
+     def test_reject_over_capacity(self):
+         with self.assertRaises(ValueError): reserve(6, 3, 8)
+ 

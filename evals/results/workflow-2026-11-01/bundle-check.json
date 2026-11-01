@@ -1,0 +1,13 @@
+{
+  "checked_at": "2026-11-01T20:07:19.215270+00:00",
+  "bundle_sha256": "931746e496124b4fd0ccee788de0b1390bb80d308042545ec08cf9caca4f55d7",
+  "bundle_bytes": 2326,
+  "heads": [
+    "666ee650d87d008dea3e74292f96c52cb1e1d9f7 refs/heads/main",
+    "4522b92ee31452a0d038d4c83f16b327760b03ad refs/heads/fix/baker-exact-fill"
+  ],
+  "verify_exit_code": 0,
+  "fresh_clone_head": "4522b92ee31452a0d038d4c83f16b327760b03ad",
+  "source_and_test_hashes_match": true,
+  "temporary_clone_removed_on_exit": true
+}

@@ -1,0 +1,50 @@
+{
+  "case_id": "BS-WORKFLOW-2026-11-01",
+  "target": "repair/ candidate plus original/ baseline and preserved case",
+  "requested_decision": "Does the exact committed repaired candidate satisfy the scoped contract and repair acceptance gates?",
+  "sealed_basis": {
+    "original_head": "666ee650d87d008dea3e74292f96c52cb1e1d9f7",
+    "repaired_head": "4522b92ee31452a0d038d4c83f16b327760b03ad",
+    "branch": "fix/baker-exact-fill",
+    "repair_ids": [
+      "R-1",
+      "R-2"
+    ],
+    "source_sha256": "f90899ed006a18dfcf100b98e8dd36761792a104edeb735a2db9639005db8d99",
+    "test_sha256": "aea6abd512daad8eaadb4bbc04f7945eeb1fba1323be50f009b9554da8b04404",
+    "original_status": "",
+    "repair_status": ""
+  },
+  "scope": "Both functions and supplied tests against CONTRACT.md; no concurrency, persistence, performance, or external services. Initial role assignment only.",
+  "tier": "standard",
+  "plain": true,
+  "budget": "At most 10 minutes; bounded complete repair check, no unrelated investigation.",
+  "authorized_actions": "Read original case, testimony, errata, repair plan, candidate, full diff and validation. Write REPAIR_CHECK.md and necessary bounded probes in roles/repair_checker only. No repairs, source edits, commits, publication or delegation.",
+  "authorized_tools": "Local file reads and assigned writes. Necessary reviewed small Python probes must use capture.py --role repair_checker.",
+  "execution": "Known small pure-Python fixture; inspect before executing. Probes must use capture.py, <=20s each, <=64KiB stdout and stderr, <=1MiB scratch per role. No Docker/build/cache. Network restriction is instruction-only; filesystem and credentials are not sandboxed.",
+  "write_directory": "roles/repair_checker",
+  "evidence_locations": [
+    "REMEDIATION_DRAFT.md",
+    "CASE_FILE.md",
+    "ERRATA.md",
+    "original/",
+    "repair/",
+    "repair.diff",
+    "repair-identity.json",
+    "REPAIR_PLAN.json",
+    "roles/front_office/",
+    "roles/holmes/",
+    "roles/watson/",
+    "roles/moriarty/",
+    "roles/checker/",
+    "freeze-original-case.json",
+    "capture.py"
+  ],
+  "capabilities": "Fresh independent context and local file tools available; same Watson context can be recalled. Shared model/host can correlate errors.",
+  "separation": "New checker context with no prior participation or repair authorship. Original case and changed evidence supplied for reassessment. Do not read evaluator/ or other conversations. Shared host, instruction-only access restrictions.",
+  "phase": "Fresh repaired-candidate review",
+  "audience": "Python API callers and maintainers",
+  "acceptance_criteria": "CONTRACT.md is authoritative; report established violations and uncertainties. No finding quota. All source must remain unchanged.",
+  "author_overlap": "Coordinator authored the synthetic fixture and this repair. This fresh checker did not author either or participate in previous phases.",
+  "reviewer_basis": "FRESH_AGENT"
+}

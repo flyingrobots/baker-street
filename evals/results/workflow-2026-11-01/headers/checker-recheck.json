@@ -1,0 +1,38 @@
+{
+  "case_id": "BS-WORKFLOW-2026-11-01",
+  "target": "original/capacity.py, original/CONTRACT.md, original/test_capacity.py",
+  "requested_decision": "Does the capacity accounting implementation satisfy the supplied contract, and what bounded repairs, if any, are needed?",
+  "sealed_basis": {
+    "git_head": "666ee650d87d008dea3e74292f96c52cb1e1d9f7",
+    "manifest": "sealed-source.json"
+  },
+  "scope": "Both functions and supplied tests against CONTRACT.md; no concurrency, persistence, performance, or external services. Initial role assignment only.",
+  "tier": "standard",
+  "plain": true,
+  "budget": "Two-minute focused recheck of the changed record passages and affected conclusions; prior complete check remains preserved.",
+  "authorized_actions": "Read the draft, all original testimony, recall, and underlying evidence. Write DECISION_CHECK.md and necessary bounded probes only. No source edits, repairs, git mutations, publication, or delegation.",
+  "authorized_tools": "Local file reads and assigned writes; if necessary a reviewed bounded probe through capture.py --role checker.",
+  "execution": "Known small pure-Python fixture; inspect before executing. Probes must use capture.py, <=20s each, <=64KiB stdout and stderr, <=1MiB scratch per role. No Docker/build/cache. Network restriction is instruction-only; filesystem and credentials are not sandboxed.",
+  "write_directory": "roles/checker",
+  "evidence_locations": [
+    "CASE_FILE_DRAFT.md",
+    "ADJUDICATION.md",
+    "original/",
+    "sealed-source.json",
+    "freeze-initial.json",
+    "roles/holmes/",
+    "roles/watson/",
+    "roles/moriarty/",
+    "capture.py",
+    "CASE_FILE_DRAFT-v2.md",
+    "ERRATA.md",
+    "roles/checker/DECISION_CHECK.md"
+  ],
+  "capabilities": "Fresh independent context and local file tools available; same Watson context can be recalled. Shared model/host can correlate errors.",
+  "separation": "Fresh checker context; receives prior testimony as required for checking. Do not read evaluator/ or other conversations. Shared host, no OS isolation.",
+  "phase": "Recheck E-1/E-2 and revised original draft; same independent checker context",
+  "audience": "Python API callers and maintainers",
+  "acceptance_criteria": "CONTRACT.md is authoritative; report established violations and uncertainties. No finding quota. All source must remain unchanged.",
+  "author_overlap": "Checker did not author fixture, original testimony, recall, or adjudication. Coordinator authored fixture and draft.",
+  "reviewer_basis": "FRESH_AGENT"
+}
