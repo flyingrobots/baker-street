@@ -66,9 +66,10 @@ the earlier response spelling used spaces. Fixture/oracle contents in this V3
 companion use the new identifiers. Historical validation reports remain unchanged.
 The packet preparer now includes modular roles and scripts as well as references.
 Packet assembly tests default to this repository's root skill. Set
-BAKER_SKILL_DIR to test a different complete skill folder. If that folder has
-no packet builder, those tests explicitly skip; a skip is not a pass. Always
-report executed and skipped test counts separately.
+BAKER_SKILL_DIR to test a different complete skill folder. A missing packet
+builder is a test error and makes the test command fail. The entrypoint
+regression checks this behavior for both the default folder and an explicit
+override. Always report executed and skipped test counts separately.
 
 `oracle.json` files belong to the evaluator. Their mechanical expectations are
 not exhaustive semantic truth. A defensible alternative classification should

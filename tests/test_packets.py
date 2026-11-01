@@ -12,11 +12,14 @@ import unittest
 SKILL = Path(os.environ.get('BAKER_SKILL_DIR', Path(__file__).resolve().parents[1])).resolve()
 
 
-@unittest.skipUnless((SKILL/'scripts/build_packet.py').is_file(),
-                     'Set BAKER_SKILL_DIR to the installed V3 skill')
 class PacketTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
+        if not (SKILL/'scripts/build_packet.py').is_file():
+            raise FileNotFoundError(
+                f'Required packet builder missing: {SKILL / "scripts/build_packet.py"}. '
+                'Restore the complete skill or set BAKER_SKILL_DIR to its folder.'
+            )
         spec = importlib.util.spec_from_file_location('packet_builder', SKILL/'scripts/build_packet.py')
         cls.module = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(cls.module)
