@@ -143,7 +143,7 @@ both other testimonies, and provisional findings. Continue the same context when
 supported; otherwise disclose new-context recall. Obtain a Repair Menu and Probe
 Triage using records. Proposed repairs remain proposed until checked.
 
-All tiers: tie required repairs to contracts or acceptance criteria. Check every
+All tiers: apply the adverse-consequence rule in records to required repairs. Check every
 affected audience before writing "nothing to do." Keep optional improvements
 separate. Review all probe dispositions; specialized suites also need valid oracles.
 
