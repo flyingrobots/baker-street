@@ -97,6 +97,14 @@ justify defect-repair obligations until established; investigation may be requir
 Risk acceptance needs an explicit basis, not a preference to finish. Withdrawn
 findings retain no active obligation.
 
+Adverse consequence: a finding can be REQUIRED_REPAIR only when its status is
+CONFIRMED and its impact chain names at least one of (a) a violation of a
+recorded contract or acceptance criterion, or (b) a named audience that would
+take a wrong action because of it. An INFORMATIONAL finding has no identified
+adverse consequence, so it cannot be REQUIRED_REPAIR. A finding that fails this
+rule is FOLLOW_UP, and its repairs have scope FOLLOW_UP. This rule applies to
+every finding type, not to prose alone.
+
 ## Attempts
 
 Fields: ID; hypothesis; attacked contract; method/setup/inputs/oracle/control;
@@ -116,7 +124,7 @@ Validation is PROPOSED or VALIDATED, with basis/limits. Validated wording does n
 imply implementation, integration, or execution.
 
 Order by impact and decision necessity, then yield per effort. Do not require
-cosmetic preferences. Keep wider improvements separate. Check new factual claims
+cosmetic preferences; they fail the adverse-consequence rule in Findings. Keep wider improvements separate. Check new factual claims
 in replacement text, especially assurances that an audience has nothing to do.
 
 ## Probe dispositions
@@ -217,6 +225,10 @@ evidence/<role>/ files. Honor explicit multi-file requests in other tiers.
 Summaries preserve uncertainty and link evidence. Testimony does not substitute
 for evidence. Keep the executive finding to three sentences; avoid repeating
 whole Repair Menus in public comments.
+
+In every tier, list FOLLOW_UP-scope repairs under a "Batched follow-ups" heading
+in CASE_FILE.md so they stay in view. They do not change the decision. When the
+user authorizes a repair on the same series, the repair may include them.
 
 In every tier, when stateful code review applies, CASE_FILE.md includes its
 coverage matrix (see references/stateful-code-review.md).

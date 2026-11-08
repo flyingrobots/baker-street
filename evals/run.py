@@ -222,6 +222,8 @@ def grade(case_id, response):
         if f.get('status')=='CONFIRMED' and not f.get('evidence'): error(f'{fid}: confirmed finding needs evidence.')
         if f.get('status') in ['HYPOTHESIS','CONTESTED'] and f.get('disposition')=='REQUIRED_REPAIR':
             error(f'{fid}: unresolved finding cannot be a confirmed repair obligation in this contract.')
+        if f.get('severity')=='INFORMATIONAL' and f.get('disposition')=='REQUIRED_REPAIR':
+            error(f'{fid}: INFORMATIONAL finding has no adverse consequence and cannot be a required repair.')
         if f.get('status')=='WITHDRAWN' and f.get('disposition')!='ACCEPTED':
             error(f'{fid}: withdrawn finding cannot retain an active obligation.')
         if response.get('decision')=='READY' and f.get('disposition') in ['REQUIRED_REPAIR','INVESTIGATE']:

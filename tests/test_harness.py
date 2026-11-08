@@ -107,6 +107,27 @@ class HarnessTests(unittest.TestCase):
         r=self.good('case-23');f=self.open_finding(r,'HIGH','ACCEPTED');f['status']='WITHDRAWN'
         r['findings']=[f]
         self.assertFalse(any('open HIGH' in e for e in evalmod.grade('case-23',r)['errors']))
+    def finding_errors(self,cid,r,fid='Fopen'):
+        return [e for e in evalmod.grade(cid,r)['errors'] if e.startswith(f'{fid}:')]
+    def test_low_follow_up_is_valid_with_ready(self):
+        r=self.good('case-23');r['findings']=[self.open_finding(r,'LOW','FOLLOW_UP')]
+        self.assertEqual(self.finding_errors('case-23',r),[])
+    def test_informational_follow_up_is_valid(self):
+        r=self.good('case-23');r['findings']=[self.open_finding(r,'INFORMATIONAL','FOLLOW_UP')]
+        self.assertEqual(self.finding_errors('case-23',r),[])
+    def test_low_required_repair_left_to_checker(self):
+        r=self.good('case-21');r['findings'].append(self.open_finding(r,'LOW','REQUIRED_REPAIR'))
+        self.assertEqual(self.finding_errors('case-21',r),[])
+    def test_informational_cannot_be_required_repair(self):
+        r=self.good('case-21');r['findings'].append(self.open_finding(r,'INFORMATIONAL','REQUIRED_REPAIR'))
+        errors=self.finding_errors('case-21',r)
+        self.assertTrue(any('INFORMATIONAL' in e and 'required repair' in e for e in errors),errors)
+    def test_withdrawn_finding_keeps_its_rule(self):
+        r=self.good('case-21');f=self.open_finding(r,'INFORMATIONAL','REQUIRED_REPAIR');f['status']='WITHDRAWN'
+        r['findings'].append(f)
+        self.assertTrue(any('withdrawn' in e for e in self.finding_errors('case-21',r)))
+        f['disposition']='ACCEPTED'
+        self.assertEqual(self.finding_errors('case-21',r),[])
     def test_none_basis_combination(self):
         r=self.good();r['claims'][0]['basis']=['NONE','SOURCE'];self.bad(r)
     def test_malformed_values(self):
