@@ -35,7 +35,7 @@ review_series, round, and prior_case together, or omit all three:
   github:owner/repo/pull/12. Use one fixed form for every case on that subject.
 - round: an integer of 1 or more. Booleans are not integers.
 - prior_case: NONE when round is 1; otherwise an object with nonempty case_id
-  and reviewed_head (the full head that case reviewed).
+  and reviewed_head: the full lowercase SHA-1 or SHA-256 ID that case reviewed.
 - round_budget: optional integer of 1 or more; default 2. It requires the other
   three fields.
 
@@ -214,13 +214,15 @@ A Referral returns a stalled series to the user. It is not a decision: the prior
 case's decision stays current, and no decision value is added. Fields: series;
 case IDs of the rounds examined; each open CRITICAL or HIGH finding ID with the
 round where it first appeared; pattern; question for the user; what the Agency
-will do after each answer.
+will do after each answer. Patterns classify only the open CRITICAL and HIGH
+findings.
 
 | Pattern | Meaning | Question for the user |
 | --- | --- | --- |
-| PERSISTENT | One finding stayed open through two or more repairs | Accept it under the ACCEPTED HIGH rule, dispute it with evidence, or change the repair approach |
-| RECURRENT | Each round had a different CRITICAL or HIGH finding | Rescope or split the change |
-| MIXED | Both patterns occur | Ask both questions, per finding |
+| PERSISTENT | An open finding was raised in an earlier round and stayed open after at least one repair | Accept it under the ACCEPTED HIGH rule, dispute it with evidence, or change the repair approach |
+| RECURRENT | Every open finding is new in the latest round, and an earlier round also had a different CRITICAL or HIGH finding | Rescope or split the change |
+| NEW | Every open finding is new in the latest round, and no earlier round had a CRITICAL or HIGH finding | Authorize one more round to repair it, or rescope the change |
+| MIXED | More than one pattern applies to different findings | Ask each applicable question, per finding |
 
 A CRITICAL finding cannot be accepted into READY; for it, only dispute or a
 changed repair approach applies.

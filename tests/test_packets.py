@@ -83,11 +83,13 @@ class PacketTests(unittest.TestCase):
         return h
 
     def test_valid_series_fields_are_accepted_and_preserved(self):
+        sha256_head = {'case_id': 'CASE-1', 'reviewed_head': 'b' * 64}
         for h in (self.series(1), self.series(2), self.series(2, round_budget=3),
-                  self.series(2, round_budget=2)):
+                  self.series(2, round_budget=2), self.series(2, prior_case=sha256_head)):
             with self.subTest(header=h):
                 packet = self.module.build('holmes', h)
-                self.assertIn('"review_series": "github:flyingrobots/baker-street/pull/12"', packet)
+                assigned = packet.split('## Assigned case header\n\n```json\n', 1)[1].split('\n```', 1)[0]
+                self.assertEqual(json.loads(assigned), json.loads(json.dumps(h)))
 
     def test_header_without_series_fields_is_unchanged(self):
         h = self.header()
@@ -104,6 +106,9 @@ class PacketTests(unittest.TestCase):
             'round 1 with prior case': self.series(1, prior_case={'case_id': 'CASE-1', 'reviewed_head': 'a' * 40}),
             'prior case missing head': self.series(2, prior_case={'case_id': 'CASE-1'}),
             'prior case empty id': self.series(2, prior_case={'case_id': '', 'reviewed_head': 'a' * 40}),
+            'prior head short': self.series(2, prior_case={'case_id': 'CASE-1', 'reviewed_head': 'a' * 12}),
+            'prior head not hex': self.series(2, prior_case={'case_id': 'CASE-1', 'reviewed_head': 'x'}),
+            'prior head uppercase': self.series(2, prior_case={'case_id': 'CASE-1', 'reviewed_head': 'A' * 40}),
             'empty series': self.series(2, review_series=''),
             'budget zero': self.series(2, round_budget=0),
             'budget boolean': self.series(2, round_budget=True),

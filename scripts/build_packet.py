@@ -3,6 +3,7 @@
 import argparse
 import hashlib
 import json
+import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -14,6 +15,7 @@ REQUIRED = {
     "acceptance_criteria",
 }
 SERIES = ("review_series", "round", "prior_case")
+FULL_ID = re.compile(r"[0-9a-f]{40}|[0-9a-f]{64}")
 
 
 def validate(role, header):
@@ -62,6 +64,8 @@ def validate_series(header):
     elif not (isinstance(prior, dict) and all(
             isinstance(prior.get(k), str) and prior.get(k) for k in ("case_id", "reviewed_head"))):
         raise ValueError("A later round requires prior_case with case_id and reviewed_head")
+    elif not FULL_ID.fullmatch(prior["reviewed_head"]):
+        raise ValueError("prior_case.reviewed_head must be a full lowercase SHA-1 or SHA-256 ID")
 
 
 def build(role, header, include_charter=False, include_stateful_review=False):
