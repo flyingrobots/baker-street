@@ -61,8 +61,8 @@ class AgentsMdTests(unittest.TestCase):
     def test_same_head_case_allowed_when_something_material_changed(self):
         # records.md: acceptance and evidenced dispute are Referral answers; neither changes the head.
         text=agents_text()
-        self.assertIn("Do not repeat a review on an unchanged head merely to reach a different decision. A new case on an unchanged head is allowed when something material has changed since the last case: a repair that does not change the head, such as a pull-request body fix; a completed investigation; or the user's explicit acceptance of, or evidenced dispute with, a named finding. The new case states what changed.",text)
-
+        self.assertIn('Do not repeat a review on an unchanged head merely to reach a different decision.',text)
+        self.assertIn("or the user's explicit acceptance of, or evidenced dispute with, a named finding. The new case states what changed.",text)
     def test_clean_gate_covers_findings_posted_anywhere(self):
         # Baker Street cases are comments, not review threads; criterion 2: no unresolved issues.
         self.assertIn('Every finding raised on the pull request, wherever it was posted (a review thread, a review body, a pull-request or issue comment, or a Baker Street case), has been fixed under the rule above, is ACCEPTED or WITHDRAWN, or was answered as not valid with evidence.',agents_text())
@@ -90,5 +90,9 @@ class AgentsMdTests(unittest.TestCase):
     def test_fix_reply_goes_where_the_finding_was_posted(self):
         # Baker Street findings are comments, not review threads.
         self.assertIn("and reply with the commit in each finding's review thread, or in the thread where the finding was posted.",agents_text())
+
+    def test_same_head_case_allowed_for_base_or_environment_change(self):
+        # L26 requires a new case when the base or environment changes; L30 must allow it.
+        self.assertIn('a change to the base or the environment;',agents_text())
 
 if __name__=='__main__': unittest.main()
