@@ -18,7 +18,12 @@ class FollowupRuleTests(unittest.TestCase):
     def test_readme_distinguishes_implemented_rules_from_planned_work(self):
         section = words('README.md').split('## In preparation', 1)[1].split('## Repository contents', 1)[0]
         self.assertIn('The round budget with referral to the user and the consequence floor for required repairs are implemented on main.', section)
-        self.assertIn('Still planned:', section)
+        planned = section.split('Still planned:', 1)[1].split('.', 1)[0]
+        self.assertIn('delta reviews for follow-up cases', planned)
+        self.assertIn('a findings ledger', planned)
+        self.assertIn('named mutants run in a scratch copy', planned)
+        self.assertNotIn('round budget', planned)
+        self.assertNotIn('consequence floor', planned)
         self.assertNotIn('None of it is in the current release.', section)
 
     def test_consequence_fallback_allows_explicit_acceptance(self):
