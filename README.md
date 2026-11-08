@@ -329,11 +329,11 @@ reviewer; an author of Baker Street cannot perform it.
 > affairs, wrote to tell us where our methods had cost him dear. Holmes read the
 > letter twice, the second time with evident pleasure.
 
-The planned work from that field report is tracked in
-[flyingrobots/baker-street#6](https://github.com/flyingrobots/baker-street/issues/6):
-a round budget with referral to the user, a consequence floor for required repairs,
-delta reviews for follow-up cases, a findings ledger, and named mutants run in a
-scratch copy. None of it is in the current release.
+The round budget with referral to the user and the consequence floor for required
+repairs are implemented on main. Still planned: delta reviews for follow-up cases,
+a findings ledger, and named mutants run in a scratch copy. The field report and
+remaining work are tracked in
+[flyingrobots/baker-street#6](https://github.com/flyingrobots/baker-street/issues/6).
 
 ## Repository contents and history
 
