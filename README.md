@@ -98,7 +98,7 @@ sequential. Nobody earns an independence badge by changing hats.
 ## Use it
 
 Start with [installation instructions](docs/INSTALL.md), the
-[v3.0.0 skill package](https://github.com/flyingrobots/baker-street/releases/tag/v3.0.0),
+[v3.1.0 skill package](https://github.com/flyingrobots/baker-street/releases/tag/v3.1.0),
 and the [minimal worked example](examples/triage/README.md).
 
 This repository includes the complete skill and its development companion.
