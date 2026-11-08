@@ -21,7 +21,7 @@ If a finding is not valid, reply with the evidence and make no change. Do not ba
 Before you merge a pull request, review it with Baker Street, the skill in this repository:
 
 1. Run Baker Street on the pull request at its current head. Choose the smallest tier that fits the risk.
-2. Post the case report to the GitHub thread of the linked issue. If no issue is linked, post it on the pull request.
+2. Post a concise decision summary to the GitHub thread of the linked issue. If no issue is linked, post it on the pull request. Put the full case file in a collapsed section. Never push private evidence to make a link work.
 3. Follow the case. Carry out each required repair under the RED→GREEN rule above. Then review the repaired head again with Baker Street. A case is valid only for the head it reviewed.
 
 Merge only when all of these are true at the same head:

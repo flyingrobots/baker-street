@@ -26,4 +26,10 @@ class AgentsMdTests(unittest.TestCase):
         self.assertIn('no earlier case on that head left a required repair or investigation unresolved',text)
         self.assertIn('Do not run another review on an unchanged head to change its decision.',text)
 
+    def test_posted_report_is_a_concise_summary_without_private_evidence(self):
+        # SKILL.md: "A concise public summary links the full case"; charter: never expose private artifacts.
+        text=agents_text()
+        self.assertIn('Post a concise decision summary',text)
+        self.assertIn('Put the full case file in a collapsed section. Never push private evidence to make a link work.',text)
+
 if __name__=='__main__': unittest.main()
