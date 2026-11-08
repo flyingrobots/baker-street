@@ -44,7 +44,6 @@ class AgentsMdTests(unittest.TestCase):
         # records.md: completing repairs and investigation obligations is the path to READY.
         text=agents_text()
         self.assertNotIn('Do not run another review on an unchanged head to change its decision.',text)
-        self.assertIn('A new case on an unchanged head is allowed only to review a repair that does not change the head, such as a pull-request body fix, or to complete a named investigation. Do not otherwise run another review to change a decision.',text)
 
     def test_green_gate_needs_ci_success_and_treats_other_results_as_failing(self):
         # A gate over "every check" is vacuous before any check runs; cancelled and timed out must count.
@@ -58,5 +57,10 @@ class AgentsMdTests(unittest.TestCase):
     def test_posted_case_is_redacted(self):
         # core.md: redact secrets and record redactions; charter: never expose private artifacts.
         self.assertIn('Redact secrets and private material first. Put the full case file in a collapsed section.',agents_text())
+
+    def test_same_head_case_allowed_when_something_material_changed(self):
+        # records.md: acceptance and evidenced dispute are Referral answers; neither changes the head.
+        text=agents_text()
+        self.assertIn("Do not repeat a review on an unchanged head merely to reach a different decision. A new case on an unchanged head is allowed when something material has changed since the last case: a repair that does not change the head, such as a pull-request body fix; a completed investigation; or the user's explicit acceptance of, or evidenced dispute with, a named finding. The new case states what changed.",text)
 
 if __name__=='__main__': unittest.main()
