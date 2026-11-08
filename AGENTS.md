@@ -28,7 +28,7 @@ Before you merge a pull request, review it with Baker Street, the skill in this 
 Merge only when all of these are true at the same head:
 
 - **Baker Street passes:** the latest case for that head has the decision `READY`, and no earlier case on that head left a required repair or investigation unresolved. Do not repeat a review on an unchanged head merely to reach a different decision. A new case on an unchanged head is allowed when something material has changed since the last case: a repair that does not change the head, such as a pull-request body fix; a completed investigation; or the user's explicit acceptance of, or evidenced dispute with, a named finding. The new case states what changed.
-- **Clean:** no review thread is unresolved, and no reviewer still has changes requested or a review in progress, whether a person or a bot.
+- **Clean:** no review thread is unresolved, and no reviewer still has changes requested or a review in progress, whether a person or a bot. Every finding raised on the pull request, wherever it was posted (a review thread, a review body, a pull-request or issue comment, or a Baker Street case), has been fixed under the rule above, is ACCEPTED or WITHDRAWN, or was answered as not valid with evidence.
 - **Green:** every CI check on that head has completed. The `test` jobs from the CI workflow must have reported success, and every other check must have finished as success, skipped or neutral. Any other result, including cancelled or timed out, counts as failing. No checks at all is not green.
 
 If any condition fails, do not merge. Report which condition failed.

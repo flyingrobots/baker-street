@@ -63,4 +63,8 @@ class AgentsMdTests(unittest.TestCase):
         text=agents_text()
         self.assertIn("Do not repeat a review on an unchanged head merely to reach a different decision. A new case on an unchanged head is allowed when something material has changed since the last case: a repair that does not change the head, such as a pull-request body fix; a completed investigation; or the user's explicit acceptance of, or evidenced dispute with, a named finding. The new case states what changed.",text)
 
+    def test_clean_gate_covers_findings_posted_anywhere(self):
+        # Baker Street cases are comments, not review threads; criterion 2: no unresolved issues.
+        self.assertIn('Every finding raised on the pull request, wherever it was posted (a review thread, a review body, a pull-request or issue comment, or a Baker Street case), has been fixed under the rule above, is ACCEPTED or WITHDRAWN, or was answered as not valid with evidence.',agents_text())
+
 if __name__=='__main__': unittest.main()
