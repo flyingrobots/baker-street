@@ -32,4 +32,10 @@ class AgentsMdTests(unittest.TestCase):
         self.assertIn('Post a concise decision summary',text)
         self.assertIn('Put the full case file in a collapsed section. Never push private evidence to make a link work.',text)
 
+    def test_red_green_covers_skill_text_and_untestable_prose(self):
+        text=agents_text()
+        self.assertIn('**Rule text in `SKILL.md`, `references/` or `roles/`:**',text)
+        self.assertIn('**A pull-request body or changelog:**',text)
+        self.assertIn('This applies to every valid finding, including follow-ups.',text)
+
 if __name__=='__main__': unittest.main()
