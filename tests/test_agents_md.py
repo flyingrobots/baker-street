@@ -14,4 +14,10 @@ class AgentsMdTests(unittest.TestCase):
         self.assertNotIn('Do not batch several findings into one commit',text)
         self.assertIn("When one fix resolves several findings, or code and its tests must land together, make one coherent commit and record each finding's RED and GREEN in it.",text)
 
+    def test_green_gate_does_not_depend_on_required_status(self):
+        # main has no branch protection and no required status checks, so "required" is vacuous.
+        text=agents_text()
+        self.assertNotIn('every required CI check passes',text)
+        self.assertIn('every CI check on that head has completed and passed; none is failing or pending.',text)
+
 if __name__=='__main__': unittest.main()
