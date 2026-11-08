@@ -165,6 +165,11 @@ class HarnessTests(unittest.TestCase):
         self.assertIn('A follow-up whose finding is not CRITICAL or HIGH does not change the decision.',text)
         self.assertIn('Severity precedence still applies',text)
         self.assertIn('or for a HIGH finding its recorded user acceptance',text)
+    def test_watson_required_repair_test_defers_to_records(self):
+        # F-3a (case BS-2026-11-08-PR8-R1): the contract-only test excluded condition (b).
+        text=' '.join((ROOT/'roles/watson.md').read_text(encoding='utf-8').split())
+        self.assertNotIn('Required repairs need contracts or acceptance criteria',text)
+        self.assertIn('Required repairs need an adverse consequence that meets the rule in records',text)
     def test_none_basis_combination(self):
         r=self.good();r['claims'][0]['basis']=['NONE','SOURCE'];self.bad(r)
     def test_malformed_values(self):

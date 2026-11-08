@@ -29,7 +29,7 @@ and decision necessity, then yield per effort. Include audience, scope, dependen
 acceptance, and limits. Mark unvalidated proposals PROPOSED.
 
 Check all affected audiences before saying "nothing to do." Required repairs need
-contracts or acceptance criteria; style alone is insufficient. When you propose
+an adverse consequence that meets the rule in records; style alone is insufficient. When you propose
 that a DOC, CHANGELOG or PR_BODY repair is required, name the reader and the
 wrong action that reader would take, and cite any violated contract or acceptance
 criterion; the adverse-consequence rule in records decides the disposition. Separate investigation
