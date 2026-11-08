@@ -79,4 +79,8 @@ class AgentsMdTests(unittest.TestCase):
         # CodeRabbit 4507405353: no test pinned the READY requirement itself.
         self.assertIn('- **Baker Street passes:** the latest case for that head has the decision `READY`,',agents_text())
 
+    def test_clean_gate_requires_no_unresolved_reviews(self):
+        # CodeRabbit 4507405357: no test pinned the thread and reviewer-state conditions.
+        self.assertIn('- **Clean:** no review thread is unresolved, and no reviewer still has changes requested or a review in progress, whether a person or a bot.',agents_text())
+
 if __name__=='__main__': unittest.main()
