@@ -54,6 +54,7 @@ MINIMIZE_THEN_PROMOTE | RETAIN_IN_SPECIALIZED_SUITE | ARCHIVE", "rationale":
 A finding is open unless WITHDRAWN. READY is invalid with any open CRITICAL
 finding, or with an open HIGH finding unless it is ACCEPTED, carries a
 user_acceptance recorded in the evidence, and is named by ID in limits.
+An INFORMATIONAL finding cannot be REQUIRED_REPAIR.
 Use the exact claim IDs requested in input/target.md, once each. Findings may
 be empty. Evidence paths are relative to this packet. Cite existing lines.
 These are documentary cases: supplied transcripts are REPORTED evidence;

@@ -176,6 +176,9 @@ class HarnessTests(unittest.TestCase):
         self.assertNotIn('list FOLLOW_UP-scope repairs under a "Batched follow-ups" heading',text)
         self.assertIn('list the repairs of FOLLOW_UP findings under a "Batched follow-ups" heading',text)
         self.assertIn('A batched follow-up whose finding is not CRITICAL or HIGH does not change the decision.',text)
+    def test_output_contract_states_informational_rule(self):
+        # M-F-3 (case BS-2026-11-08-PR8-R2): a response could fail a grader rule the contract never stated.
+        self.assertIn('An INFORMATIONAL finding cannot be REQUIRED_REPAIR.',' '.join(evalmod.CONTRACT.split()))
     def test_none_basis_combination(self):
         r=self.good();r['claims'][0]['basis']=['NONE','SOURCE'];self.bad(r)
     def test_malformed_values(self):
