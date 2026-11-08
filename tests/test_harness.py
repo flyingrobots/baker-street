@@ -147,6 +147,17 @@ class HarnessTests(unittest.TestCase):
         self.assertNotIn('otherwise it is a batched FOLLOW_UP',sentence)
         self.assertIn('acceptance criterion',sentence)
         self.assertIn('adverse-consequence rule in records',sentence)
+    def test_adverse_consequence_covers_direct_harm_and_relevant_unknown(self):
+        # F-1 (case BS-2026-11-08-PR8-R1): (a)/(b) alone left confirmed direct harm with no valid decision.
+        rule=self.adverse_consequence_rule()
+        self.assertIn('(c) a loss of integrity, security, compatibility or essential intended use',rule)
+        self.assertIn('A CONFIRMED CRITICAL or HIGH finding whose impact chain supports its severity meets (c)',rule)
+        self.assertIn('a finding of UNKNOWN severity whose consequence bears on the requested decision: it is INVESTIGATE',rule)
+    def test_checker_defers_to_the_adverse_consequence_rule(self):
+        # F-1: the checker must not FAIL a repair justified only by (c).
+        text=' '.join((ROOT/'roles/checker.md').read_text(encoding='utf-8').split())
+        self.assertNotIn('If neither holds, that finding',text)
+        self.assertIn('that its consequence meets the adverse-consequence rule in records',text)
     def test_none_basis_combination(self):
         r=self.good();r['claims'][0]['basis']=['NONE','SOURCE'];self.bad(r)
     def test_malformed_values(self):
