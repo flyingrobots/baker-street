@@ -18,7 +18,6 @@ class AgentsMdTests(unittest.TestCase):
         # main has no branch protection and no required status checks, so "required" is vacuous.
         text=agents_text()
         self.assertNotIn('every required CI check passes',text)
-        self.assertIn('every CI check on that head has completed, and none has failed or is still pending. A check that was skipped or finished neutral is not a failure.',text)
 
     def test_ready_gate_cannot_be_reached_by_rerunning_reviews(self):
         # records.md: "Do not repeat reviews to reach a target decision."
@@ -46,5 +45,10 @@ class AgentsMdTests(unittest.TestCase):
         text=agents_text()
         self.assertNotIn('Do not run another review on an unchanged head to change its decision.',text)
         self.assertIn('A new case on an unchanged head is allowed only to review a repair that does not change the head, such as a pull-request body fix, or to complete a named investigation. Do not otherwise run another review to change a decision.',text)
+
+    def test_green_gate_needs_ci_success_and_treats_other_results_as_failing(self):
+        # A gate over "every check" is vacuous before any check runs; cancelled and timed out must count.
+        text=agents_text()
+        self.assertIn('every CI check on that head has completed. The `test` jobs from the CI workflow must have reported success, and every other check must have finished as success, skipped or neutral. Any other result, including cancelled or timed out, counts as failing. No checks at all is not green.',text)
 
 if __name__=='__main__': unittest.main()

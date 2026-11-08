@@ -29,6 +29,6 @@ Merge only when all of these are true at the same head:
 
 - **Baker Street passes:** the latest case for that head has the decision `READY`, and no earlier case on that head left a required repair or investigation unresolved. A new case on an unchanged head is allowed only to review a repair that does not change the head, such as a pull-request body fix, or to complete a named investigation. Do not otherwise run another review to change a decision.
 - **Clean:** no review thread is unresolved, and no reviewer still has changes requested or a review in progress, whether a person or a bot.
-- **Green:** every CI check on that head has completed, and none has failed or is still pending. A check that was skipped or finished neutral is not a failure.
+- **Green:** every CI check on that head has completed. The `test` jobs from the CI workflow must have reported success, and every other check must have finished as success, skipped or neutral. Any other result, including cancelled or timed out, counts as failing. No checks at all is not green.
 
 If any condition fails, do not merge. Report which condition failed.
