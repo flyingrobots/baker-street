@@ -23,7 +23,7 @@ Before you merge a pull request, review it with Baker Street, the skill in this 
 
 1. Run Baker Street on the pull request at its current head. Choose the smallest tier that fits the risk. Review with the rules on `main`. When the pull request changes Baker Street's own rules, those changes are the target of the review, not its authority.
 2. Post a concise decision summary to the GitHub thread of the linked issue. If no issue is linked, post it on the pull request. Redact secrets and private material first. Put the full case file in a collapsed section. Never push private evidence to make a link work.
-3. Follow the case. Carry out each required repair under the RED→GREEN rule above. Then review the repaired head again with Baker Street. A case is valid only for the head it reviewed.
+3. Follow the case. Carry out each required repair under the RED→GREEN rule above. Then review the repaired head again with Baker Street. A case is valid only for the artifacts it reviewed: the head, the pull-request body and the base. When one of them changes, reassess the affected claims in a new case before merge.
 
 Merge only when all of these are true at the same head:
 

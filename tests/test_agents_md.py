@@ -71,4 +71,8 @@ class AgentsMdTests(unittest.TestCase):
         # A Baker Street finding has no review thread.
         self.assertIn('Put both in the reply to the review thread, or in the thread where the finding was posted.',agents_text())
 
+    def test_case_validity_covers_head_body_and_base(self):
+        # SKILL.md: valid only for the recorded artifacts; reassess affected claims when these change.
+        self.assertIn('A case is valid only for the artifacts it reviewed: the head, the pull-request body and the base. When one of them changes, reassess the affected claims in a new case before merge.',agents_text())
+
 if __name__=='__main__': unittest.main()
