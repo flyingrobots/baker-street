@@ -54,6 +54,7 @@ MINIMIZE_THEN_PROMOTE | RETAIN_IN_SPECIALIZED_SUITE | ARCHIVE", "rationale":
 A finding is open unless WITHDRAWN. READY is invalid with any open CRITICAL
 finding, or with an open HIGH finding unless it is ACCEPTED, carries a
 user_acceptance recorded in the evidence, and is named by ID in limits.
+An INFORMATIONAL finding cannot be REQUIRED_REPAIR.
 Use the exact claim IDs requested in input/target.md, once each. Findings may
 be empty. Evidence paths are relative to this packet. Cite existing lines.
 These are documentary cases: supplied transcripts are REPORTED evidence;
@@ -222,6 +223,8 @@ def grade(case_id, response):
         if f.get('status')=='CONFIRMED' and not f.get('evidence'): error(f'{fid}: confirmed finding needs evidence.')
         if f.get('status') in ['HYPOTHESIS','CONTESTED'] and f.get('disposition')=='REQUIRED_REPAIR':
             error(f'{fid}: unresolved finding cannot be a confirmed repair obligation in this contract.')
+        if f.get('severity')=='INFORMATIONAL' and f.get('disposition')=='REQUIRED_REPAIR':
+            error(f'{fid}: INFORMATIONAL finding has no adverse consequence and cannot be a required repair.')
         if f.get('status')=='WITHDRAWN' and f.get('disposition')!='ACCEPTED':
             error(f'{fid}: withdrawn finding cannot retain an active obligation.')
         if response.get('decision')=='READY' and f.get('disposition') in ['REQUIRED_REPAIR','INVESTIGATE']:

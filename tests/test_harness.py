@@ -107,6 +107,78 @@ class HarnessTests(unittest.TestCase):
         r=self.good('case-23');f=self.open_finding(r,'HIGH','ACCEPTED');f['status']='WITHDRAWN'
         r['findings']=[f]
         self.assertFalse(any('open HIGH' in e for e in evalmod.grade('case-23',r)['errors']))
+    def finding_errors(self,cid,r,fid='Fopen'):
+        return [e for e in evalmod.grade(cid,r)['errors'] if e.startswith(f'{fid}:')]
+    def test_low_and_informational_follow_up_are_valid_with_ready(self):
+        # case-23 is a clean case, so its only expected error is the active-finding cap.
+        for severity in ('LOW','INFORMATIONAL'):
+            with self.subTest(severity=severity):
+                r=self.good('case-23');r['findings']=[self.open_finding(r,severity,'FOLLOW_UP')]
+                self.assertEqual(evalmod.grade('case-23',r)['errors'],
+                                 ['Active findings exceed this clean-case contract.'])
+    def test_low_required_repair_left_to_checker(self):
+        r=self.good('case-21');r['findings'].append(self.open_finding(r,'LOW','REQUIRED_REPAIR'))
+        self.assertEqual(self.finding_errors('case-21',r),[])
+    def test_informational_cannot_be_required_repair(self):
+        r=self.good('case-21');r['findings'].append(self.open_finding(r,'INFORMATIONAL','REQUIRED_REPAIR'))
+        errors=self.finding_errors('case-21',r)
+        self.assertTrue(any('INFORMATIONAL' in e and 'required repair' in e for e in errors),errors)
+    def test_withdrawn_finding_keeps_its_rule(self):
+        r=self.good('case-21');f=self.open_finding(r,'INFORMATIONAL','REQUIRED_REPAIR');f['status']='WITHDRAWN'
+        r['findings'].append(f)
+        self.assertTrue(any('withdrawn' in e for e in self.finding_errors('case-21',r)))
+        f['disposition']='ACCEPTED'
+        self.assertEqual(self.finding_errors('case-21',r),[])
+    def adverse_consequence_rule(self):
+        text=(ROOT/'references/records.md').read_text(encoding='utf-8')
+        start=text.index('Adverse consequence:')
+        return ' '.join(text[start:text.index('\n\n',start)].split())
+    def test_follow_up_fallback_keeps_unconfirmed_dispositions(self):
+        # The grader requires WITHDRAWN to be ACCEPTED; the rule must not send it to FOLLOW_UP.
+        rule=self.adverse_consequence_rule()
+        self.assertIn('A CONFIRMED finding that fails this rule is FOLLOW_UP',rule)
+        self.assertIn('WITHDRAWN is ACCEPTED',rule)
+        self.assertIn('INVESTIGATE',rule)
+    def test_watson_lets_a_violated_criterion_justify_a_required_repair(self):
+        # Condition (a) alone suffices in records; Watson must not demote such a repair.
+        text=' '.join((ROOT/'roles/watson.md').read_text(encoding='utf-8').split())
+        start=text.index('When you propose that a DOC, CHANGELOG or PR_BODY repair is required')
+        sentence=text[start:text.index('Separate investigation',start)]
+        self.assertNotIn('otherwise it is a batched FOLLOW_UP',sentence)
+        self.assertIn('acceptance criterion',sentence)
+        self.assertIn('adverse-consequence rule in records',sentence)
+    def test_adverse_consequence_covers_direct_harm_and_relevant_unknown(self):
+        # F-1 (case BS-2026-11-08-PR8-R1): (a)/(b) alone left confirmed direct harm with no valid decision.
+        rule=self.adverse_consequence_rule()
+        self.assertIn('(c) a loss of integrity, security, compatibility or essential intended use',rule)
+        self.assertIn('A CONFIRMED CRITICAL or HIGH finding whose impact chain supports its severity meets (c)',rule)
+        self.assertIn('a finding of UNKNOWN severity whose consequence bears on the requested decision: it is INVESTIGATE',rule)
+    def test_checker_defers_to_the_adverse_consequence_rule(self):
+        # F-1: the checker must not FAIL a repair justified only by (c).
+        text=' '.join((ROOT/'roles/checker.md').read_text(encoding='utf-8').split())
+        self.assertNotIn('If neither holds, that finding',text)
+        self.assertIn('that its consequence meets the adverse-consequence rule in records',text)
+    def test_batched_follow_ups_keep_severity_precedence(self):
+        # F-2 (case BS-2026-11-08-PR8-R1): "They do not change the decision" contradicted severity precedence.
+        text=' '.join((ROOT/'references/records.md').read_text(encoding='utf-8').split())
+        self.assertNotIn('so they stay in view. They do not change the decision.',text)
+        self.assertIn('Severity precedence still applies',text)
+        self.assertIn('or for a HIGH finding its recorded user acceptance',text)
+    def test_watson_required_repair_test_defers_to_records(self):
+        # F-3a (case BS-2026-11-08-PR8-R1): the contract-only test excluded condition (b).
+        text=' '.join((ROOT/'roles/watson.md').read_text(encoding='utf-8').split())
+        self.assertNotIn('Required repairs need contracts or acceptance criteria',text)
+        self.assertIn('Required repairs need an adverse consequence that meets the rule in records',text)
+    def test_batched_follow_ups_key_on_finding_disposition(self):
+        # M-F-2 (case BS-2026-11-08-PR8-R2): keyed on repair scope, a REQUIRED_REPAIR finding with a
+        # FOLLOW_UP-scope repair could be read as not changing the decision.
+        text=' '.join((ROOT/'references/records.md').read_text(encoding='utf-8').split())
+        self.assertNotIn('list FOLLOW_UP-scope repairs under a "Batched follow-ups" heading',text)
+        self.assertIn('list the repairs of FOLLOW_UP findings under a "Batched follow-ups" heading',text)
+        self.assertIn('A batched follow-up whose finding is not CRITICAL or HIGH does not change the decision.',text)
+    def test_output_contract_states_informational_rule(self):
+        # M-F-3 (case BS-2026-11-08-PR8-R2): a response could fail a grader rule the contract never stated.
+        self.assertIn('An INFORMATIONAL finding cannot be REQUIRED_REPAIR.',' '.join(evalmod.CONTRACT.split()))
     def test_none_basis_combination(self):
         r=self.good();r['claims'][0]['basis']=['NONE','SOURCE'];self.bad(r)
     def test_malformed_values(self):

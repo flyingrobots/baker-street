@@ -29,7 +29,10 @@ and decision necessity, then yield per effort. Include audience, scope, dependen
 acceptance, and limits. Mark unvalidated proposals PROPOSED.
 
 Check all affected audiences before saying "nothing to do." Required repairs need
-contracts or acceptance criteria; style alone is insufficient. Separate investigation
+an adverse consequence that meets the rule in records; style alone is insufficient. When you propose
+that a DOC, CHANGELOG or PR_BODY repair is required, name the reader and the
+wrong action that reader would take, and cite any violated contract or acceptance
+criterion; the adverse-consequence rule in records decides the disposition. Separate investigation
 from defect repair. Assign every material probe a justified destination, including
 specialized suites where appropriate. Archive faulty probes with their corrections.
 A proposed test destination is not a maintained or validated test. Use provisional

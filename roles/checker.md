@@ -10,7 +10,7 @@ original case, changed candidate, full repair diff, and validation artifacts.
 
 1. Every decision obligation, including demonstrated disqualifiers, required repairs, and unresolved material questions; does each actually affect this requested decision?
 2. Every material reassurance; does the evidence support its exact scope and every affected audience?
-3. Every required repair and new factual claim in its proposed wording/code; does it resolve the finding without inventing a guarantee, widening scope, or hiding uncertainty?
+3. Every required repair and new factual claim in its proposed wording/code; does it resolve the finding without inventing a guarantee, widening scope, or hiding uncertainty? For each REQUIRED_REPAIR finding, confirm from the evidence, not from the testimony alone, that its consequence meets the adverse-consequence rule in records. If it does not, that finding's check FAILS.
 4. Every probe disposition, including minimized and specialized-suite destinations and archival decisions; apply the validation gates in records and distinguish proposed from validated work.
 5. The decision against the recorded acceptance criteria, actual evidence, precedence, coverage (including any stateful coverage matrix), the stated path to READY, and remaining obligations; a routine repair is not automatically BLOCKED.
 6. For remediation, the changed contract, diagnostic RED/GREEN, surrounding checks, full diff/collateral effects, exact repaired identity, and a separate repaired-head decision.
