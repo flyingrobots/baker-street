@@ -2,6 +2,19 @@
 
 **Code review with an evidence trail and a checked path to repair.**
 
+> *From the notebooks of John H. Watson, M.D.*
+>
+> The gentleman who climbed our stair that evening carried a thick bundle of
+> papers, and he laid it before Holmes with the air of a man surrendering a
+> burden. "I want only your opinion, Mr. Holmes. Is it sound, or is it not?"
+>
+> Holmes did not touch the bundle. "You do not want my opinion, sir. An opinion
+> you might have had from the porter, and very nearly as cheaply. You want a
+> record: what was examined, upon what evidence each conclusion rests, what must
+> be mended, and what I did not look at. You want something a stranger could
+> take up a twelvemonth hence and check, line by line, without once taking my
+> word for anything." He drew the lamp nearer. "That is what we provide here."
+
 Baker Street is an agent skill that turns a review request into a **case file**:
 a decision, the evidence supporting it, the changes required, and the limits of
 what was checked. Give it a PR, source file, specification, or disputed claim.
@@ -11,6 +24,11 @@ or establish that a fix addresses the original failure.
 [Install the skill](docs/INSTALL.md) · [Browse a complete case](evals/results/workflow-2026-11-01/README.md)
 
 ## What you get
+
+> I have seen Holmes's case files run to a single sheet and to a stout volume.
+> But I never saw one that did not begin with its verdict. "The reader is a
+> busy man, Watson," he once told me. "Give him the conclusion at once. Then
+> give him the means to doubt it."
 
 The main deliverable is `CASE_FILE.md`. Here is a condensed example from our
 [recorded synthetic investigation](evals/results/workflow-2026-11-01/CASE_FILE.md):
@@ -40,9 +58,14 @@ When you authorize implementation, the repair gets its own validation, commit, a
 verdict. In this example, both new regressions failed on the original code and
 all seven tests passed on the fix. The [repaired case](evals/results/workflow-2026-11-01/REMEDIATION.md)
 received a scoped READY verdict; the original CHANGES_REQUIRED record remains.
-The exercise's independent human review is still pending.
+The exercise's independent human review is pending and has no assigned reviewer.
 
 ## How it differs from a normal code review
+
+> "There is nothing novel in our methods," Holmes remarked, filling his pipe from
+> the toe of the Persian slipper. "Every careful investigator does these things
+> when he remembers to. The difference is that here we are not permitted to
+> forget."
 
 Careful reviewers may already use these practices. Baker Street makes them
 explicit parts of an agent review:
@@ -67,7 +90,16 @@ triage for a small source question. We have not established that Baker Street
 finds more bugs or runs faster than a conventional review. “Turbo” is the edition
 name, not a benchmark result.
 
+> I asked Holmes once whether the name did not promise rather more than he could
+> prove. "It promises nothing at all, Watson," said he. "It is a name. Had I
+> called the agency the Swiftest in London, you might fairly hold me to it."
+
 ## Pick the inquiry you need
+
+> "One does not summon the whole of Scotland Yard to find a mislaid umbrella,"
+> Holmes said. "Nor does one send a single constable to a bank in Threadneedle
+> Street because its broken lock is a small one. Fit the force to the danger,
+> Watson. The size of the parcel tells you nothing."
 
 | Tier | Suitable task | What happens |
 | --- | --- | --- |
@@ -80,6 +112,13 @@ low-risk because it fits on a postcard. A quick-read request limits what the
 agency can conclude; it does not grant a shortcut to a broad release assurance.
 
 ## Who does what?
+
+> Our household at that time was a small one, though crowded with opinion.
+> Holmes weighed the evidence. I was set to read the papers as an ordinary man
+> would read them, and to say plainly where I lost my way. And our old adversary,
+> or someone very like him, was engaged to try every means of breaking the thing
+> we were asked to trust. Behind us all sat a quiet clerk whose only duty was to
+> doubt our conclusions before any client saw them.
 
 | Role | Question | Boundary |
 | --- | --- | --- |
@@ -96,6 +135,11 @@ achieved. When separate agents are unavailable, the passes are explicitly
 sequential. Nobody earns an independence badge by changing hats.
 
 ## Use it
+
+> The agency keeps no premises of its own. It lodges wherever it is received.
+> Its host provides the lamp, the table, the writing paper and the locked
+> cupboard. The agency brings only its methods, and it must say plainly which of
+> these comforts it was in fact given.
 
 Start with [installation instructions](docs/INSTALL.md), the
 [v3.1.0 skill package](https://github.com/flyingrobots/baker-street/releases/tag/v3.1.0),
@@ -135,6 +179,12 @@ The host supplies tools, execution boundaries, and storage.
 
 ## Decisions with distinct meanings
 
+> Holmes permitted the agency four verdicts, and he would hear of no fifth.
+> "Not 'promising', Watson. Not 'very nearly sound', and above all not marks out
+> of ten, as though we were judging the vegetable marrows at a parish show. Each
+> verdict tells the client exactly what he must do next. A verdict that does not
+> do so is mere decoration."
+
 | Decision | Meaning |
 | --- | --- |
 | READY | No unresolved acceptance obligation within the examined scope |
@@ -153,6 +203,13 @@ are different facts. An unsuccessful attack does not certify the target.
 
 ## Repairs and durable tests
 
+> When the Agency's advice had been taken and the window latch replaced, Holmes
+> would not hear of altering a single word of the earlier report. "It was true
+> when it was written, and the new latch does not make it false. Write a fresh
+> account of the fresh latch, Watson, and put the two side by side. And before
+> you swear the new one holds, show me that the old one would have failed the
+> same trial."
+
 Useful probes have four possible destinations: PROMOTE, MINIMIZE_THEN_PROMOTE,
 RETAIN_IN_SPECIALIZED_SUITE, and ARCHIVE. All receive a check. Maintained tests
 need a contract-derived oracle, controlled state, diagnostic failure evidence,
@@ -170,6 +227,11 @@ integration are separate events.
 
 ## Optional actions
 
+> No client's instruction, however eager, empowers the agency to burn a letter,
+> to force a lock that is not ours, or to rewrite another man's ledger. We may
+> carry a sealed report to the door we are directed to. We may mend what we are
+> asked to mend. Beyond that we do not go.
+
 | Request | What it authorizes |
 | --- | --- |
 | --case-branch | Prepare and commit a separate local case branch |
@@ -184,6 +246,12 @@ already given. These flags do not authorize merge, force-push, unrelated deletio
 or rewriting the subject branch. The original checkout remains intact.
 
 ## Complete investigator packets
+
+> Each of us received his instructions in a sealed envelope. It contained the
+> whole of the rules, his own particular charge, and the particulars of the case.
+> It did not contain Holmes's private suspicions, nor what any of the others had
+> said. "A witness who has heard the other witnesses," Holmes observed, "is no
+> longer a witness. He is a chorus."
 
 V3 separates the front office, shared rules, record definitions, action charter,
 and four role briefs. The packet builder assembles the rules, complete schemas,
@@ -203,6 +271,13 @@ access control, blindness, sandboxing, or authorization. Verify those separately
 Without Python, assemble the same packet manually.
 
 ## Test the Agency
+
+> It was Holmes's practice, every so often, to set a false trail for his own
+> agents and see who followed it. The trail might be a forged receipt, a
+> confident falsehood, or a fault so well hidden that only the closest reading
+> would find it. He kept the answers locked in his desk, where no agent could
+> look before he had given his account. "A method that has never been tried
+> against a trap," said he, "is only a habit with a good opinion of itself."
 
 Python 3.10+; standard library only. No model API is built into the harness.
 Run these commands from the repository root:
@@ -236,28 +311,48 @@ and [editor's notes](docs/EDITOR-NOTES.md). The historical validation report
 distinguishes harness tests, fresh-context tasks, author review, limitations,
 and observed failures. The [November 2026 follow-up](docs/VALIDATION-WORKFLOW.md)
 adds CI, release verification, and a complete synthetic investigation with
-repair evidence; its independent human review is pending.
+repair evidence. Its independent human review is pending and has no assigned
+reviewer; an author of Baker Street cannot perform it.
+
+> The difficulty, as Holmes freely admitted, was that he had laid every one of
+> those traps himself. "I know where each of them lies, Watson, and so, I fear,
+> do my agents, after a fashion. What we want is a stranger's trap, and a
+> stranger to judge us by it." He has been looking for such a stranger ever since.
+
+## In preparation
+
+> A correspondent from the provinces, who had employed the agency upon real
+> affairs, wrote to tell us where our methods had cost him dear. Holmes read the
+> letter twice, the second time with evident pleasure.
+
+The planned work from that field report is tracked in
+[flyingrobots/baker-street#6](https://github.com/flyingrobots/baker-street/issues/6):
+a round budget with referral to the user, a consequence floor for required repairs,
+delta reviews for follow-up cases, a findings ledger, and named mutants run in a
+scratch copy. None of it is in the current release.
 
 ## Repository contents and history
 
 | Path | Contents |
 | --- | --- |
 | `SKILL.md`, `references/`, `roles/` | V3 protocol, shared records, action charter, and investigator briefs |
-| `scripts/`, `agents/`, `assets/` | Packet builder, host metadata, and artwork |
-| `tests/` | Harness and packet-builder tests |
+| `scripts/`, `agents/`, `assets/` | Packet builder, release builder, host metadata, and artwork |
+| `tests/` | Harness, packet-builder, and release tests |
 | `examples/triage/` | Minimal source-only worked example and packet header |
 | `evals/fixtures/`, `evals/catalog.json`, `evals/run.py` | 27 documentary cases and their preparation/grading tools |
 | `evals/recorded-smoke/` | Preserved V1 and V2 trial records |
 | `evals/results/v3/` | Preserved V3 responses, failures, reruns, digests, and test transcript |
 | `evals/results/workflow-2026-11-01/` | Complete synthetic investigation, raw probes, checked repair, Git history bundle, and pending human review |
 | `docs/` | Evaluation protocol, editor's notes, validation reports, and import provenance |
-| `baker-street-v3-repository.patch` | Original companion package, retained unchanged |
 
 All supplied development and evaluation records are retained, including observed
-failures. The supplied package contained no Git repository or earlier commits;
-it cannot reconstruct the original development commit history or missing draft
-skill versions. See [the import record](docs/IMPORT.md) for exact preservation
-boundaries and the supplied icon's digest discrepancy.
+failures. The original companion patch and the separately supplied validation
+report were removed from the root in commit `b75b5dd`. [The import record](docs/IMPORT.md)
+keeps the patch's digest and notes that the report is byte-identical to
+`docs/VALIDATION.md`, which remains. The supplied package contained no Git
+repository or earlier commits; it cannot reconstruct the original development
+commit history or missing draft skill versions. The import record also gives the
+exact preservation boundaries and the supplied icon's digest discrepancy.
 
 ## Provenance and contribution
 
@@ -271,6 +366,11 @@ for a quieter room.
 Contribute small artifacts with checkable contracts, clean controls, and explicit
 limits. Measure missed defects, false findings, evidence inflation, repair quality,
 decision quality, and cost separately. Preserve false alarms as useful evidence.
+
+> "Bring me your small puzzles," Holmes said, as the last of the evening's
+> visitors went down the stair. "Bring them with the answer sealed, so that I
+> cannot see it. And when I am wrong, Watson, write it down in ink. A detective
+> who keeps only his successes is keeping a scrapbook, not a record."
 
 ## License
 
