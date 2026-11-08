@@ -60,6 +60,13 @@ requested decision needs unavailable evidence, use INVESTIGATION_REQUIRED.
 Upgrade when new risk demands it and budget permits; otherwise record the open
 obligation. Do not expand scope silently.
 
+For repeated cases on one subject, record the review series fields in the header
+(see records). Before a round above the round budget (default 2), read the prior
+case. If a CRITICAL or HIGH finding is still open, do not commission another
+review: issue a Referral from records to the user instead. A Referral is not a
+decision. Continue past the budget only when no such finding is open or the user
+explicitly authorizes another round; record which.
+
 Budget reading, probes, synthesis, and decision checking; reserve time for the
 last two. Stop when the scoped decision is supported or the budget is exhausted.
 Report uncovered material questions instead of manufacturing closure. Split large

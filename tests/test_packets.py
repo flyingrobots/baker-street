@@ -74,6 +74,53 @@ class PacketTests(unittest.TestCase):
         h = self.header(); h['plain'] = 'false'
         with self.assertRaises(ValueError): self.module.build('holmes', h)
 
+    def series(self, round_number=2, **overrides):
+        h = self.header()
+        h.update(review_series='github:flyingrobots/baker-street/pull/12', round=round_number,
+                 prior_case=({'case_id': 'CASE-1', 'reviewed_head': 'a' * 40}
+                             if round_number != 1 else 'NONE'))
+        h.update(overrides)
+        return h
+
+    def test_valid_series_fields_are_accepted_and_preserved(self):
+        sha256_head = {'case_id': 'CASE-1', 'reviewed_head': 'b' * 64}
+        for h in (self.series(1), self.series(2), self.series(2, round_budget=3),
+                  self.series(2, round_budget=2), self.series(2, prior_case=sha256_head)):
+            with self.subTest(header=h):
+                packet = self.module.build('holmes', h)
+                assigned = packet.split('## Assigned case header\n\n```json\n', 1)[1].split('\n```', 1)[0]
+                self.assertEqual(json.loads(assigned), json.loads(json.dumps(h)))
+
+    def test_header_without_series_fields_is_unchanged(self):
+        h = self.header()
+        self.assertEqual(self.module.build('holmes', h), self.module.build('holmes', dict(h)))
+        assigned = self.module.build('holmes', h).split('## Assigned case header', 1)[1]
+        self.assertNotIn('review_series', assigned)
+
+    def test_invalid_series_fields_are_rejected(self):
+        cases = {
+            'round zero': self.series(0),
+            'round string': self.series('2'),
+            'round boolean': self.series(True),
+            'round 2 without prior case': self.series(2, prior_case='NONE'),
+            'round 1 with prior case': self.series(1, prior_case={'case_id': 'CASE-1', 'reviewed_head': 'a' * 40}),
+            'prior case missing head': self.series(2, prior_case={'case_id': 'CASE-1'}),
+            'prior case empty id': self.series(2, prior_case={'case_id': '', 'reviewed_head': 'a' * 40}),
+            'prior head short': self.series(2, prior_case={'case_id': 'CASE-1', 'reviewed_head': 'a' * 12}),
+            'prior head not hex': self.series(2, prior_case={'case_id': 'CASE-1', 'reviewed_head': 'x'}),
+            'prior head uppercase': self.series(2, prior_case={'case_id': 'CASE-1', 'reviewed_head': 'A' * 40}),
+            'empty series': self.series(2, review_series=''),
+            'budget zero': self.series(2, round_budget=0),
+            'budget boolean': self.series(2, round_budget=True),
+            'budget without series': dict(self.header(), round_budget=2),
+        }
+        for key in ('review_series', 'round', 'prior_case'):
+            partial = self.series(2); del partial[key]
+            cases[f'missing {key}'] = partial
+        for name, h in cases.items():
+            with self.subTest(name), self.assertRaises(ValueError):
+                self.module.build('holmes', h)
+
     def test_charter_is_included_when_requested(self):
         self.assertIn((SKILL/'references/charter.md').read_text(),
                       self.module.build('watson', self.header(), include_charter=True))
