@@ -162,7 +162,6 @@ class HarnessTests(unittest.TestCase):
         # F-2 (case BS-2026-11-08-PR8-R1): "They do not change the decision" contradicted severity precedence.
         text=' '.join((ROOT/'references/records.md').read_text(encoding='utf-8').split())
         self.assertNotIn('so they stay in view. They do not change the decision.',text)
-        self.assertIn('A follow-up whose finding is not CRITICAL or HIGH does not change the decision.',text)
         self.assertIn('Severity precedence still applies',text)
         self.assertIn('or for a HIGH finding its recorded user acceptance',text)
     def test_watson_required_repair_test_defers_to_records(self):
@@ -170,6 +169,13 @@ class HarnessTests(unittest.TestCase):
         text=' '.join((ROOT/'roles/watson.md').read_text(encoding='utf-8').split())
         self.assertNotIn('Required repairs need contracts or acceptance criteria',text)
         self.assertIn('Required repairs need an adverse consequence that meets the rule in records',text)
+    def test_batched_follow_ups_key_on_finding_disposition(self):
+        # M-F-2 (case BS-2026-11-08-PR8-R2): keyed on repair scope, a REQUIRED_REPAIR finding with a
+        # FOLLOW_UP-scope repair could be read as not changing the decision.
+        text=' '.join((ROOT/'references/records.md').read_text(encoding='utf-8').split())
+        self.assertNotIn('list FOLLOW_UP-scope repairs under a "Batched follow-ups" heading',text)
+        self.assertIn('list the repairs of FOLLOW_UP findings under a "Batched follow-ups" heading',text)
+        self.assertIn('A batched follow-up whose finding is not CRITICAL or HIGH does not change the decision.',text)
     def test_none_basis_combination(self):
         r=self.good();r['claims'][0]['basis']=['NONE','SOURCE'];self.bad(r)
     def test_malformed_values(self):
