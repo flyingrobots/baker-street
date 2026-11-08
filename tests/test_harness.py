@@ -138,6 +138,14 @@ class HarnessTests(unittest.TestCase):
         self.assertIn('A CONFIRMED finding that fails this rule is FOLLOW_UP',rule)
         self.assertIn('WITHDRAWN is ACCEPTED',rule)
         self.assertIn('INVESTIGATE',rule)
+    def test_watson_lets_a_violated_criterion_justify_a_required_repair(self):
+        # Condition (a) alone suffices in records; Watson must not demote such a repair.
+        text=' '.join((ROOT/'roles/watson.md').read_text(encoding='utf-8').split())
+        start=text.index('When you propose that a DOC, CHANGELOG or PR_BODY repair is required')
+        sentence=text[start:text.index('Separate investigation',start)]
+        self.assertNotIn('otherwise it is a batched FOLLOW_UP',sentence)
+        self.assertIn('acceptance criterion',sentence)
+        self.assertIn('adverse-consequence rule in records',sentence)
     def test_none_basis_combination(self):
         r=self.good();r['claims'][0]['basis']=['NONE','SOURCE'];self.bad(r)
     def test_malformed_values(self):
