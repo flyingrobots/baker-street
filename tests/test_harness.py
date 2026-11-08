@@ -128,6 +128,16 @@ class HarnessTests(unittest.TestCase):
         self.assertTrue(any('withdrawn' in e for e in self.finding_errors('case-21',r)))
         f['disposition']='ACCEPTED'
         self.assertEqual(self.finding_errors('case-21',r),[])
+    def adverse_consequence_rule(self):
+        text=(ROOT/'references/records.md').read_text(encoding='utf-8')
+        start=text.index('Adverse consequence:')
+        return ' '.join(text[start:text.index('\n\n',start)].split())
+    def test_follow_up_fallback_keeps_unconfirmed_dispositions(self):
+        # The grader requires WITHDRAWN to be ACCEPTED; the rule must not send it to FOLLOW_UP.
+        rule=self.adverse_consequence_rule()
+        self.assertIn('A CONFIRMED finding that fails this rule is FOLLOW_UP',rule)
+        self.assertIn('WITHDRAWN is ACCEPTED',rule)
+        self.assertIn('INVESTIGATE',rule)
     def test_none_basis_combination(self):
         r=self.good();r['claims'][0]['basis']=['NONE','SOURCE'];self.bad(r)
     def test_malformed_values(self):
