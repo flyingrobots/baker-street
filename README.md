@@ -111,6 +111,10 @@ Risk overrides diff size. A two-line authentication change does not become
 low-risk because it fits on a postcard. A quick-read request limits what the
 agency can conclude; it does not grant a shortcut to a broad release assurance.
 
+Repeated cases on one PR have a round budget, two by default. When a CRITICAL or
+HIGH finding is still open after the budget, the agency sends you a Referral
+instead of reviewing again.
+
 ## Who does what?
 
 > Our household at that time was a small one, though crowded with opinion.
