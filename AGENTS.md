@@ -15,3 +15,19 @@ This rule also applies to fixes that are not code:
 - **A fix to a test:** show the gap with a deliberate mutation of the code under test. The mutant must pass the old test and fail the new one, and the real code must pass the new one.
 
 If a finding is not valid, reply with the evidence and make no change. Do not batch several findings into one commit. Do not skip the RED step because a fix looks obvious.
+
+## Review every pull request with Baker Street before merge
+
+Before you merge a pull request, review it with Baker Street, the skill in this repository:
+
+1. Run Baker Street on the pull request at its current head. Choose the smallest tier that fits the risk.
+2. Post the case report to the GitHub thread of the linked issue. If no issue is linked, post it on the pull request.
+3. Follow the case. Carry out each required repair under the RED→GREEN rule above. Then review the repaired head again with Baker Street. A case is valid only for the head it reviewed.
+
+Merge only when all of these are true at the same head:
+
+- **Baker Street passes:** the latest case for that head has the decision `READY`.
+- **Clean:** no review thread is unresolved, and no reviewer still has changes requested or a review in progress, whether a person or a bot.
+- **Green:** every required CI check passes.
+
+If any condition fails, do not merge. Report which condition failed.
