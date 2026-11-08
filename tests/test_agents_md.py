@@ -18,7 +18,7 @@ class AgentsMdTests(unittest.TestCase):
         # main has no branch protection and no required status checks, so "required" is vacuous.
         text=agents_text()
         self.assertNotIn('every required CI check passes',text)
-        self.assertIn('every CI check on that head has completed and passed; none is failing or pending.',text)
+        self.assertIn('every CI check on that head has completed, and none has failed or is still pending. A check that was skipped or finished neutral is not a failure.',text)
 
     def test_ready_gate_cannot_be_reached_by_rerunning_reviews(self):
         # records.md: "Do not repeat reviews to reach a target decision."
