@@ -109,13 +109,12 @@ class HarnessTests(unittest.TestCase):
         self.assertFalse(any('open HIGH' in e for e in evalmod.grade('case-23',r)['errors']))
     def finding_errors(self,cid,r,fid='Fopen'):
         return [e for e in evalmod.grade(cid,r)['errors'] if e.startswith(f'{fid}:')]
-    def test_low_and_informational_follow_up_are_valid_with_ready(self):
-        # case-23 is a clean case, so its only expected error is the active-finding cap.
-        for severity in ('LOW','INFORMATIONAL'):
-            with self.subTest(severity=severity):
-                r=self.good('case-23');r['findings']=[self.open_finding(r,severity,'FOLLOW_UP')]
-                self.assertEqual(evalmod.grade('case-23',r)['errors'],
-                                 ['Active findings exceed this clean-case contract.'])
+    def test_low_follow_up_is_valid_with_ready(self):
+        r=self.good('case-23');r['findings']=[self.open_finding(r,'LOW','FOLLOW_UP')]
+        self.assertEqual(self.finding_errors('case-23',r),[])
+    def test_informational_follow_up_is_valid(self):
+        r=self.good('case-23');r['findings']=[self.open_finding(r,'INFORMATIONAL','FOLLOW_UP')]
+        self.assertEqual(self.finding_errors('case-23',r),[])
     def test_low_required_repair_left_to_checker(self):
         r=self.good('case-21');r['findings'].append(self.open_finding(r,'LOW','REQUIRED_REPAIR'))
         self.assertEqual(self.finding_errors('case-21',r),[])

@@ -101,10 +101,8 @@ Adverse consequence: a finding can be REQUIRED_REPAIR only when its status is
 CONFIRMED and its impact chain names at least one of (a) a violation of a
 recorded contract or acceptance criterion, or (b) a named audience that would
 take a wrong action because of it. An INFORMATIONAL finding has no identified
-adverse consequence, so it cannot be REQUIRED_REPAIR. A CONFIRMED finding that
-fails this rule is FOLLOW_UP, and its repairs have scope FOLLOW_UP. Unconfirmed
-findings keep their existing dispositions: HYPOTHESIS or CONTESTED may need
-INVESTIGATE; WITHDRAWN is ACCEPTED with no active repair. This rule applies to
+adverse consequence, so it cannot be REQUIRED_REPAIR. A finding that fails this
+rule is FOLLOW_UP, and its repairs have scope FOLLOW_UP. This rule applies to
 every finding type, not to prose alone.
 
 ## Attempts
