@@ -55,4 +55,8 @@ class AgentsMdTests(unittest.TestCase):
         # records.md: ACCEPTED needs explicit user acceptance; WITHDRAWN retains no obligation.
         self.assertIn('This applies to every valid finding, including follow-ups, except a finding the user has explicitly accepted (ACCEPTED) or that was withdrawn (WITHDRAWN). For each one:',agents_text())
 
+    def test_posted_case_is_redacted(self):
+        # core.md: redact secrets and record redactions; charter: never expose private artifacts.
+        self.assertIn('Redact secrets and private material first. Put the full case file in a collapsed section.',agents_text())
+
 if __name__=='__main__': unittest.main()
