@@ -20,3 +20,9 @@ class FollowupRuleTests(unittest.TestCase):
         self.assertIn('The round budget with referral to the user and the consequence floor for required repairs are implemented on main.', section)
         self.assertIn('Still planned:', section)
         self.assertNotIn('None of it is in the current release.', section)
+
+    def test_consequence_fallback_allows_explicit_acceptance(self):
+        rule = words('references/records.md').split('Adverse consequence:', 1)[1].split('## Attempts', 1)[0]
+        self.assertIn('A CONFIRMED finding that fails this rule is FOLLOW_UP by default', rule)
+        self.assertIn('it may instead be ACCEPTED with an explicit basis', rule)
+        self.assertIn('A user acceptance required by repository rules or severity precedence must still come from the user.', rule)

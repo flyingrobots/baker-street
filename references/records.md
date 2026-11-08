@@ -116,7 +116,10 @@ a wrong action because of it, or (c) a loss of integrity, security,
 compatibility or essential intended use. A CONFIRMED CRITICAL or HIGH finding
 whose impact chain supports its severity meets (c). An INFORMATIONAL finding has
 no identified adverse consequence, so it cannot be REQUIRED_REPAIR. A CONFIRMED
-finding that fails this rule is FOLLOW_UP, and its repairs have scope FOLLOW_UP.
+finding that fails this rule is FOLLOW_UP by default, and any proposed repairs
+have scope FOLLOW_UP; it may instead be ACCEPTED with an explicit basis.
+A user acceptance required by repository rules or severity precedence must still
+come from the user.
 The exception is a finding of UNKNOWN severity whose consequence bears on the
 requested decision: it is INVESTIGATE until that consequence is assessed.
 Unconfirmed findings keep their existing dispositions: HYPOTHESIS or CONTESTED
