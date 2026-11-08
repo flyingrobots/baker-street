@@ -75,4 +75,8 @@ class AgentsMdTests(unittest.TestCase):
         # SKILL.md: valid only for the recorded artifacts; reassess affected claims when these change.
         self.assertIn('A case is valid only for the artifacts it reviewed: the head, the pull-request body and the base. When one of them changes, reassess the affected claims in a new case before merge.',agents_text())
 
+    def test_baker_street_gate_requires_latest_case_ready(self):
+        # CodeRabbit 4507405353: no test pinned the READY requirement itself.
+        self.assertIn('- **Baker Street passes:** the latest case for that head has the decision `READY`,',agents_text())
+
 if __name__=='__main__': unittest.main()
