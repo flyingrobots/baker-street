@@ -1,6 +1,8 @@
 # Independent human review — pending
 
-Reviewer: James Ross (nominated by the user). Status: PENDING.
+Reviewer: unassigned. Status: PENDING.
+James Ross originally volunteered, then withdrew: the original author of Baker
+Street cannot provide this independent review.
 This form must be completed by the human reviewer, not by an agent speaking for them.
 The coordinator authored the fixture and repair; the human review is separate
 from that work and from the agents' decision checks. A pending form is not a pass.

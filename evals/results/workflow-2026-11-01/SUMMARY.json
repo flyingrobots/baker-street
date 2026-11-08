@@ -44,7 +44,7 @@
       "additional_overlapping_demonstrations": 6
     }
   },
-  "human_reviewer": "James Ross volunteered in user conversation; assessment pending",
+  "human_reviewer": "Unassigned; James Ross volunteered, then withdrew as the original author of Baker Street; assessment pending",
   "limits": [
     "Coordinator authored fixture and repair and knew the seed.",
     "Separate agent contexts share a model family and host; no statistical independence claim.",

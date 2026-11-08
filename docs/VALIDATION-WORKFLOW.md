@@ -2,8 +2,8 @@
 
 The CI and installable-release work is complete. One bounded investigation and
 repair workflow has been executed and preserved. **Independent human review is
-PENDING**; James Ross volunteered to perform it. Agent checks do not satisfy
-that gate. The [review entry point](../evals/results/workflow-2026-11-01/README.md)
+PENDING** with no reviewer assigned; the reviewer must not be an author of Baker
+Street or this exercise. Agent checks do not satisfy that gate. The [review entry point](../evals/results/workflow-2026-11-01/README.md)
 links the small source, contract, diff, logs, verdicts, and human response form.
 
 This report supplements [the historical V3 report](VALIDATION.md); it does not
