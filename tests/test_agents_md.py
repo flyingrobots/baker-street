@@ -24,7 +24,6 @@ class AgentsMdTests(unittest.TestCase):
         # records.md: "Do not repeat reviews to reach a target decision."
         text=agents_text()
         self.assertIn('no earlier case on that head left a required repair or investigation unresolved',text)
-        self.assertIn('Do not run another review on an unchanged head to change its decision.',text)
 
     def test_posted_report_is_a_concise_summary_without_private_evidence(self):
         # SKILL.md: "A concise public summary links the full case"; charter: never expose private artifacts.
@@ -41,5 +40,11 @@ class AgentsMdTests(unittest.TestCase):
     def test_review_uses_the_rules_on_main(self):
         text=agents_text()
         self.assertIn("Review with the rules on `main`. When the pull request changes Baker Street's own rules, those changes are the target of the review, not its authority.",text)
+
+    def test_same_head_review_allowed_for_off_head_repairs_and_investigations(self):
+        # records.md: completing repairs and investigation obligations is the path to READY.
+        text=agents_text()
+        self.assertNotIn('Do not run another review on an unchanged head to change its decision.',text)
+        self.assertIn('A new case on an unchanged head is allowed only to review a repair that does not change the head, such as a pull-request body fix, or to complete a named investigation. Do not otherwise run another review to change a decision.',text)
 
 if __name__=='__main__': unittest.main()
