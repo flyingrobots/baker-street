@@ -34,7 +34,7 @@ class AgentsMdTests(unittest.TestCase):
         text=agents_text()
         self.assertIn('**Rule text in `SKILL.md`, `references/` or `roles/`:**',text)
         self.assertIn('**A pull-request body or changelog:**',text)
-        self.assertIn('This applies to every valid finding, including follow-ups.',text)
+        self.assertIn('This applies to every valid finding, including follow-ups',text)
 
     def test_review_uses_the_rules_on_main(self):
         text=agents_text()
@@ -50,5 +50,9 @@ class AgentsMdTests(unittest.TestCase):
         # A gate over "every check" is vacuous before any check runs; cancelled and timed out must count.
         text=agents_text()
         self.assertIn('every CI check on that head has completed. The `test` jobs from the CI workflow must have reported success, and every other check must have finished as success, skipped or neutral. Any other result, including cancelled or timed out, counts as failing. No checks at all is not green.',text)
+
+    def test_accepted_and_withdrawn_findings_are_exempt(self):
+        # records.md: ACCEPTED needs explicit user acceptance; WITHDRAWN retains no obligation.
+        self.assertIn('This applies to every valid finding, including follow-ups, except a finding the user has explicitly accepted (ACCEPTED) or that was withdrawn (WITHDRAWN). For each one:',agents_text())
 
 if __name__=='__main__': unittest.main()

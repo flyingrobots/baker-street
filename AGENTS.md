@@ -2,7 +2,7 @@
 
 ## Fix review findings with RED→GREEN
 
-Fix every issue raised in a pull-request review, whether by a person or a bot, with its own RED→GREEN evidence. This applies to every valid finding, including follow-ups. For each one:
+Fix every issue raised in a pull-request review, whether by a person or a bot, with its own RED→GREEN evidence. This applies to every valid finding, including follow-ups, except a finding the user has explicitly accepted (ACCEPTED) or that was withdrawn (WITHDRAWN). For each one:
 
 1. Write the test first. Run `make test` and record that it fails for the reason the finding names.
 2. Make the smallest fix that resolves that finding.
