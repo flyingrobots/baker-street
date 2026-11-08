@@ -20,4 +20,10 @@ class AgentsMdTests(unittest.TestCase):
         self.assertNotIn('every required CI check passes',text)
         self.assertIn('every CI check on that head has completed and passed; none is failing or pending.',text)
 
+    def test_ready_gate_cannot_be_reached_by_rerunning_reviews(self):
+        # records.md: "Do not repeat reviews to reach a target decision."
+        text=agents_text()
+        self.assertIn('no earlier case on that head left a required repair or investigation unresolved',text)
+        self.assertIn('Do not run another review on an unchanged head to change its decision.',text)
+
 if __name__=='__main__': unittest.main()

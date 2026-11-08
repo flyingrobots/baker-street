@@ -26,7 +26,7 @@ Before you merge a pull request, review it with Baker Street, the skill in this 
 
 Merge only when all of these are true at the same head:
 
-- **Baker Street passes:** the latest case for that head has the decision `READY`.
+- **Baker Street passes:** the latest case for that head has the decision `READY`, and no earlier case on that head left a required repair or investigation unresolved. Do not run another review on an unchanged head to change its decision.
 - **Clean:** no review thread is unresolved, and no reviewer still has changes requested or a review in progress, whether a person or a bot.
 - **Green:** every CI check on that head has completed and passed; none is failing or pending.
 
