@@ -73,7 +73,7 @@ class AgentsMdTests(unittest.TestCase):
 
     def test_case_validity_covers_head_body_and_base(self):
         # SKILL.md: valid only for the recorded artifacts; reassess affected claims when these change.
-        self.assertIn('A case is valid only for the artifacts it reviewed: the head, the pull-request body and the base. When one of them changes, reassess the affected claims in a new case before merge.',agents_text())
+        self.assertIn('When one of them changes, reassess the affected claims in a new case before merge.',agents_text())
 
     def test_baker_street_gate_requires_latest_case_ready(self):
         # CodeRabbit 4507405353: no test pinned the READY requirement itself.
@@ -82,5 +82,9 @@ class AgentsMdTests(unittest.TestCase):
     def test_clean_gate_requires_no_unresolved_reviews(self):
         # CodeRabbit 4507405357: no test pinned the thread and reviewer-state conditions.
         self.assertIn('- **Clean:** no review thread is unresolved, and no reviewer still has changes requested or a review in progress, whether a person or a bot.',agents_text())
+
+    def test_case_validity_follows_skill_md(self):
+        # SKILL.md: valid only for the recorded artifacts, environment, and examined scope.
+        self.assertIn('A case is valid only for the artifacts, environment and scope it recorded, including the head, the pull-request body and the base.',agents_text())
 
 if __name__=='__main__': unittest.main()
