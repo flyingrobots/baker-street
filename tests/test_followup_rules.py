@@ -34,3 +34,9 @@ class FollowupRuleTests(unittest.TestCase):
             rule,
         )
         self.assertIn('A user acceptance required by repository rules or severity precedence must still come from the user.', rule)
+        decisions = words('references/records.md').split('## Decisions', 1)[1].split('## Referrals', 1)[0]
+        self.assertIn(
+            'The one exception is an ACCEPTED HIGH finding with a recorded, explicit user acceptance '
+            'and its basis; the decision statement names that finding and acceptance.',
+            decisions,
+        )
