@@ -67,4 +67,8 @@ class AgentsMdTests(unittest.TestCase):
         # Baker Street cases are comments, not review threads; criterion 2: no unresolved issues.
         self.assertIn('Every finding raised on the pull request, wherever it was posted (a review thread, a review body, a pull-request or issue comment, or a Baker Street case), has been fixed under the rule above, is ACCEPTED or WITHDRAWN, or was answered as not valid with evidence.',agents_text())
 
+    def test_untestable_fix_evidence_goes_where_the_finding_was_posted(self):
+        # A Baker Street finding has no review thread.
+        self.assertIn('Put both in the reply to the review thread, or in the thread where the finding was posted.',agents_text())
+
 if __name__=='__main__': unittest.main()
