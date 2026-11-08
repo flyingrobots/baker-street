@@ -13,6 +13,7 @@ REQUIRED = {
     "evidence_locations", "capabilities", "separation", "phase", "audience",
     "acceptance_criteria",
 }
+SERIES = ("review_series", "round", "prior_case")
 
 
 def validate(role, header):
@@ -33,6 +34,34 @@ def validate(role, header):
         raise ValueError("Checker requires an actual reviewer_basis")
     if header["tier"] == "triage" and role not in ("holmes", "checker"):
         raise ValueError("Triage commissions only Holmes and a decision check")
+    validate_series(header)
+
+
+def positive_int(value):
+    return type(value) is int and value >= 1
+
+
+def validate_series(header):
+    present = [k for k in SERIES if k in header]
+    if not present:
+        if "round_budget" in header:
+            raise ValueError("round_budget requires review_series, round, and prior_case")
+        return
+    if len(present) != len(SERIES):
+        raise ValueError("Series fields must appear together: " + ", ".join(SERIES))
+    if not isinstance(header["review_series"], str) or not header["review_series"]:
+        raise ValueError("review_series must be a nonempty string")
+    if not positive_int(header["round"]):
+        raise ValueError("round must be an integer of 1 or more")
+    if "round_budget" in header and not positive_int(header["round_budget"]):
+        raise ValueError("round_budget must be an integer of 1 or more")
+    prior = header["prior_case"]
+    if header["round"] == 1:
+        if prior != "NONE":
+            raise ValueError("Round 1 requires prior_case NONE")
+    elif not (isinstance(prior, dict) and all(
+            isinstance(prior.get(k), str) and prior.get(k) for k in ("case_id", "reviewed_head"))):
+        raise ValueError("A later round requires prior_case with case_id and reviewed_head")
 
 
 def build(role, header, include_charter=False, include_stateful_review=False):

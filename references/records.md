@@ -3,7 +3,8 @@
 Contents: [header](#case-header), [evidence](#evidence-manifest),
 [claims](#claims), [findings](#findings), [attempts](#attempts),
 [repairs](#repairs), [probes](#probe-dispositions), [checks](#decision-check),
-[decisions](#decisions), [corrections](#errata-and-remediation), [layouts](#layouts).
+[decisions](#decisions), [referrals](#referrals), [corrections](#errata-and-remediation),
+[layouts](#layouts).
 
 Use canonical enums below; prose may explain them. Global IDs are C-n, F-n,
 A-n, R-n, P-n, E-n. Before reconciliation use role-prefixed IDs such as H-C-1
@@ -26,6 +27,17 @@ separation, phase, audience, acceptance_criteria; tier is triage/focused/standar
 and plain is boolean. Structured fields may be arrays/objects. Explicit UNKNOWN,
 NONE, or N/A with a reason is preferable to omission. Checker packets also require
 reviewer_basis. The header contains facts and limits, not diagnoses or answers.
+
+Optional review series fields link repeated cases on one subject. Give
+review_series, round, and prior_case together, or omit all three:
+
+- review_series: a stable nonempty string naming the reviewed subject, such as
+  github:owner/repo/pull/12. Use one fixed form for every case on that subject.
+- round: an integer of 1 or more. Booleans are not integers.
+- prior_case: NONE when round is 1; otherwise an object with nonempty case_id
+  and reviewed_head (the full head that case reviewed).
+- round_budget: optional integer of 1 or more; default 2. It requires the other
+  three fields.
 
 ## Evidence manifest
 
@@ -189,6 +201,29 @@ so the case states the path to READY in one place. Judge each round against the
 recorded acceptance criteria and these rules, never relative to a prior round.
 Do not repeat reviews to reach a target decision. A decision does not replace the
 repository's own review or publishing authorization.
+
+Round budget: before a case opens with round above round_budget, read the prior
+case. If any CRITICAL or HIGH finding is open (not WITHDRAWN), commission no
+investigators and issue a Referral. If none is open, the round may continue; the
+case records that it exceeded the budget and why. An explicit user authorization
+for another round also permits it; record that authorization.
+
+## Referrals
+
+A Referral returns a stalled series to the user. It is not a decision: the prior
+case's decision stays current, and no decision value is added. Fields: series;
+case IDs of the rounds examined; each open CRITICAL or HIGH finding ID with the
+round where it first appeared; pattern; question for the user; what the Agency
+will do after each answer.
+
+| Pattern | Meaning | Question for the user |
+| --- | --- | --- |
+| PERSISTENT | One finding stayed open through two or more repairs | Accept it under the ACCEPTED HIGH rule, dispute it with evidence, or change the repair approach |
+| RECURRENT | Each round had a different CRITICAL or HIGH finding | Rescope or split the change |
+| MIXED | Both patterns occur | Ask both questions, per finding |
+
+A CRITICAL finding cannot be accepted into READY; for it, only dispute or a
+changed repair approach applies.
 
 ## Errata and remediation
 
