@@ -36,6 +36,7 @@ class ReleaseTests(unittest.TestCase):
                                  {f'baker-street/{p}' for p in release.SKILL_FILES} | {'baker-street/SHA256SUMS'})
                 self.assertIn('baker-street/scripts/build_packet.py', bundle.namelist())
                 self.assertIn('baker-street/roles/checker.md', bundle.namelist())
+                self.assertIn('baker-street/references/stateful-code-review.md', bundle.namelist())
                 for line in bundle.read('baker-street/SHA256SUMS').decode().splitlines():
                     digest, name = line.split('  ', 1)
                     self.assertEqual(digest, hashlib.sha256(bundle.read('baker-street/' + name)).hexdigest())

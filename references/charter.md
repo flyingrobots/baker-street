@@ -70,6 +70,8 @@ Freeze the original case. Have a fresh reviewer who did not author the repair
 apply the checker brief to the repaired candidate, changed contract, tests,
 surrounding results, collateral effects, and proposed remediation decision. If
 unavailable, disclose SEQUENTIAL_SELF_CHECK. Preserve material uncertainty.
+Before the repaired-head decision, apply the fresh blind code pass in SKILL.md
+section 5 when its condition holds.
 
 Write the remediation record in records, including exact original and repaired
 identities. Distinguish corrections to original analysis from new observations

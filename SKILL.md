@@ -25,6 +25,7 @@ publication flags and their necessary preparation.
 | [Watson](roles/watson.md) | Blind reader assessment, then informed repairs |
 | [Moriarty](roles/moriarty.md) | Falsification and probe validation |
 | [Checker](roles/checker.md) | Decision check and repaired-candidate review |
+| [Stateful code review](references/stateful-code-review.md) | Moriarty, Holmes, and checker, for code with polling, saved evidence, identity/readiness decisions, or recovery commands |
 | [Packet builder](scripts/build_packet.py) | Front office, when Python is available |
 
 Shared rules govern evidence handling; records own field meanings and decisions;
@@ -86,7 +87,9 @@ by the selected work; a source-only triage needs no empty probe tree.
 
 Each initial investigator receives all of: shared rules, record definitions,
 its exact role brief, the case header, and access to the sealed target evidence.
-Include the charter for action or repair work. Withhold the front office's
+Include the charter for action or repair work. Include the stateful code review
+reference for Moriarty, Holmes, and the checker when the target code has polling
+or retries, saved evidence, identity/readiness decisions, or recovery commands. Withhold the front office's
 diagnosis, expected answer, author rationale outside the target, earlier candidate
 answers, and sibling testimony before its designated phase.
 
@@ -96,7 +99,8 @@ Use the packet builder when Python is available:
 python3 scripts/build_packet.py --role holmes --header /case/header.json --out /case/packets/holmes.md
 ```
 
-Paths above are examples. The builder includes instructions and their digests;
+Add `--include-charter` or `--include-stateful-review` as needed. Paths above
+are examples. The builder includes instructions and their digests;
 it does not copy target evidence, enforce isolation, or grant tool permissions.
 Read the generated packet before dispatch. Otherwise assemble the same inputs
 manually and record identities. Verify the receiving agent can access evidence.
@@ -164,6 +168,19 @@ Reassess affected claims when these change.**
 
 Recheck subject identity before issuing. If it advanced, preserve the sealed case
 and label it historical; reassess affected claims before calling it current.
+
+**Fresh blind code pass.** If material code revisions, whether the author's or
+a repair, have been reviewed only by investigators who saw earlier findings, run
+one fresh blind code pass before the final decision. Run it after the planned
+repairs and regression checks. Commission a fresh context with the Holmes and
+Moriarty briefs (or one labeled combined pass), and give it only the pinned
+candidate, the intended behavior, and the repository instructions: no prior
+findings, Repair Menus, attack scripts, or bot findings. It replaces the next
+finding-aware reassessment; the decision check still applies. Verify resulting
+fixes with targeted checks; do not restart the blind pass after each fix.
+Preserve earlier findings and label each reassessment's actual exposure. If no
+fresh context is available, record the pass as not performed and keep that
+coverage limit visible in the decision.
 Verify evidence links resolve. A concise public summary links the full case;
 it need not reproduce every testimony or repair. Publish only as authorized.
 

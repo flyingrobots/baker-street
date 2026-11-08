@@ -35,11 +35,13 @@ def validate(role, header):
         raise ValueError("Triage commissions only Holmes and a decision check")
 
 
-def build(role, header, include_charter=False):
+def build(role, header, include_charter=False, include_stateful_review=False):
     validate(role, header)
     paths = ["references/core.md", "references/records.md", f"roles/{role}.md"]
     if include_charter:
         paths.append("references/charter.md")
+    if include_stateful_review:
+        paths.append("references/stateful-code-review.md")
     parts = ["# Baker Street role packet\n\n"
              "Read the shared rules, records, role brief, and header below. "
              "Target evidence is separate; use only the supplied locations. "
@@ -62,10 +64,12 @@ def main():
     p.add_argument("--header", type=Path, required=True)
     p.add_argument("--out", type=Path, required=True)
     p.add_argument("--include-charter", action="store_true")
+    p.add_argument("--include-stateful-review", action="store_true",
+                   help="Add the stateful code review reference")
     args = p.parse_args()
     try:
         packet = build(args.role, json.loads(args.header.read_text(encoding="utf-8")),
-                       args.include_charter)
+                       args.include_charter, args.include_stateful_review)
         args.out.parent.mkdir(parents=True, exist_ok=True)
         with args.out.open("x", encoding="utf-8") as f:
             f.write(packet)

@@ -20,6 +20,14 @@ The combined edition makes the following decisions:
 - Preserve original testimony, corrections, and separately assessed repaired artifacts.
 - Keep humor and character outside evidence tables and decision identifiers.
 
+A later port brought in standing review rules from the V2 line in V3's own
+terms: a stateful code review reference routed to Moriarty, Holmes, and the
+checker; verification of code policy against callers and canonical readers;
+a single fresh blind code pass after finding-aware code revisions; and decision
+rules for visible coverage gaps, a stated path to READY, severity judged by
+impact if triggered, and a fixed standard across rounds. No letter grades or new
+severity scale were added.
+
 The packet builder assembles instructions and records their digests. It is not a
 sandbox, permission system, workflow executor, or semantic verifier. The front
 office must still check target access, tool scope, actual separation, and outputs.

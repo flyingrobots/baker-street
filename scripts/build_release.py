@@ -13,6 +13,7 @@ SKILL_FILES = (
     'SKILL.md', 'LICENSE', 'NOTICE',
     'agents/openai.yaml', 'assets/baker-street-mark.svg', 'assets/icon.svg',
     'references/core.md', 'references/records.md', 'references/charter.md',
+    'references/stateful-code-review.md',
     'roles/holmes.md', 'roles/watson.md', 'roles/moriarty.md', 'roles/checker.md',
     'scripts/build_packet.py',
 )

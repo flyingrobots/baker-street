@@ -78,6 +78,26 @@ class PacketTests(unittest.TestCase):
         self.assertIn((SKILL/'references/charter.md').read_text(),
                       self.module.build('watson', self.header(), include_charter=True))
 
+    def test_stateful_review_is_included_only_when_requested(self):
+        reference = (SKILL/'references/stateful-code-review.md').read_text()
+        self.assertNotIn(reference, self.module.build('moriarty', self.header()))
+        for role in self.module.ROLES:
+            with self.subTest(role=role):
+                packet = self.module.build(role, self.header(), include_stateful_review=True)
+                self.assertIn(reference, packet)
+                self.assertIn(hashlib.sha256((SKILL/'references/stateful-code-review.md')
+                                             .read_bytes()).hexdigest(), packet)
+
+    def test_cli_includes_stateful_review_flag(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            header = Path(tmp)/'header.json'; header.write_text(json.dumps(self.header()))
+            out = Path(tmp)/'moriarty.md'
+            result = subprocess.run([sys.executable, str(SKILL/'scripts/build_packet.py'),
+                                     '--role', 'moriarty', '--header', str(header), '--out', str(out),
+                                     '--include-stateful-review'], capture_output=True, text=True)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertIn((SKILL/'references/stateful-code-review.md').read_text(), out.read_text())
+
     def test_cli_writes_once_and_refuses_overwrite(self):
         with tempfile.TemporaryDirectory() as tmp:
             header = Path(tmp)/'header.json'; header.write_text(json.dumps(self.header()))

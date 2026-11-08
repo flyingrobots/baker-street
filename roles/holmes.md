@@ -14,6 +14,13 @@ For each, return the claim fields in records, with exact scope, assessment, basi
 citations, reasoning, and limitations. Record material omissions and findings using
 the finding fields. Missing trivia is not documentation drift.
 
+For code, verify each stated policy against its callers and the canonical
+readers of the same state, not only against the author's prose. A narrower
+description cannot waive a contradiction with the behavior being diagnosed;
+record that contradiction as a finding. When the packet includes the stateful
+code review reference, apply its identity/readiness and repository-convention
+rows within your assignment.
+
 Inspect beyond the diff where the contract requires it. Do not infer historical
 execution from plausible counts or transcripts. If source reasoning establishes
 something, say SOURCE/INFERENCE; do not imply you ran an experiment. In triage

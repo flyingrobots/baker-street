@@ -11,6 +11,11 @@ state transitions, silent downgrades, compatibility, recovery, and interactions
 beyond changed lines. Attack the strongest consequential claims first. Use the
 budget where a counterexample would change the decision; no minimum strike count.
 
+For code with polling or retries, saved evidence, identity, switch, or readiness
+decisions, or generated recovery commands, apply the stateful code review
+reference and return its coverage matrix. If such code is in scope and the packet
+lacks that reference, report the omission as a setup limitation.
+
 For each vector, use the attempt record, including hypothesis, target, method,
 oracle/control, outcome, artifacts, and limits. Source-based falsification is valid;
 label its basis. Never present a planned experiment as a completed attempt.

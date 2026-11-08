@@ -195,7 +195,10 @@ python3 scripts/build_packet.py --role holmes --header /path/to/header.json --ou
 ```
 
 The header format is in `references/records.md`. Include the charter for action
-or repair assignments. The builder neither copies target evidence nor enforces
+or repair assignments (`--include-charter`). Add `--include-stateful-review` for
+code with polling, saved evidence, identity or readiness decisions, or generated
+recovery commands; `references/stateful-code-review.md` lists the required
+attempts and the coverage matrix the case must carry. The builder neither copies target evidence nor enforces
 access control, blindness, sandboxing, or authorization. Verify those separately.
 Without Python, assemble the same packet manually.
 

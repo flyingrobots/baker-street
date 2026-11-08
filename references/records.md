@@ -90,7 +90,9 @@ remains a hypothesis; state both separately.
 
 Estimate prevalence only with evidence. Disclosure may fulfill a documentation
 obligation without reducing impact. Prior existence, intent, and relative
-performance multipliers do not mechanically determine severity. Hypotheses cannot
+performance multipliers do not mechanically determine severity. Judge severity
+by impact if triggered, not by present likelihood; "latent" or "rare today" does
+not lower it. Record likelihood as prevalence. Hypotheses cannot
 justify defect-repair obligations until established; investigation may be required.
 Risk acceptance needs an explicit basis, not a preference to finish. Withdrawn
 findings retain no active obligation.
@@ -172,6 +174,14 @@ remaining obligations regardless of precedence. Optional follow-ups or irrelevan
 uncertainty do not prevent scoped READY; missing critical checks do. No letter
 grades, votes, or universal certifications.
 
+Material missing coverage stays visible in the decision statement, whatever else
+holds. Every non-READY decision names the exact, minimal set of repair IDs (and investigation
+obligations) whose completion would make it READY, each tied to its finding IDs,
+so the case states the path to READY in one place. Judge each round against the
+recorded acceptance criteria and these rules, never relative to a prior round.
+Do not repeat reviews to reach a target decision. A decision does not replace the
+repository's own review or publishing authorization.
+
 ## Errata and remediation
 
 Errata are append-only: ID, timestamp, original assertion, correction, reason,
@@ -199,3 +209,6 @@ evidence/<role>/ files. Honor explicit multi-file requests in other tiers.
 Summaries preserve uncertainty and link evidence. Testimony does not substitute
 for evidence. Keep the executive finding to three sentences; avoid repeating
 whole Repair Menus in public comments.
+
+In every tier, when stateful code review applies, CASE_FILE.md includes its
+coverage matrix (see references/stateful-code-review.md).
