@@ -65,7 +65,7 @@ class AgentsMdTests(unittest.TestCase):
         self.assertIn("or the user's explicit acceptance of, or evidenced dispute with, a named finding. The new case states what changed.",text)
     def test_clean_gate_covers_findings_posted_anywhere(self):
         # Baker Street cases are comments, not review threads; criterion 2: no unresolved issues.
-        self.assertIn('Every finding raised on the pull request, wherever it was posted (a review thread, a review body, a pull-request or issue comment, or a Baker Street case), has been fixed under the rule above, is ACCEPTED or WITHDRAWN, or was answered as not valid with evidence.',agents_text())
+        self.assertIn('Every finding raised on the pull request, wherever it was posted (a review thread, a review body, a pull-request or issue comment, or a Baker Street case), has been fixed under the rule above, is ACCEPTED by the user or WITHDRAWN, or was answered as not valid with evidence.',agents_text())
 
     def test_untestable_fix_evidence_goes_where_the_finding_was_posted(self):
         # A Baker Street finding has no review thread.
@@ -94,5 +94,9 @@ class AgentsMdTests(unittest.TestCase):
     def test_same_head_case_allowed_for_base_or_environment_change(self):
         # L26 requires a new case when the base or environment changes; L30 must allow it.
         self.assertIn('a change to the base or the environment;',agents_text())
+
+    def test_clean_gate_accepted_means_user_accepted(self):
+        # Rule 1 exempts only findings the user explicitly accepted; the clean gate must match.
+        self.assertIn('is ACCEPTED by the user or WITHDRAWN',agents_text())
 
 if __name__=='__main__': unittest.main()
