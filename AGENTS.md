@@ -7,14 +7,14 @@ Fix every issue raised in a pull-request review, whether by a person or a bot, w
 1. Write the test first. Run `make test` and record that it fails for the reason the finding names.
 2. Make the smallest fix that resolves that finding.
 3. Run `make test` again and record that every test passes.
-4. Commit that finding alone. Put the RED and GREEN results in the commit message, and reply to the review thread with the commit.
+4. Commit each finding separately. When one fix resolves several findings, or code and its tests must land together, make one coherent commit and record each finding's RED and GREEN in it. Put the RED and GREEN results in the commit message, and reply to each review thread with the commit.
 
 This rule also applies to fixes that are not code:
 
 - **Rule text in `references/` or `roles/`:** add a test that reads the file and checks for the rule. It must fail before the edit and pass after it.
 - **A fix to a test:** show the gap with a deliberate mutation of the code under test. The mutant must pass the old test and fail the new one, and the real code must pass the new one.
 
-If a finding is not valid, reply with the evidence and make no change. Do not batch several findings into one commit. Do not skip the RED step because a fix looks obvious.
+If a finding is not valid, reply with the evidence and make no change. Do not batch unrelated findings into one commit. Do not skip the RED step because a fix looks obvious.
 
 ## Review every pull request with Baker Street before merge
 
