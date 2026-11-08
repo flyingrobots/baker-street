@@ -87,4 +87,8 @@ class AgentsMdTests(unittest.TestCase):
         # SKILL.md: valid only for the recorded artifacts, environment, and examined scope.
         self.assertIn('A case is valid only for the artifacts, environment and scope it recorded, including the head, the pull-request body and the base.',agents_text())
 
+    def test_fix_reply_goes_where_the_finding_was_posted(self):
+        # Baker Street findings are comments, not review threads.
+        self.assertIn("and reply with the commit in each finding's review thread, or in the thread where the finding was posted.",agents_text())
+
 if __name__=='__main__': unittest.main()

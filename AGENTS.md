@@ -7,7 +7,7 @@ Fix every issue raised in a pull-request review, whether by a person or a bot, w
 1. Write the test first. Run `make test` and record that it fails for the reason the finding names.
 2. Make the smallest fix that resolves that finding.
 3. Run `make test` again and record that every test passes.
-4. Commit each finding separately. When one fix resolves several findings, or code and its tests must land together, make one coherent commit and record each finding's RED and GREEN in it. Put the RED and GREEN results in the commit message, and reply to each review thread with the commit.
+4. Commit each finding separately. When one fix resolves several findings, or code and its tests must land together, make one coherent commit and record each finding's RED and GREEN in it. Put the RED and GREEN results in the commit message, and reply with the commit in each finding's review thread, or in the thread where the finding was posted.
 
 This rule also applies to fixes that are not code:
 
