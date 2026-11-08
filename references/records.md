@@ -270,8 +270,11 @@ for evidence. Keep the executive finding to three sentences; avoid repeating
 whole Repair Menus in public comments.
 
 In every tier, list FOLLOW_UP-scope repairs under a "Batched follow-ups" heading
-in CASE_FILE.md so they stay in view. They do not change the decision. When the
-user authorizes a repair on the same series, the repair may include them.
+in CASE_FILE.md so they stay in view. A follow-up whose finding is not CRITICAL
+or HIGH does not change the decision. Severity precedence still applies: an open
+CRITICAL or HIGH finding prevents READY whatever its disposition, so the path to
+READY names its repair, or for a HIGH finding its recorded user acceptance. When
+the user authorizes a repair on the same series, the repair may include them.
 
 In every tier, when stateful code review applies, CASE_FILE.md includes its
 coverage matrix (see references/stateful-code-review.md).

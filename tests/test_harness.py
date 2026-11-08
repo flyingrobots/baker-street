@@ -158,6 +158,13 @@ class HarnessTests(unittest.TestCase):
         text=' '.join((ROOT/'roles/checker.md').read_text(encoding='utf-8').split())
         self.assertNotIn('If neither holds, that finding',text)
         self.assertIn('that its consequence meets the adverse-consequence rule in records',text)
+    def test_batched_follow_ups_keep_severity_precedence(self):
+        # F-2 (case BS-2026-11-08-PR8-R1): "They do not change the decision" contradicted severity precedence.
+        text=' '.join((ROOT/'references/records.md').read_text(encoding='utf-8').split())
+        self.assertNotIn('so they stay in view. They do not change the decision.',text)
+        self.assertIn('A follow-up whose finding is not CRITICAL or HIGH does not change the decision.',text)
+        self.assertIn('Severity precedence still applies',text)
+        self.assertIn('or for a HIGH finding its recorded user acceptance',text)
     def test_none_basis_combination(self):
         r=self.good();r['claims'][0]['basis']=['NONE','SOURCE'];self.bad(r)
     def test_malformed_values(self):
