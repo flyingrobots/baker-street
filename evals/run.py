@@ -40,7 +40,8 @@ CONTRACT = '''Return one JSON object, without a Markdown fence, with these keys:
     "origin": "INTRODUCED | EXPOSED | PRE_EXISTING | UNKNOWN",
     "disposition": "REQUIRED_REPAIR | INVESTIGATE | FOLLOW_UP | ACCEPTED",
     "impact": "Describe trigger, affected audience/state and consequence.",
-    "evidence": [{"path": "input/filename", "start": 1, "end": 2}]
+    "evidence": [{"path": "input/filename", "start": 1, "end": 2}],
+    "user_acceptance": "Only for an ACCEPTED HIGH finding: the recorded user acceptance and its basis."
   }],
   "limits": ["Scope and evidence limitations."],
   "next_action": "Concrete next step, or no required action within scope."
@@ -50,6 +51,9 @@ one object per named probe: {"id": "P1", "disposition": "PROMOTE |
 MINIMIZE_THEN_PROMOTE | RETAIN_IN_SPECIALIZED_SUITE | ARCHIVE", "rationale":
 "Why this destination fits the contract, oracle and maintenance budget.",
 "evidence": [{"path": "input/filename", "start": 1, "end": 2}]}.
+A finding is open unless WITHDRAWN. READY is invalid with any open CRITICAL
+finding, or with an open HIGH finding unless it is ACCEPTED, carries a
+user_acceptance recorded in the evidence, and is named by ID in limits.
 Use the exact claim IDs requested in input/target.md, once each. Findings may
 be empty. Evidence paths are relative to this packet. Cite existing lines.
 These are documentary cases: supplied transcripts are REPORTED evidence;
@@ -123,6 +127,14 @@ def verify_packet(case_id, packet):
 
 def nonempty(value):
     return isinstance(value, str) and bool(value.strip())
+
+def accepted_high(finding, response):
+    """The only READY exception: an ACCEPTED HIGH finding with recorded user acceptance named in limits."""
+    fid = finding.get('id')
+    limits = response.get('limits')
+    return (finding.get('disposition') == 'ACCEPTED' and nonempty(finding.get('user_acceptance'))
+            and nonempty(fid) and isinstance(limits, list)
+            and any(isinstance(x, str) and fid in x for x in limits))
 
 def grade(case_id, response):
     item, source = get_case(case_id)
@@ -214,6 +226,11 @@ def grade(case_id, response):
             error(f'{fid}: withdrawn finding cannot retain an active obligation.')
         if response.get('decision')=='READY' and f.get('disposition') in ['REQUIRED_REPAIR','INVESTIGATE']:
             error(f'{fid}: READY contradicts an unresolved decision obligation.')
+        if response.get('decision')=='READY' and f.get('status')!='WITHDRAWN':
+            if f.get('severity')=='CRITICAL':
+                error(f'{fid}: READY contradicts an open CRITICAL finding.')
+            elif f.get('severity')=='HIGH' and not accepted_high(f, response):
+                error(f'{fid}: READY contradicts an open HIGH finding without named user acceptance.')
     if oracle.get('max_active_findings') is not None and active>oracle['max_active_findings']:
         error('Active findings exceed this clean-case contract.')
     for req in oracle['required_findings']:

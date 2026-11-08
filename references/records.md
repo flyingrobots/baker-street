@@ -170,8 +170,16 @@ for decision-critical uncertainty; otherwise CHANGES_REQUIRED for established
 required repairs; otherwise READY. Explain the contract making a defect
 disqualifying. Routine acceptance failure is not automatically BLOCKED; a blocked
 tool is not a product disqualifier. A BLOCKED defect can be repairable. List all
-remaining obligations regardless of precedence. Optional follow-ups or irrelevant
-uncertainty do not prevent scoped READY; missing critical checks do. No letter
+remaining obligations regardless of precedence. Optional follow-ups below HIGH
+severity or irrelevant uncertainty do not prevent scoped READY; missing critical checks do.
+
+Severity precedence: a finding is open unless WITHDRAWN. An open CRITICAL or HIGH
+finding prevents READY, whatever its disposition, including FOLLOW_UP, INVESTIGATE,
+and ACCEPTED. An open CRITICAL finding that prevents essential intended use or
+violates a non-negotiable bar is a disqualifier: BLOCKED. The one exception is an
+ACCEPTED HIGH finding with a recorded, explicit user acceptance and its basis;
+the decision statement names that finding and acceptance. Reviewers cannot supply
+that acceptance, and no acceptance permits READY with an open CRITICAL finding. No letter
 grades, votes, or universal certifications.
 
 Material missing coverage stays visible in the decision statement, whatever else

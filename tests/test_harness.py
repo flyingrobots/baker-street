@@ -80,6 +80,33 @@ class HarnessTests(unittest.TestCase):
         r=self.good('case-02');r['findings'][0]['status']='HYPOTHESIS';self.bad(r,'case-02')
     def test_severity_downgrade_disclosed_loss(self):
         r=self.good('case-08');r['findings'][0]['severity']='INFORMATIONAL';self.bad(r,'case-08')
+    def open_finding(self,r,severity,disposition):
+        return {'id':'Fopen','claim_ids':['C1'],'status':'CONFIRMED','severity':severity,
+                'origin':'UNKNOWN','disposition':disposition,'impact':'Synthetic severity control.',
+                'evidence':r['claims'][0]['evidence']}
+    def test_open_critical_or_high_prevents_ready_whatever_disposition(self):
+        for severity in ('CRITICAL','HIGH'):
+            for disposition in ('FOLLOW_UP','ACCEPTED','INVESTIGATE','REQUIRED_REPAIR'):
+                with self.subTest(severity=severity,disposition=disposition):
+                    r=self.good('case-23');r['findings']=[self.open_finding(r,severity,disposition)]
+                    errors=evalmod.grade('case-23',r)['errors']
+                    self.assertTrue(any(f'open {severity}' in e for e in errors),errors)
+    def test_accepted_high_needs_recorded_user_acceptance_named_in_decision(self):
+        r=self.good('case-23');f=self.open_finding(r,'HIGH','ACCEPTED');r['findings']=[f]
+        r['limits']=['Fopen is accepted by the user; see acceptance record.']
+        self.assertTrue(any('open HIGH' in e for e in evalmod.grade('case-23',r)['errors']))
+        f['user_acceptance']='User accepted Fopen in the recorded acceptance criteria, basis: legacy clients only.'
+        self.assertFalse(any('open HIGH' in e for e in evalmod.grade('case-23',r)['errors']))
+        r['limits']=['Synthetic grader control only.']
+        self.assertTrue(any('open HIGH' in e for e in evalmod.grade('case-23',r)['errors']))
+    def test_user_acceptance_never_permits_ready_with_critical(self):
+        r=self.good('case-23');f=self.open_finding(r,'CRITICAL','ACCEPTED')
+        f['user_acceptance']='User accepted it.';r['findings']=[f];r['limits']=['Fopen accepted.']
+        self.assertTrue(any('open CRITICAL' in e for e in evalmod.grade('case-23',r)['errors']))
+    def test_withdrawn_high_does_not_prevent_ready(self):
+        r=self.good('case-23');f=self.open_finding(r,'HIGH','ACCEPTED');f['status']='WITHDRAWN'
+        r['findings']=[f]
+        self.assertFalse(any('open HIGH' in e for e in evalmod.grade('case-23',r)['errors']))
     def test_none_basis_combination(self):
         r=self.good();r['claims'][0]['basis']=['NONE','SOURCE'];self.bad(r)
     def test_malformed_values(self):
