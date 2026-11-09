@@ -63,6 +63,13 @@ class MutantTests(unittest.TestCase):
         self.record['patch']['sha256'] = hashlib.sha256(self.patch.read_bytes()).hexdigest()
         run, row = self.run_trial('patch'); self.assertEqual(row['outcome'], 'BLOCKED')
 
+    def test_tree_object_cannot_impersonate_a_commit(self):
+        self.record['base_head'] = self.git('rev-parse', 'HEAD^{tree}').strip()
+        self.record['command'] = [sys.executable, '-c', 'pass']
+        run, row = self.run_trial('tree')
+        self.assertEqual(row['outcome'], 'BLOCKED')
+        self.assertIn('commit', row['reason'])
+
     def test_nonempty_output_refuses_without_writes(self):
         out = self.root / 'out'; out.mkdir(); (out / 'keep').write_text('unchanged')
         run, row = self.run_trial(); self.assertEqual(run.returncode, 2)

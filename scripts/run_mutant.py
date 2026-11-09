@@ -102,6 +102,10 @@ def trial(repo, mutant, out, timeout):
             raise ValueError('The patch digest does not agree')
         # Copy the verified bytes before applying; a later source edit cannot substitute another patch.
         saved_patch = out / 'applied.diff'; saved_patch.write_bytes(patch)
+        kind = subprocess.check_output(['git', '-C', str(repo), 'cat-file', '-t', record['base_head']],
+                                       text=True, timeout=10, env=clean_environment()).strip()
+        if kind != 'commit':
+            raise ValueError('base_head must identify a commit object')
         archive = out / 'source.tar'
         code = run(['git', '-C', str(repo), 'archive', '--format=tar', record['base_head']],
                    case, archive, out / 'export.stderr', min(timeout, 30))
