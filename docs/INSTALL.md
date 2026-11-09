@@ -5,6 +5,12 @@ for an agent host. It does not provide a model, tool permissions, or a sandbox.
 
 ## Download a pinned skill package
 
+The supplied packet, case, ledger, mutant and evaluation instruments require
+Python 3.10 or later. The mutant instrument additionally requires POSIX process
+groups and Git support for explicit object-format discovery and initialization.
+These download and extraction instructions do not check those requirements.
+The host must supply them before the instruments can be used.
+
 Download `baker-street-v3.2.0.zip` and `SHA256SUMS` from the
 [v3.2.0 release](https://github.com/flyingrobots/baker-street/releases/tag/v3.2.0).
 With GitHub CLI, run in a new download directory:

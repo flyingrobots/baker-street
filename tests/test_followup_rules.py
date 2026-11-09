@@ -26,6 +26,13 @@ class FollowupRuleTests(unittest.TestCase):
             self.assertIn(name, section)
             self.assertTrue((ROOT / 'scripts' / name).is_file(), name)
 
+    def test_installation_names_required_instruments_and_host_facilities(self):
+        text = words('docs/INSTALL.md')
+        self.assertIn('Python 3.10 or later', text)
+        self.assertIn('POSIX process groups', text)
+        self.assertIn('Git support for explicit object-format discovery and initialization', text)
+        self.assertIn('These download and extraction instructions do not check those requirements.', text)
+
     def test_consequence_fallback_allows_explicit_acceptance(self):
         rule = words('references/records.md').split('Adverse consequence:', 1)[1].split('## Attempts', 1)[0]
         self.assertIn(
