@@ -140,6 +140,10 @@ sequential. Nobody earns an independence badge by changing hats.
 
 ## Use it
 
+For an account without literary flourish, request `--plain` and consult the
+[complete plain worked account](examples/plain/README.md). The preference applies
+to every produced report and the final account, including collapsed sections.
+
 > The agency keeps no premises of its own. It lodges wherever it is received.
 > Its host provides the lamp, the table, the writing paper and the locked
 > cupboard. The agency brings only its methods, and it must say plainly which of
