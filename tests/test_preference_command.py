@@ -15,7 +15,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def command(
-    arguments: list[str], directory: Path, outputs: Path
+    arguments: list[str], directory: Path, outputs: Path, *, encoding: str | None = None
 ) -> tuple[int, bytes, bytes]:
     """Run an owned small fixture with a deadline and file-backed output."""
     environment = {
@@ -23,6 +23,8 @@ def command(
         for key, value in os.environ.items()
         if key not in {"PYTHONPATH", "PYTHONHOME"} and not key.startswith("GIT_")
     }
+    if encoding is not None:
+        environment["PYTHONIOENCODING"] = encoding
     with (
         outputs.with_suffix(".out").open("wb") as stdout,
         outputs.with_suffix(".err").open("wb") as stderr,
@@ -46,6 +48,40 @@ def command(
 
 class PreferenceCommandTests(unittest.TestCase):
     """Verify real installed imports; source-checkout imports cannot hide omissions."""
+
+    def test_command_preserves_unicode_through_an_ascii_stdout(self) -> None:
+        """The receiving stream does not restrict valid text in the prepared header."""
+        with tempfile.TemporaryDirectory() as temporary:
+            base = Path(temporary)
+            subject = base / "subject"
+            code, _, error = command(
+                ["git", "init", "--quiet", str(subject)], base, base / "git"
+            )
+            self.assertEqual(code, 0, error.decode())
+            original = base / "header.json"
+            expected = {"title": "caf\u00e9 \u96ea \U0001f50d"}
+            original.write_text(
+                json.dumps(expected, ensure_ascii=False), encoding="utf-8"
+            )
+            code, content, error = command(
+                [
+                    sys.executable,
+                    "-m",
+                    "scripts.prepare_header",
+                    "--repository",
+                    str(subject),
+                    "--header",
+                    str(original),
+                ],
+                ROOT,
+                base / "prepare",
+                encoding="ascii",
+            )
+            self.assertEqual(code, 0, error.decode())
+            selected: object = json.loads(content)
+            self.assertIsInstance(selected, dict)
+            self.assertEqual(selected, {**expected, "plain": False, "tier": "triage"})
+            self.assertEqual(error, b"")
 
     def test_installed_command_prepares_a_header_consumed_by_packet_builder(
         self,

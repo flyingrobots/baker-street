@@ -88,6 +88,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         )
         encoded = json.dumps(header, ensure_ascii=False, indent=2, allow_nan=False)
         encoded.encode("utf-8")
+        encoded = json.dumps(header, ensure_ascii=True, indent=2, allow_nan=False)
     except OSError as error:
         diagnostic = (
             f"repository files could not be read (errno {error.errno}); "
