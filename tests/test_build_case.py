@@ -87,6 +87,22 @@ class CaseBuilderTests(unittest.TestCase):
             row['notes'] = 'new input'
             with self.assertRaises(ValueError): self.module.write_case(row, out)
 
+    def test_repin_refuses_contradictory_or_incomplete_receipts(self):
+        packet = self.module.packet_schema
+        for corruption in ('head', 'role', 'status', 'orphan'):
+            with self.subTest(corruption=corruption), tempfile.TemporaryDirectory() as tmp:
+                out = Path(tmp); header = self.record()['header']
+                packet.repin('holmes', header, 'a' * 40, out)
+                path = out / 'manifest.json'; manifest = json.loads(path.read_text())
+                if corruption == 'orphan':
+                    (out / 'holmes-cccccccccccc.md').write_text('interrupted packet')
+                else:
+                    manifest['packets'][0][corruption] = {'head': 'c' * 40, 'role': 'watson', 'status': 'INVENTED'}[corruption]
+                    path.write_text(json.dumps(manifest))
+                before = {p.name: p.read_bytes() for p in out.iterdir()}
+                with self.assertRaises(ValueError): packet.repin('holmes', header, 'b' * 40, out)
+                self.assertEqual(before, {p.name: p.read_bytes() for p in out.iterdir()})
+
     def test_header_template_and_repin_preserve_former_packet(self):
         command = [sys.executable, str(ROOT / 'scripts/build_packet.py')]
         result = subprocess.run(command + ['--print-header-template'], capture_output=True, text=True, timeout=10)

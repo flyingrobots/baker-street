@@ -139,13 +139,33 @@ def repin(role, header, head, out, include_charter=False, include_stateful_revie
         manifest = json.loads(manifest_path.read_text())
         if not isinstance(manifest, dict) or not isinstance(manifest.get('packets'), list):
             raise ValueError('Invalid packet manifest')
+        expected_names = {'manifest.json'}
+        current_roles = set()
         for entry in manifest['packets']:
+            old_role, old_head = entry.get('role'), entry.get('head')
+            if old_role not in ROLES or not isinstance(old_head, str) or not FULL_ID.fullmatch(old_head):
+                raise ValueError('Invalid packet role or head in manifest')
+            if entry.get('status') not in ('CURRENT', 'SUPERSEDED'):
+                raise ValueError('Invalid packet status in manifest')
+            if entry['status'] == 'CURRENT':
+                if old_role in current_roles: raise ValueError('More than one current packet for a role')
+                current_roles.add(old_role)
             name = entry['path']
-            if not isinstance(name, str) or Path(name).name != name:
-                raise ValueError('Invalid packet path in manifest')
+            if name != old_role + '-' + old_head[:12] + '.md' or name in expected_names:
+                raise ValueError('Invalid or repeated packet path in manifest')
+            expected_names.add(name)
             path = out / name
             if path.is_symlink() or hashlib.sha256(path.read_bytes()).hexdigest() != entry['sha256']:
                 raise ValueError('A recorded packet differs from its manifest')
+            text = path.read_text(encoding='utf-8')
+            assigned = text.split('## Assigned case header\n\n```json\n', 1)[1].split('\n```', 1)[0]
+            previous_header = json.loads(assigned)
+            if previous_header.get('sealed_basis', {}).get('head') != old_head:
+                raise ValueError('The packet header disagrees with the manifest head')
+            if '<!-- Source: roles/' + old_role + '.md -->' not in text:
+                raise ValueError('The packet brief disagrees with its recorded role')
+        if {path.name for path in out.iterdir()} != expected_names:
+            raise ValueError('Unrecorded output remains from an incomplete packet preparation')
     name = role + '-' + head[:12] + '.md'; target = out / name
     if target.exists(): raise ValueError('Refusing to overwrite a packet')
     out.mkdir(parents=True, exist_ok=True)
@@ -189,7 +209,7 @@ def main():
         args.out.parent.mkdir(parents=True, exist_ok=True)
         with args.out.open("x", encoding="utf-8") as f:
             f.write(packet)
-    except (OSError, ValueError, TypeError) as exc:
+    except (OSError, ValueError, TypeError, KeyError, IndexError, AttributeError) as exc:
         p.exit(2, f"Packet not written: {exc}\n")
     print(f"Wrote {args.out}; target evidence access and separation must be checked by the host.")
 
