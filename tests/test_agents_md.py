@@ -95,6 +95,16 @@ class AgentsMdTests(unittest.TestCase):
         # L26 requires a new case when the base or environment changes; L30 must allow it.
         self.assertIn('a change to the base or the environment;',agents_text())
 
+    def test_same_head_case_allowed_for_scope_change(self):
+        # F-21: the validity rule includes scope even when the head is unchanged.
+        gate = agents_text().split('- **Baker Street passes:**', 1)[1].split('- **Clean:**', 1)[0]
+        self.assertIn('a change of scope;', gate)
+
+    def test_same_head_case_allowed_for_body_amendment_without_a_repair(self):
+        # F-21: validity also covers amendments which correct no finding.
+        gate = agents_text().split('- **Baker Street passes:**', 1)[1].split('- **Clean:**', 1)[0]
+        self.assertIn('an amendment to the pull-request body, whether or not it is a repair;', gate)
+
     def test_clean_gate_accepted_means_user_accepted(self):
         # Rule 1 exempts only findings the user explicitly accepted; the clean gate must match.
         self.assertIn('is ACCEPTED by the user or WITHDRAWN',agents_text())
