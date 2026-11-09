@@ -25,6 +25,25 @@ Before you merge a pull request, review it with Baker Street, the skill in this 
 2. Post a concise decision summary to the GitHub thread of the linked issue. If no issue is linked, post it on the pull request. Redact secrets and private material first. Put the full case file in a collapsed section. Never push private evidence to make a link work.
 3. Follow the case. Carry out each required repair under the RED→GREEN rule above. Then review the repaired head again with Baker Street. A case is valid only for the artifacts, environment and scope it recorded, including the head, the pull-request body and the base. When one of them changes, reassess the affected claims in a new case before merge.
 
+### Proportion the examination to the change
+
+Choose the least extensive examination that can responsibly settle the question.
+State the chosen tier and the reason for it in the case. Use the three tiers
+prescribed by the Baker Street skill:
+
+| Tier | Proper occasion | Examination |
+| --- | --- | --- |
+| `triage` | A bounded, low-risk question which inspection of the source can settle; ordinarily a small documentary amendment | Holmes examines; the front office reconciles the evidence and checks its own decision; one compact case |
+| `focused` | A narrow question which requires several perspectives or experimental trials | Holmes, Watson, and Moriarty inquire; Watson returns to consider repairs; the decision receives a check |
+| `standard` | Broad or substantial changes, or consequential questions of security, preservation of stored records, migration, compatibility, or dealings between components | All three inquiries, Watson's return, a fresh checker when available, and separate evidence records |
+
+Judge the consequence of an error, not merely the number of altered lines.
+A short amendment to a rule governing permission or preservation may require
+more examination than a long correction of spelling. Do not summon every
+investigator merely because a pull request exists. If a lesser examination
+cannot settle a material question, increase its extent or record the unanswered
+obligation. No tier dispenses with the governing evidence and merge requirements.
+
 Merge only when all of these are true at the same head:
 
 - **Baker Street passes:** the latest case for that head has the decision `READY`, and no earlier case on that head left a required repair or investigation unresolved. Do not repeat a review on an unchanged head merely to reach a different decision. A new case on an unchanged head is allowed when something material has changed since the last case: a repair that does not change the head, such as a pull-request body fix; a completed investigation; a change to the base or the environment; or the user's explicit acceptance of, or evidenced dispute with, a named finding. The new case states what changed.
