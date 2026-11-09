@@ -104,7 +104,9 @@ def main(argv: Sequence[str] | None = None) -> int:
     except (ValueError, TypeError) as error:
         diagnostic = f"the supplied inputs were refused: {error}"
     except (RecursionError, subprocess.SubprocessError):
-        diagnostic = "the supplied inputs were refused: preparation exceeded a supported bound."
+        diagnostic = (
+            "the supplied inputs were refused: preparation exceeded a supported bound."
+        )
     else:
         sys.stdout.write(encoded + "\n")
         return 0
