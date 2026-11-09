@@ -70,6 +70,16 @@ class MutantTests(unittest.TestCase):
         self.assertEqual(row['outcome'], 'BLOCKED')
         self.assertIn('commit', row['reason'])
 
+    def test_replacement_object_cannot_change_the_sealed_source(self):
+        (self.repo / 'value.txt').write_text('other\n')
+        self.git('add', 'value.txt'); self.git('commit', '-qm', 'A different book')
+        replacement = self.git('rev-parse', 'HEAD').strip()
+        self.git('replace', self.head, replacement)
+        self.record['command'] = [sys.executable, '-c', 'pass']
+        run, row = self.run_trial('replacement')
+        self.assertEqual(row['outcome'], 'PASSED')
+        self.assertEqual((self.root / 'replacement/scratch/value.txt').read_text(), 'bad\n')
+
     def test_nonempty_output_refuses_without_writes(self):
         out = self.root / 'out'; out.mkdir(); (out / 'keep').write_text('unchanged')
         run, row = self.run_trial(); self.assertEqual(run.returncode, 2)

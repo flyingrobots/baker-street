@@ -15,7 +15,9 @@ LIMIT = 128 * 1024 * 1024
 
 
 def clean_environment():
-    return {key: value for key, value in os.environ.items() if not key.startswith("GIT_")}
+    result = {key: value for key, value in os.environ.items() if not key.startswith("GIT_")}
+    result["GIT_NO_REPLACE_OBJECTS"] = "1"
+    return result
 
 
 def inside(path, parent):
