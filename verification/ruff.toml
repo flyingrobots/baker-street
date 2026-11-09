@@ -1,0 +1,32 @@
+# This profile covers the new preference path; it is not a legacy-tree waiver.
+target-version = "py310"
+include = ["scripts/preference_*.py", "scripts/prepare_header.py", "tests/test_preference_*.py"]
+
+[lint]
+select = [
+  "E4", "E7", "E9", "F", "I", "UP", "B", "SIM", "C4", "C90",
+  "N", "S", "BLE", "A", "ARG", "RUF", "D", "ANN", "RET", "TRY",
+  "PERF", "FBT", "TID", "PT", "T20", "ASYNC", "PGH", "DTZ", "G", "LOG",
+  "PLR0911", "PLR0912", "PLR0913", "PLR0915", "PLW0120",
+]
+ignore = ["D206", "D300"]
+
+[lint.pydocstyle]
+convention = "google"
+
+[lint.per-file-ignores]
+# Exact bounds and review obligations are retained in exceptions.json.
+"scripts/preference_roots.py" = ["S603"]
+"tests/test_preference_command.py" = ["S603", "PT009", "PT027"]
+"tests/test_preference_header.py" = ["S603", "PT009", "PT027"]
+"tests/test_preference_cli.py" = ["S603", "PT009", "PT027"]
+"tests/test_preference_file.py" = ["PT009", "PT027"]
+"tests/test_preference_schema.py" = ["PT009", "PT027"]
+
+[lint.flake8-tidy-imports.banned-api]
+"typing.Any".msg = "Keep untrusted values as object until admission."
+"typing_extensions.Any".msg = "Keep untrusted values as object until admission."
+"pickle".msg = "Object deserialization requires a separately reviewed boundary."
+"marshal".msg = "Interpreter object serialization is not an admission protocol."
+"builtins.eval".msg = "Do not execute input data."
+"builtins.exec".msg = "Do not execute input data."

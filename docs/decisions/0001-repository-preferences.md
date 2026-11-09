@@ -19,7 +19,7 @@ Use UTF-8 JSON with an object at its root and these fields:
 | `tier` | Optional `triage`, `focused` or `standard` |
 | `case_directory` | Optional nonempty relative subdirectory beneath an operator-supplied case root |
 
-Example, illustrative until the reader and its checks are implemented:
+Example of the accepted preference format:
 
 ```json
 {"schema_version":1,"plain":true,"tier":"focused","case_directory":"reviews"}

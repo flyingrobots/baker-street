@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "owner": "Baker Street maintainers",
+  "tracking": "https://github.com/flyingrobots/baker-street/issues/28",
+  "review_condition": "The PR examination must assess every entry before merge; remove any entry when its named call or framework no longer exists.",
+  "expires": "2027-02-01",
+  "entries": [
+    {
+      "id": "PREF-SUBPROCESS",
+      "rule": "PY-EXCEPTIONS",
+      "diagnostic": "S603",
+      "path": "scripts/preference_roots.py",
+      "symbols": [
+        "_bounded_git_output"
+      ],
+      "reason": "The sole caller constructs a fixed read-only Git inquiry. Only the subject directory is variable; shell interpretation is absent. Ruff cannot establish that argument-vector boundary.",
+      "risk": "A future caller could turn this private helper into an arbitrary execution path.",
+      "compensating_check": "Examine the sole caller and retained real-Git tests; the inquiry has a five-second deadline, 32768-byte output bound and no inherited GIT_* settings.",
+      "approver": "pending independent PR examination"
+    },
+    {
+      "id": "PREF-FIXTURE-COMMAND",
+      "rule": "PY-EXCEPTIONS",
+      "diagnostic": "S603",
+      "path": "tests/test_preference_command.py",
+      "symbols": [
+        "command"
+      ],
+      "reason": "All callers supply literal Git or Python fixture commands and owned paths. No repository preference, issue text or received command enters this helper.",
+      "risk": "A future fixture could pass executable text from an untrusted source.",
+      "compensating_check": "Examine every caller; each command has a ten-second timeout, no stdin, file-backed output and an owned temporary directory.",
+      "approver": "pending independent PR examination"
+    },
+    {
+      "id": "PREF-GIT-FIXTURE",
+      "rule": "PY-EXCEPTIONS",
+      "diagnostic": "S603",
+      "path": "tests/test_preference_header.py",
+      "symbols": [
+        "repository",
+        "PreferenceHeaderTests.test_linked_worktree_uses_its_own_root_and_preferences"
+      ],
+      "reason": "The fixed Git fixture arguments contain generated owned paths and therefore require manual examination under S603.",
+      "risk": "An untrusted executable or argument must not enter these fixture calls.",
+      "compensating_check": "Examine the literal argument vectors, real temporary repositories and ten-second deadlines. No hook is bypassed.",
+      "approver": "pending independent PR examination"
+    },
+    {
+      "id": "PREF-CLI-FIXTURE",
+      "rule": "PY-EXCEPTIONS",
+      "diagnostic": "S603",
+      "path": "tests/test_preference_cli.py",
+      "symbols": [
+        "PreferenceCliTests.test_public_command_success_and_refusals_have_distinct_streams"
+      ],
+      "reason": "The command is a literal Git init fixture with an owned path and a resolved Git executable.",
+      "risk": "A future fixture must not obtain executable arguments from untrusted input.",
+      "compensating_check": "Examine the argument vector, ten-second timeout, discarded output and owned temporary directory.",
+      "approver": "pending independent PR examination"
+    },
+    {
+      "id": "PREF-UNITTEST",
+      "rule": "PY-EXCEPTIONS",
+      "diagnostic": "PT009,PT027",
+      "path": "tests/test_preference_*.py",
+      "symbols": [
+        "unittest.TestCase subclasses"
+      ],
+      "reason": "The repository's established test command uses unittest. These two pytest-conversion recommendations do not govern its assertion or exception APIs.",
+      "risk": "The waiver must not conceal unrelated pytest diagnostics.",
+      "compensating_check": "All other selected PT diagnostics remain enabled; the real unittest suite and named assertion-failure trials remain required.",
+      "approver": "repository unittest convention; applicability to be confirmed by PR examination"
+    }
+  ]
+}
