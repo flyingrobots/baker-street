@@ -11,18 +11,23 @@ groups and Git support for explicit object-format discovery and initialization.
 These download and extraction instructions do not check those requirements.
 The host must supply them before the instruments can be used.
 
-Download `baker-street-v3.2.0.zip` and `SHA256SUMS` from the
-[v3.2.0 release](https://github.com/flyingrobots/baker-street/releases/tag/v3.2.0).
+Download `baker-street-v3.3.0.zip` and `SHA256SUMS` from the
+[v3.3.0 release](https://github.com/flyingrobots/baker-street/releases/tag/v3.3.0).
 With GitHub CLI, run in a new download directory:
 
 ```sh
-gh release download v3.2.0 --repo flyingrobots/baker-street --pattern 'baker-street-v3.2.0.zip' --pattern SHA256SUMS
+gh release download v3.3.0 --repo flyingrobots/baker-street --pattern 'baker-street-v3.3.0.zip' --pattern SHA256SUMS
 ```
 
 The ZIP contains one `baker-street/` folder: the skill, its required resources,
 license, attribution, and per-file checksums. The automatically generated GitHub
 source archives contain the entire evaluator repository; use the named skill
 ZIP for installation.
+
+The repository’s [correspondence guide](../skills/house-correspondence/SKILL.md)
+and [prospective independent examination](INDEPENDENT-TRIAL.md) accompany this
+edition in the source repository. They are not included in the general review
+ZIP. The writing guide does not impose the house manner upon unrelated reviews.
 
 ## Codex CLI, IDE extension, and desktop Codex
 
@@ -33,7 +38,7 @@ import hashlib
 from pathlib import Path
 import zipfile
 
-archive = Path('baker-street-v3.2.0.zip')
+archive = Path('baker-street-v3.3.0.zip')
 expected, filename = Path('SHA256SUMS').read_text().strip().split('  ', 1)
 if filename != archive.name or hashlib.sha256(archive.read_bytes()).hexdigest() != expected:
     raise SystemExit('Archive checksum mismatch')
@@ -74,7 +79,7 @@ For accounts with API Skills access, upload the same ZIP:
 ```sh
 curl --fail-with-body https://api.openai.com/v1/skills \
   -H "Authorization: Bearer $OPENAI_API_KEY" \
-  -F 'files=@./baker-street-v3.2.0.zip;type=application/zip'
+  -F 'files=@./baker-street-v3.3.0.zip;type=application/zip'
 ```
 
 Retain the returned skill ID and version. Retrieve
@@ -105,7 +110,7 @@ Follow the [minimal worked example](../examples/triage/README.md). To build the
 release locally, use a new output directory:
 
 ```sh
-python3 scripts/build_release.py --version 3.2.0 --out .runs/release-v3.2.0
+python3 scripts/build_release.py --version 3.3.0 --out .runs/release-v3.3.0
 ```
 
 The builder fails on missing required resources, symlinked inputs, or an existing

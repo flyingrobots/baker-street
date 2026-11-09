@@ -146,7 +146,7 @@ sequential. Nobody earns an independence badge by changing hats.
 > these comforts it was in fact given.
 
 Start with [installation instructions](docs/INSTALL.md), the
-[v3.2.0 skill package](https://github.com/flyingrobots/baker-street/releases/tag/v3.2.0),
+[v3.3.0 skill package](https://github.com/flyingrobots/baker-street/releases/tag/v3.3.0),
 and the [minimal worked example](examples/triage/README.md).
 
 This repository includes the complete skill and its development companion.
@@ -348,6 +348,23 @@ establish that the Agency finds more faults, costs less, or runs faster than
 another method. The external findings book excludes cases without findings;
 its figures must not be read as a complete account of the Agency’s expense.
 
+## The correspondence desk and the stranger’s examination
+
+> The clerk’s writing-book lay beside an empty chair. “The examples are ready,”
+> Holmes said. “The stranger’s judgment must wait until the stranger is here.”
+
+The repository’s [correspondence guide](skills/house-correspondence/SKILL.md)
+teaches the prescribed manner through original examples, corrected
+counterexamples, and a practical revision procedure. It belongs to this
+repository or an express request for its voice. The general review skill retains
+its plain-voice provision; its installation ZIP does not include the writing guide.
+
+The [prospective independent examination](docs/INDEPENDENT-TRIAL.md) records the
+necessary human appointments, sealed sample, actual separation, expense limits,
+and separate measures. Its present question is unanswerable for want of appointed
+independent human examiners and a supplied sample. No trial result is claimed,
+and the historical human review remains pending.
+
 ## Repository contents and history
 
 | Path | Contents |
@@ -355,6 +372,7 @@ its figures must not be read as a complete account of the Agency’s expense.
 | `SKILL.md`, `references/`, `roles/` | V3 protocol, shared records, action charter, and investigator briefs |
 | `scripts/`, `agents/`, `assets/` | Packet builder, release builder, host metadata, and artwork |
 | `tests/` | Harness, packet-builder, and release tests |
+| `skills/house-correspondence/` | Repository writing guide and original specimens; excluded from the general review ZIP |
 | `examples/triage/` | Minimal source-only worked example and packet header |
 | `evals/fixtures/`, `evals/catalog.json`, `evals/run.py` | 27 documentary cases and their preparation/grading tools |
 | `evals/recorded-smoke/` | Preserved V1 and V2 trial records |
