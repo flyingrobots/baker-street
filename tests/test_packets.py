@@ -29,6 +29,34 @@ class PacketTests(unittest.TestCase):
         h.update(tier='focused', plain=True, reviewer_basis='SEQUENTIAL_SELF_CHECK')
         return h
 
+    def test_review_basis_accepts_full_and_both_delta_methods(self):
+        for basis in ('FULL', {'method': 'DELTA_ANCESTOR', 'from_head': 'a' * 40,
+                              'to_head': 'b' * 40},
+                      {'method': 'DELTA_RANGE_DIFF', 'from_head': 'a' * 40,
+                       'to_head': 'b' * 40}):
+            h = self.series(2, review_basis=basis)
+            self.module.build('holmes', h)
+
+    def test_review_basis_rejects_invalid_deltas(self):
+        valid = {'method': 'DELTA_ANCESTOR', 'from_head': 'a' * 40, 'to_head': 'b' * 40}
+        cases = [self.series(1, review_basis=valid),
+                 self.series(2, review_basis=dict(valid, from_head='c' * 40)),
+                 self.series(2, review_basis=dict(valid, to_head='a' * 40)),
+                 self.series(2, review_basis=dict(valid, method='UNKNOWN')),
+                 self.series(2, review_basis=dict(valid, from_head='a' * 7)),
+                 self.series(2, review_basis=dict(valid, to_head='b' * 7)),
+                 self.series(2, review_basis={}), self.series(2, review_basis=[]),
+                 self.series(2, review_basis='DELTA_ANCESTOR')]
+        for h in cases:
+            with self.subTest(header=h), self.assertRaises(ValueError):
+                self.module.build('holmes', h)
+
+    def test_absent_review_basis_does_not_change_packet(self):
+        h = self.header()
+        packet = self.module.build('holmes', h)
+        self.assertNotIn('review_basis', packet.split('## Assigned case header', 1)[1])
+        self.assertEqual(packet, self.module.build('holmes', dict(h)))
+
     def test_all_roles_receive_complete_rules_and_schemas(self):
         for role in self.module.ROLES:
             with self.subTest(role=role):

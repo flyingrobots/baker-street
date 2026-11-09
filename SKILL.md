@@ -80,6 +80,22 @@ untracked inputs with digests; do not attribute them to HEAD. Snapshot material
 mutable sources with retrieval time. Record relevant runtime, dependency,
 lockfile, configuration, and image identities actually observed.
 
+For a later case, choose and record `review_basis`. If the prior reviewed head
+is an ancestor of the new head, use `DELTA_ANCESTOR` and examine
+`git diff <from_head>..<to_head>`. Otherwise use `DELTA_RANGE_DIFF` only when
+`git range-diff` accounts for every previously reviewed commit and examination
+of the changed base and surrounding contracts establishes a reliable comparison.
+A mapping alone is insufficient. If that account cannot be established, use `FULL`.
+Bind `to_head` to the actual sealed candidate, not merely to a different commit.
+
+Every delta inquiry examines the changed hunks; the contracts, callers, and tests
+they touch; and every prior finding not `WITHDRAWN`, including repaired findings,
+checked anew at the candidate. Use `focused` ordinarily; `triage` is permitted
+for low-risk changes under the tier table. Questions touching security,
+persistence, migration, or compatibility require `standard`. Record the basis
+in the evidence manifest and name what was not examined again as a coverage limit.
+The fresh blind code pass in section 5 remains binding; a delta cannot replace it.
+
 Use the evidence manifest in records. Establish final case-relative paths before
 probes. Preserve replay inputs and commands, not merely transcripts. Short IDs
 are display aliases. Digests establish byte identity, not truth or execution.
