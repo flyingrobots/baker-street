@@ -171,6 +171,7 @@ class PreferenceCommandTests(unittest.TestCase):
             self.assertEqual(code, 2)
             self.assertEqual(stdout, b"")
             self.assertIn(b"inputs were refused", stderr)
+            self.assertIn(b"unrecognised repository preference field", stderr)
             self.assertNotIn(b"PRIVATE-SENTINEL", stderr)
 
     def test_explicit_header_admission_is_bounded(self) -> None:

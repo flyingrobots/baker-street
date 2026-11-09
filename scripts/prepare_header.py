@@ -88,14 +88,28 @@ def main(argv: Sequence[str] | None = None) -> int:
         )
         encoded = json.dumps(header, ensure_ascii=False, indent=2, allow_nan=False)
         encoded.encode("utf-8")
-    except OSError:
-        sys.stderr.write("Header not prepared: repository files could not be read.\n")
-        return 2
-    except (ValueError, TypeError, RecursionError, subprocess.SubprocessError):
-        sys.stderr.write("Header not prepared: the supplied inputs were refused.\n")
-        return 2
-    sys.stdout.write(encoded + "\n")
-    return 0
+    except OSError as error:
+        diagnostic = (
+            f"repository files could not be read (errno {error.errno}); "
+            "check --header, --repository and --case-root."
+        )
+    except UnicodeError:
+        diagnostic = "the supplied inputs were refused: text must be valid UTF-8."
+    except json.JSONDecodeError as error:
+        diagnostic = (
+            "the supplied inputs were refused: invalid JSON at "
+            f"line {error.lineno}, column {error.colno}; "
+            "check --header and .bakerstreetrc."
+        )
+    except (ValueError, TypeError) as error:
+        diagnostic = f"the supplied inputs were refused: {error}"
+    except (RecursionError, subprocess.SubprocessError):
+        diagnostic = "the supplied inputs were refused: preparation exceeded a supported bound."
+    else:
+        sys.stdout.write(encoded + "\n")
+        return 0
+    sys.stderr.write("Header not prepared: " + diagnostic + "\n")
+    return 2
 
 
 if __name__ == "__main__":
