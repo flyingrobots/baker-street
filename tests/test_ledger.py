@@ -63,6 +63,12 @@ class LedgerTests(unittest.TestCase):
             self.assertEqual(result.returncode, 2)
             self.assertIn('line 3', result.stderr)
 
+    def test_large_integer_cost_median_remains_exact(self):
+        huge = 10 ** 1000
+        out = self.summary([self.record(cost=dict(tokens=huge, elapsed_seconds=huge)),
+                            self.record(finding_id='F-2', cost=dict(tokens=huge, elapsed_seconds=huge))])
+        self.assertEqual(out['median_cost_by_round']['1']['tokens'], huge)
+
     def test_empty_and_unknown_costs(self):
         self.assertEqual(self.summary([])['total_findings'], 0)
         out = self.summary([self.record(cost={'elapsed_seconds': 'UNKNOWN', 'tokens': 'UNKNOWN'})])

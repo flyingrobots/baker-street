@@ -5,7 +5,6 @@ from datetime import datetime
 import json
 from pathlib import Path
 import re
-import statistics
 
 ROLES = ('holmes', 'watson', 'moriarty', 'checker', 'front_office', 'blind_pass')
 SEVERITIES = ('CRITICAL', 'HIGH', 'MODERATE', 'LOW', 'INFORMATIONAL', 'UNKNOWN')
@@ -52,6 +51,16 @@ def blank():
             for severity in SEVERITIES}
 
 
+def exact_median(values):
+    if not values: return None
+    ordered = sorted(values); middle = len(ordered) // 2
+    if len(ordered) % 2: return ordered[middle]
+    total = ordered[middle - 1] + ordered[middle]
+    whole, half = divmod(total, 2)
+    if not half: return whole
+    return whole + .5 if whole < 2 ** 52 else str(whole) + '.5'
+
+
 def summarize(path):
     latest = {}; first = {}
     with path.open('rb') as source:
@@ -81,7 +90,7 @@ def summarize(path):
         for metric, value in row['cost'].items():
             if type(value) is int:
                 bucket[metric].append(value)
-    medians = {r: {metric: statistics.median(values) if values else None
+    medians = {r: {metric: exact_median(values)
                    for metric, values in bucket.items()} for r, bucket in costs.items()}
     return dict(total_findings=len(latest), by_role=roles, by_round=rounds,
                 discovery_by_round=discovery, median_cost_by_round=medians)

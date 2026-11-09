@@ -323,7 +323,8 @@ begin with an already known finding, so first recorded does not prove discovery.
 
 Cost means the finding-event cost, not a repeated whole-case charge. Medians use
 known values on latest entries, by their current round, independently per metric.
-`null` means no known value. Cases with no findings are absent: these figures
+`null` means no known value. Integer medians remain exact; a half-integer beyond
+the exact floating-point range is an exact decimal string ending in `.5`. Cases with no findings are absent: these figures
 cannot measure total case cost, zero-finding work, or which round pays its fee.
 Do not copy a case-wide charge onto every finding. Missing costs stay UNKNOWN.
 An empty book gives zero findings and empty round tables. Every malformed line,
