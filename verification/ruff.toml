@@ -1,6 +1,6 @@
 # This profile covers the new preference path; it is not a legacy-tree waiver.
 target-version = "py310"
-include = ["scripts/preference_*.py", "scripts/prepare_header.py", "tests/test_preference_*.py"]
+include = ["scripts/preference_*.py", "scripts/prepare_header.py", "tests/test_preference_*.py", "verification/check_preferences.py", "verification/__init__.py"]
 
 [lint]
 select = [
@@ -21,6 +21,7 @@ convention = "google"
 "tests/test_preference_file.py" = ["PT009", "PT027"] # PREF-FILE-PT009: unittest assertions; PREF-FILE-PT027: unittest exception contexts.
 "tests/test_preference_schema.py" = ["PT009", "PT027"] # PREF-SCHEMA-PT009: unittest assertions; PREF-SCHEMA-PT027: unittest exception contexts.
 "tests/test_preference_policy.py" = ["PT009"] # PREF-POLICY-PT009: unittest assertions.
+"tests/test_preference_checks.py" = ["PT009", "PT027"] # PREF-CHECKS-PT009: unittest assertions; PREF-CHECKS-PT027: unittest exception contexts.
 
 [lint.flake8-tidy-imports.banned-api]
 "typing.Any".msg = "Keep untrusted values as object until admission."

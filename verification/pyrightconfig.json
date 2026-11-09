@@ -10,12 +10,20 @@
     "../tests/test_preference_header.py",
     "../tests/test_preference_command.py",
     "../tests/test_preference_cli.py",
-    "../tests/test_preference_policy.py"
+    "../tests/test_preference_policy.py",
+    "../tests/test_preference_checks.py",
+    "../verification/__init__.py",
+    "../verification/check_preferences.py"
   ],
   "extraPaths": [".."],
   "typeCheckingMode": "strict",
   "pythonVersion": "3.10",
   "reportImportCycles": "error",
   "reportImplicitOverride": "error",
-  "enableTypeIgnoreComments": false
+  "enableTypeIgnoreComments": false,
+  "executionEnvironments": [
+    {"root": ".", "pythonVersion": "3.13"},
+    {"root": "../tests", "pythonVersion": "3.10"},
+    {"root": "../scripts", "pythonVersion": "3.10"}
+  ]
 }

@@ -51,6 +51,13 @@ def entries() -> list[dict[str, object]]:
 class PreferencePolicyTests(unittest.TestCase):
     """Check suppression contracts independently of the runtime preferences."""
 
+    def test_ci_runs_coverage_and_exception_admission(self) -> None:
+        """The quality job must execute the checks rather than merely describe them."""
+        workflow = (ROOT / ".github/workflows/ci.yml").read_text(encoding="utf-8")
+        self.assertIn("coverage run --branch", workflow)
+        self.assertIn("coverage json", workflow)
+        self.assertIn("python verification/check_preferences.py --coverage", workflow)
+
     def test_each_registry_entry_names_one_diagnostic(self) -> None:
         """An entry cannot silently combine separately justified diagnostics."""
         for entry in entries():

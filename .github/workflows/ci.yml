@@ -55,6 +55,23 @@ jobs:
         run: ruff check --config verification/ruff.toml .
       - name: Examine the preference types
         run: pyright --project verification/pyrightconfig.json
+      - name: Measure the preference component and its admission instrument
+        run: |
+          coverage erase
+          coverage run --branch --source=scripts.preference_schema,scripts.preference_file,scripts.preference_roots,scripts.preference_header,scripts.prepare_header,verification.check_preferences -m unittest discover -s tests -p 'test_preference*.py'
+          coverage json -o preference-coverage.json
+        env:
+          PYTHONDONTWRITEBYTECODE: '1'
+      - name: Admit coverage and exception records
+        run: python verification/check_preferences.py --coverage preference-coverage.json
+      - name: Retain the measured coverage inventory
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: preference-coverage
+          path: preference-coverage.json
+          if-no-files-found: error
+          retention-days: 7
       - name: Examine admission with assertions disabled
         run: python -O -m unittest discover -s tests -p 'test_preference*.py'
         env:
