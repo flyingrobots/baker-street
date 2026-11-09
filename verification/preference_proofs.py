@@ -87,9 +87,12 @@ def proof_constant(_token: str) -> object:
 
 def load_json(path: Path) -> object:
     """Read one bounded JSON proof, preserving duplicate-field refusals."""
-    return json.loads(
-        read_text(path),
-        object_pairs_hook=unique_fields,
-        parse_int=proof_integer,
-        parse_constant=proof_constant,
-    )
+    try:
+        return json.loads(
+            read_text(path),
+            object_pairs_hook=unique_fields,
+            parse_int=proof_integer,
+            parse_constant=proof_constant,
+        )
+    except RecursionError as error:
+        raise PreferenceCheckError("proof_nesting_limit") from error

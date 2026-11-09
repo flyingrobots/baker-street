@@ -127,3 +127,39 @@ class PreferenceCheckTests(unittest.TestCase):
                 else "unsupported_source_suppression"
             )
             self.assertIn(reason, stderr.getvalue())
+
+    def test_deep_proofs_are_normal_refusals_in_both_input_positions(self) -> None:
+        """Within-byte-bound parser exhaustion has the same safe admission refusal."""
+        deep = "[" * 100000 + "0" + "]" * 100000
+        self.assertLess(len(deep), PROOF_BYTES)
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            coverage = fixture(root)
+            for path in (coverage, root / "verification/exceptions.json"):
+                original = path.read_bytes()
+                path.write_text(deep, encoding="utf-8")
+                try:
+                    with (
+                        self.subTest(path=path.name, route="decoder"),
+                        self.assertRaisesRegex(
+                            PreferenceCheckError, "proof_nesting_limit"
+                        ),
+                    ):
+                        load_json(path)
+                    with self.subTest(path=path.name, route="command"):
+                        stdout, stderr = io.StringIO(), io.StringIO()
+                        with redirect_stdout(stdout), redirect_stderr(stderr):
+                            result = main(
+                                ["--root", str(root), "--coverage", str(coverage)]
+                            )
+                        self.assertEqual(result, 2)
+                        self.assertEqual(stdout.getvalue(), "")
+                        reason = (
+                            "require Python 3.13"
+                            if sys.version_info < (3, 13)
+                            else "proof_nesting_limit"
+                        )
+                        self.assertIn(reason, stderr.getvalue())
+                        self.assertNotIn("Traceback", stderr.getvalue())
+                finally:
+                    path.write_bytes(original)
