@@ -14,6 +14,7 @@ select = [
 convention = "google"
 
 [lint.per-file-ignores]
+"tests/test_preference_fixture_custody.py" = ["PT009"] # PREF-CUSTODY-PT009: unittest assertions.
 # Framework recommendations alone; each diagnostic has its own registry entry.
 "tests/test_preference_command.py" = ["PT009", "PT027"] # PREF-COMMAND-PT009: unittest assertions; PREF-COMMAND-PT027: unittest exception contexts.
 "tests/test_preference_header.py" = ["PT009", "PT027"] # PREF-HEADER-PT009: unittest assertions; PREF-HEADER-PT027: unittest exception contexts.

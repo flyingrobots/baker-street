@@ -20,7 +20,8 @@
     "../verification/preference_coverage.py",
     "../verification/preference_exceptions.py",
     "../verification/preference_proofs.py",
-    "../verification/preference_suppressions.py"
+    "../verification/preference_suppressions.py",
+    "../tests/test_preference_fixture_custody.py"
   ],
   "extraPaths": [".."],
   "typeCheckingMode": "strict",

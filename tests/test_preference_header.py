@@ -229,11 +229,17 @@ class PreferenceHeaderTests(unittest.TestCase):
                     str(linked),
                 ],
             )
+            environment = {
+                key: value
+                for key, value in os.environ.items()
+                if not key.startswith("GIT_")
+            }
             for command in commands:
                 with (base / "fixture.err").open("w+b") as errors:
                     # policy-exception: PREF-WORKTREE-FIXTURE -- Fixed Git fixture commands.
                     result = subprocess.run(  # noqa: S603
                         command,
+                        env=environment,
                         check=False,
                         timeout=10,
                         stdout=subprocess.DEVNULL,

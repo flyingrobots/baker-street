@@ -32,7 +32,7 @@ python3 -m verification.check_preferences --coverage preference-coverage.json
 python3 -O -m unittest discover -s tests -p 'test_preference*.py'
 ```
 
-The type profile must examine all twenty-one named source and test files. An empty
+The type profile must examine all twenty-two named source and test files. An empty
 selection is not a successful examination. The installed-package test builds
 the actual skill ZIP, extracts it outside the source checkout, removes inherited
 `PYTHONPATH` and `PYTHONHOME`, and passes the prepared header to the installed
