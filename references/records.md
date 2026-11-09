@@ -331,3 +331,44 @@ credentials, network and storage. The POSIX runner kills its process group on
 timeout and completion; descendants which remain in that group cannot continue.
 No claim is made about descendants which deliberately establish a new session.
 Docker is optional host provision, not a requirement of the protocol.
+
+## Findings ledger
+
+Keep `findings.jsonl` in the user's case store, outside the subject checkout.
+Append one JSON object per finding event. Never edit or delete an earlier entry;
+record a correction in a later line. Never include finding text, source code,
+or private document contents. Real books remain held-out evaluation material.
+
+For a standalone case without review series fields, use `series` equal to
+`case:` followed by the exact `case_id`, and use `round` 1. This is a ledger
+projection only: do not require new series fields in the case or alter the
+packet header. A later linked series uses its recorded series identity; do not
+silently join earlier standalone entries.
+
+Required fields: `series` (the header's `review_series`, or the standalone mapping), `case_id`, `round`,
+`reviewed_head` (full lowercase commit ID, or `N/A` with `reviewed_head_reason`),
+`tier`, `finding_id`, `raised_by`, `event`, `severity`, `status`, `disposition`,
+`recorded_at` (ISO 8601 with timezone), and `cost`. Use the existing severity,
+status and disposition enums. `tier` is triage/focused/standard; `raised_by` is
+holmes/watson/moriarty/checker/front_office/blind_pass and remains fixed for a
+finding. `event` is RAISED/CHANGED/REPAIRED/WITHDRAWN. Cost has `elapsed_seconds`
+and `tokens`, each a nonnegative integer or `UNKNOWN`. Unknown fields are refused.
+
+`scripts/ledger.py summarize --ledger PATH [--json]` reads without alteration.
+The latest physical line for each `(series, finding_id)` supplies its state,
+severity and current round. `raised` counts all distinct findings, including
+those later withdrawn. `confirmed`, `withdrawn` and `repaired` are exclusive
+subsets: withdrawal takes precedence, then repair, then confirmed status.
+An unconfirmed finding belongs to none of those three subsets. Their sum need
+not equal `raised`. The per-role and per-round tables describe latest states;
+`discovery_by_round` separately counts the first recorded round. A ledger may
+begin with an already known finding, so first recorded does not prove discovery.
+
+Cost means the finding-event cost, not a repeated whole-case charge. Medians use
+known values on latest entries, by their current round, independently per metric.
+`null` means no known value. Integer medians remain exact; a half-integer beyond
+the exact floating-point range is an exact decimal string ending in `.5`. Cases with no findings are absent: these figures
+cannot measure total case cost, zero-finding work, or which round pays its fee.
+Do not copy a case-wide charge onto every finding. Missing costs stay UNKNOWN.
+An empty book gives zero findings and empty round tables. Every malformed line,
+missing field, or unknown enum is refused with exit 2 and its line number.
