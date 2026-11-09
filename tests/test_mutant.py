@@ -34,11 +34,11 @@ class MutantTests(unittest.TestCase):
     def snapshot(self):
         return {str(p.relative_to(self.repo)): p.read_bytes() for p in self.repo.rglob('*') if p.is_file()}
 
-    def run_trial(self, name='out', timeout=2):
+    def run_trial(self, name='out', timeout=2, env=None):
         record = self.root / 'mutant.json'; record.write_text(json.dumps(self.record))
         before = self.snapshot()
         result = subprocess.run([sys.executable, str(SCRIPT), '--repo', str(self.repo), '--mutant', str(record),
-                                 '--out', str(self.root / name), '--timeout', str(timeout)], capture_output=True, text=True, timeout=15)
+                                 '--out', str(self.root / name), '--timeout', str(timeout)], capture_output=True, text=True, timeout=15, env=env)
         self.assertEqual(self.snapshot(), before)
         path = self.root / name / 'result.json'
         return result, json.loads(path.read_text()) if path.exists() else None
@@ -109,6 +109,15 @@ class MutantTests(unittest.TestCase):
         self.record['base_head'] = self.git('rev-parse', 'HEAD').strip()
         run, row = self.run_trial('sha256')
         self.assertEqual(row['outcome'], 'FAILED')
+
+    def test_global_whitespace_policy_cannot_change_patch_bytes(self):
+        config = self.root / 'config/git'; config.mkdir(parents=True)
+        (config / 'config').write_text('[apply]\nwhitespace = fix\n')
+        self.patch.write_text(self.patch.read_text().replace('+bad\n', '+bad \n'))
+        self.record['patch']['sha256'] = hashlib.sha256(self.patch.read_bytes()).hexdigest()
+        run, row = self.run_trial('whitespace', env=dict(os.environ, XDG_CONFIG_HOME=str(config.parent)))
+        self.assertEqual(row['outcome'], 'FAILED')
+        self.assertEqual((self.root / 'whitespace/scratch/value.txt').read_bytes(), b'bad \n')
 
     def test_nonempty_output_refuses_without_writes(self):
         out = self.root / 'out'; out.mkdir(); (out / 'keep').write_text('unchanged')

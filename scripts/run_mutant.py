@@ -144,7 +144,7 @@ def trial(repo, mutant, out, timeout):
                     raise ValueError('The archive contains an unsafe path or unsupported link')
             source.extractall(scratch, members=members)
         code = run(['git', '--git-dir=' + str(isolated), '--work-tree=' + str(scratch),
-                    '-c', 'core.bare=false', 'apply', '--no-index', str(saved_patch)], scratch,
+                    '-c', 'core.bare=false', 'apply', '--no-index', '--whitespace=nowarn', str(saved_patch)], scratch,
                    out / 'apply.stdout', out / 'apply.stderr', min(timeout, 30))
         if code:
             raise ValueError('The patch could not be applied')
