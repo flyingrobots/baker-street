@@ -21,6 +21,7 @@ class FollowupRuleTests(unittest.TestCase):
                        'external findings book', 'named forgeries', 'authoritative `case.json`'):
             self.assertIn(phrase, section)
         self.assertNotIn('Still planned:', section)
+        self.assertNotIn('not yet implemented', section.casefold())
         self.assertNotIn('None of it is in the current release.', section)
         for name in ('build_case.py', 'ledger.py', 'run_mutant.py'):
             self.assertIn(name, section)
