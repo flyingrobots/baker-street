@@ -44,6 +44,12 @@ class ReleaseTests(unittest.TestCase):
             self.assertEqual(name, archive.name)
             self.assertEqual(digest, hashlib.sha256(archive.read_bytes()).hexdigest())
 
+    def test_installed_skill_contains_the_ledger_command(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            archive = release.build(ROOT, Path(tmp) / 'dist', '3.2.0')
+            with zipfile.ZipFile(archive) as bundle:
+                self.assertIn('baker-street/scripts/ledger.py', bundle.namelist())
+
     def test_archive_does_not_depend_on_source_timestamps(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = self.source(tmp)
