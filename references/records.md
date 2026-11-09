@@ -279,6 +279,18 @@ Summaries preserve uncertainty and link evidence. Testimony does not substitute
 for evidence. Keep the executive finding to three sentences; avoid repeating
 whole Repair Menus in public comments.
 
+For a case posted to a GitHub pull request, ordinarily include the reports
+actually produced beneath separate `<details>` sections after the concise
+decision and canonical case. Identify each report and its actual author or
+reviewer basis. Keep Watson's frozen first deposition distinct from recall;
+retain visible errata beside the affected testimony and include the decision
+check. A triage case includes only the inquiry and check actually performed.
+Do not commission extra roles merely to fill the posted account. Redact private
+material before posting; if a report must be withheld or shortened, name that
+coverage limit and preserve its material conclusions, disagreements and corrections.
+A collapsed section conceals length, not secrets. These defaults confer no
+publication authority and do not require posting raw transcripts or private probes.
+
 In every tier, list the repairs of FOLLOW_UP findings under a "Batched follow-ups"
 heading in CASE_FILE.md so they stay in view. A batched follow-up whose finding is
 not CRITICAL or HIGH does not change the decision. Severity precedence still applies: an open

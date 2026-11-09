@@ -220,8 +220,11 @@ fixes with targeted checks; do not restart the blind pass after each fix.
 Preserve earlier findings and label each reassessment's actual exposure. If no
 fresh context is available, record the pass as not performed and keep that
 coverage limit visible in the decision.
-Verify evidence links resolve. A concise public summary links the full case;
-it need not reproduce every testimony or repair. Publish only as authorized.
+Verify evidence links resolve. A concise public summary links or encloses the
+full case. For a case posted to a GitHub pull request, ordinarily include the
+reports actually produced in separate `<details>` sections, using the public
+report form in records. Preserve corrections and redactions; do not invent
+absent testimony or publish private evidence. Publish only as authorized.
 
 ## 6. Carry out chartered work
 
