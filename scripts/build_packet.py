@@ -37,6 +37,7 @@ def validate(role, header):
     if header["tier"] == "triage" and role not in ("holmes", "checker"):
         raise ValueError("Triage commissions only Holmes and a decision check")
     validate_series(header)
+    validate_review_basis(header)
 
 
 def positive_int(value):
@@ -66,6 +67,25 @@ def validate_series(header):
         raise ValueError("A later round requires prior_case with case_id and reviewed_head")
     elif not FULL_ID.fullmatch(prior["reviewed_head"]):
         raise ValueError("prior_case.reviewed_head must be a full lowercase SHA-1 or SHA-256 ID")
+
+
+def validate_review_basis(header):
+    if 'review_basis' not in header or header['review_basis'] == 'FULL':
+        return
+    basis = header['review_basis']
+    if not isinstance(basis, dict) or basis.get('method') not in (
+            'DELTA_ANCESTOR', 'DELTA_RANGE_DIFF'):
+        raise ValueError('review_basis requires FULL or a recognised delta method')
+    if not positive_int(header.get('round')) or header['round'] <= 1:
+        raise ValueError('A delta review_basis requires round above 1')
+    for key in ('from_head', 'to_head'):
+        if not isinstance(basis.get(key), str) or not FULL_ID.fullmatch(basis[key]):
+            raise ValueError('review_basis.' + key + ' requires a full commit ID')
+    prior = header.get('prior_case')
+    if not isinstance(prior, dict) or basis['from_head'] != prior.get('reviewed_head'):
+        raise ValueError('review_basis.from_head must match prior_case.reviewed_head')
+    if basis['from_head'] == basis['to_head']:
+        raise ValueError('review_basis requires different heads')
 
 
 def build(role, header, include_charter=False, include_stateful_review=False):
