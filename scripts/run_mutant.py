@@ -127,7 +127,7 @@ def trial(repo, mutant, out, timeout):
         if '\n' in str(objects) or '\r' in str(objects):
             raise ValueError('The object-store path contains unsupported line breaks')
         (isolated / 'objects/info/alternates').write_text(str(objects) + '\n')
-        (isolated / 'info/attributes').write_text('* -export-ignore -export-subst -text -eol\n')
+        (isolated / 'info/attributes').write_text('* -export-ignore -export-subst -text -eol -filter -ident\n')
         archive = out / 'source.tar'
         code = run(['git', '--git-dir=' + str(isolated), 'archive', '--format=tar', record['base_head']],
                    case, archive, out / 'export.stderr', min(timeout, 30))
