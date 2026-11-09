@@ -1,33 +1,10 @@
 # Install Baker Street
 
+Local installation uses a reviewed source checkout. Its maintained command is
+`make install`; the named ZIP serves the separate API upload route below.
+
 Python 3.10+ runs the optional packet builder. The skill itself is instructions
 for an agent host. It does not provide a model, tool permissions, or a sandbox.
-
-## Download a pinned skill package
-
-The supplied packet, case, ledger, mutant and evaluation instruments require
-Python 3.10 or later. The mutant instrument additionally requires POSIX process
-groups and Git support for explicit object-format discovery and initialization.
-These download and extraction instructions do not check those requirements.
-The host must supply them before the instruments can be used.
-
-Download `baker-street-v3.3.0.zip` and `SHA256SUMS` from the
-[v3.3.0 release](https://github.com/flyingrobots/baker-street/releases/tag/v3.3.0).
-With GitHub CLI, run in a new download directory:
-
-```sh
-gh release download v3.3.0 --repo flyingrobots/baker-street --pattern 'baker-street-v3.3.0.zip' --pattern SHA256SUMS
-```
-
-The ZIP contains one `baker-street/` folder: the skill, its required resources,
-license, attribution, and per-file checksums. The automatically generated GitHub
-source archives contain the entire evaluator repository; use the named skill
-ZIP for installation.
-
-The repository’s [correspondence guide](../skills/house-correspondence/SKILL.md)
-and [prospective independent examination](INDEPENDENT-TRIAL.md) accompany this
-edition in the source repository. They are not included in the general review
-ZIP. The writing guide does not impose the house manner upon unrelated reviews.
 
 ## Install from a reviewed checkout
 
@@ -109,6 +86,32 @@ This release is a filesystem skill, not a published ChatGPT plugin. ChatGPT
 web/mobile plugin distribution and an Atlas-specific installation are not
 provided or verified here. The original metadata's product labels are not
 evidence of a separate installer for those surfaces.
+
+## Download a pinned skill package
+
+The supplied packet, case, ledger, mutant and evaluation instruments require
+Python 3.10 or later. The mutant instrument additionally requires POSIX process
+groups and Git support for explicit object-format discovery and initialization.
+These download instructions do not check those requirements.
+The host must supply them before the instruments can be used.
+
+Download `baker-street-v3.3.0.zip` and `SHA256SUMS` from the
+[v3.3.0 release](https://github.com/flyingrobots/baker-street/releases/tag/v3.3.0).
+With GitHub CLI, run in a new download directory:
+
+```sh
+gh release download v3.3.0 --repo flyingrobots/baker-street --pattern 'baker-street-v3.3.0.zip' --pattern SHA256SUMS
+```
+
+The ZIP contains one `baker-street/` folder: the skill, its required resources,
+license, attribution, and per-file checksums. The automatically generated GitHub
+source archives contain the entire evaluator repository. The named skill ZIP
+is used by the API upload instructions below and for inspection of the distribution.
+
+The repository’s [correspondence guide](../skills/house-correspondence/SKILL.md)
+and [prospective independent examination](INDEPENDENT-TRIAL.md) accompany this
+edition in the source repository. They are not included in the general review
+ZIP. The writing guide does not impose the house manner upon unrelated reviews.
 
 ## OpenAI Responses API
 

@@ -100,3 +100,15 @@ class InstallPayloadTests(unittest.TestCase):
             )
             self.assertEqual(case.returncode, 0, case.stderr)
             self.assertTrue((base / "case/CASE_FILE.md").is_file())
+
+    def test_local_directions_put_the_maintained_source_route_before_the_archive(
+        self,
+    ) -> None:
+        """The advertised local route must use the source checkout it actually requires."""
+        guide = (ROOT / "docs/INSTALL.md").read_text(encoding="utf-8")
+        self.assertLess(
+            guide.index("make install"),
+            guide.index("## Download a pinned skill package"),
+        )
+        self.assertNotRegex(guide, r"use the named skill\s+ZIP for installation")
+        self.assertIn("Local installation uses a reviewed source checkout.", guide)
