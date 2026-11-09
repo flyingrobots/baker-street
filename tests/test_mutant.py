@@ -127,6 +127,12 @@ class MutantTests(unittest.TestCase):
         self.assertEqual(run.returncode, 2)
         self.assertIsNone(row)
 
+    def test_whitespace_only_expected_violation_is_refused(self):
+        self.record['expected_red'] = '   '
+        run, row = self.run_trial('blank-violation')
+        self.assertEqual(run.returncode, 2)
+        self.assertIsNone(row)
+
     def test_nonempty_output_refuses_without_writes(self):
         out = self.root / 'out'; out.mkdir(); (out / 'keep').write_text('unchanged')
         run, row = self.run_trial(); self.assertEqual(run.returncode, 2)

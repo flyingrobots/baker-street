@@ -72,7 +72,7 @@ def validate(record):
     command = record.get('command')
     if not isinstance(command, list) or not command or any(not isinstance(x, str) or not x or '\0' in x for x in command):
         raise ValueError('command requires nonempty argument strings')
-    if not isinstance(record.get('expected_red'), str) or not record['expected_red'].removesuffix('\n'):
+    if not isinstance(record.get('expected_red'), str) or not record['expected_red'].strip():
         raise ValueError('expected_red requires the intended contract violation')
 
 
