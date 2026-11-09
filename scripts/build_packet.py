@@ -3,6 +3,8 @@
 import argparse
 import hashlib
 import json
+import os
+import tempfile
 import re
 from pathlib import Path
 
@@ -111,22 +113,103 @@ def build(role, header, include_charter=False, include_stateful_review=False):
     return "\n".join(parts)
 
 
+def header_template():
+    result = {key: 'REPLACE with the recorded ' + key for key in sorted(REQUIRED)}
+    result.update(tier='triage', plain=False,
+                  sealed_basis={'head': 'REPLACE with the full candidate commit ID'})
+    return result
+
+
+def repin(role, header, head, out, include_charter=False, include_stateful_review=False):
+    if not FULL_ID.fullmatch(head): raise ValueError('repin requires a full lowercase commit ID')
+    updated = dict(header)
+    if not isinstance(header.get('sealed_basis'), dict):
+        raise ValueError('repin requires sealed_basis to be an object with head')
+    updated['sealed_basis'] = dict(header['sealed_basis'], head=head)
+    if isinstance(updated.get('review_basis'), dict):
+        updated['review_basis'] = dict(updated['review_basis'], to_head=head)
+    packet = build(role, updated, include_charter, include_stateful_review)
+    out = Path(out)
+    if out.is_symlink(): raise ValueError('The packet directory cannot be a symlink')
+    manifest_path = out / 'manifest.json'
+    manifest = {'packets': []}
+    if out.exists() and any(out.iterdir()):
+        if not manifest_path.is_file() or manifest_path.is_symlink():
+            raise ValueError('Existing packet directory requires its manifest')
+        manifest = json.loads(manifest_path.read_text())
+        if not isinstance(manifest, dict) or not isinstance(manifest.get('packets'), list):
+            raise ValueError('Invalid packet manifest')
+        expected_names = {'manifest.json'}
+        current_roles = set()
+        for entry in manifest['packets']:
+            old_role, old_head = entry.get('role'), entry.get('head')
+            if old_role not in ROLES or not isinstance(old_head, str) or not FULL_ID.fullmatch(old_head):
+                raise ValueError('Invalid packet role or head in manifest')
+            if entry.get('status') not in ('CURRENT', 'SUPERSEDED'):
+                raise ValueError('Invalid packet status in manifest')
+            if entry['status'] == 'CURRENT':
+                if old_role in current_roles: raise ValueError('More than one current packet for a role')
+                current_roles.add(old_role)
+            name = entry['path']
+            if name != old_role + '-' + old_head[:12] + '.md' or name in expected_names:
+                raise ValueError('Invalid or repeated packet path in manifest')
+            expected_names.add(name)
+            path = out / name
+            if path.is_symlink() or hashlib.sha256(path.read_bytes()).hexdigest() != entry['sha256']:
+                raise ValueError('A recorded packet differs from its manifest')
+            text = path.read_text(encoding='utf-8')
+            assigned = text.split('## Assigned case header\n\n```json\n', 1)[1].split('\n```', 1)[0]
+            previous_header = json.loads(assigned)
+            if previous_header.get('sealed_basis', {}).get('head') != old_head:
+                raise ValueError('The packet header disagrees with the manifest head')
+            if '<!-- Source: roles/' + old_role + '.md -->' not in text:
+                raise ValueError('The packet brief disagrees with its recorded role')
+        if {path.name for path in out.iterdir()} != expected_names:
+            raise ValueError('Unrecorded output remains from an incomplete packet preparation')
+    name = role + '-' + head[:12] + '.md'; target = out / name
+    if target.exists(): raise ValueError('Refusing to overwrite a packet')
+    out.mkdir(parents=True, exist_ok=True)
+    for entry in manifest['packets']:
+        if entry['role'] == role: entry['status'] = 'SUPERSEDED'
+    manifest['packets'].append(dict(role=role, head=head, path=name, status='CURRENT',
+                                    sha256=hashlib.sha256(packet.encode()).hexdigest()))
+    with target.open('xb') as stream: stream.write(packet.encode('utf-8'))
+    with tempfile.NamedTemporaryFile(mode='w', encoding='utf-8', dir=out, delete=False) as stream:
+        temporary = Path(stream.name)
+        json.dump(manifest, stream, indent=2, sort_keys=True); stream.write('\n')
+    try: os.replace(temporary, manifest_path)
+    finally: temporary.unlink(missing_ok=True)
+    return target
+
+
 def main():
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument("--role", choices=sorted(ROLES), required=True)
-    p.add_argument("--header", type=Path, required=True)
-    p.add_argument("--out", type=Path, required=True)
+    p.add_argument("--role", choices=sorted(ROLES))
+    p.add_argument("--header", type=Path)
+    p.add_argument("--out", type=Path)
+    p.add_argument("--print-header-template", action="store_true")
+    p.add_argument("--repin", metavar="FULL_HEAD")
     p.add_argument("--include-charter", action="store_true")
     p.add_argument("--include-stateful-review", action="store_true",
                    help="Add the stateful code review reference")
     args = p.parse_args()
+    if args.print_header_template:
+        print(json.dumps(header_template(), indent=2, sort_keys=True))
+        return
+    if not args.role or not args.header or not args.out:
+        p.error('--role, --header and --out are required unless printing the header template')
     try:
+        if args.repin:
+            target = repin(args.role, json.loads(args.header.read_text(encoding='utf-8')),
+                           args.repin, args.out, args.include_charter, args.include_stateful_review)
+            print('Wrote ' + str(target) + '; prior packets remain on record.')
+            return
         packet = build(args.role, json.loads(args.header.read_text(encoding="utf-8")),
                        args.include_charter, args.include_stateful_review)
         args.out.parent.mkdir(parents=True, exist_ok=True)
         with args.out.open("x", encoding="utf-8") as f:
             f.write(packet)
-    except (OSError, ValueError, TypeError) as exc:
+    except (OSError, ValueError, TypeError, KeyError, IndexError, AttributeError) as exc:
         p.exit(2, f"Packet not written: {exc}\n")
     print(f"Wrote {args.out}; target evidence access and separation must be checked by the host.")
 

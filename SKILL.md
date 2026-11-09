@@ -150,6 +150,11 @@ not evidence meanings or required decision checks.
 
 ## 3. Reconcile and prepare action
 
+Keep the authoritative particulars in `case.json` under the schema in records.
+Use `scripts/build_case.py --record case.json --out DIRECTORY` to prepare
+`CASE_FILE.md`, `ERRATA.md`, and `FINDINGS_PROVISIONAL.md`. Amend the record,
+not those prepared papers; retain former editions in the output version store.
+
 Register stable findings. Deduplicate mechanisms while retaining distinct impacts;
 explain corroboration by its actual basis. Resolve disagreement with cited reasons;
 preserve unresolved conflicts. Record evidence promoting a hypothesis or withdrawing
@@ -167,6 +172,7 @@ separate. Review all probe dispositions; specialized suites also need valid orac
 
 ## 4. Check the Agency
 
+Prepare a new edition from `case.json` before commissioning its check.
 Apply the checker brief to the draft case, original testimony, and underlying
 evidence. Use a fresh reviewer for focused/standard work when available; triage
 may use a front-office self-check. Disclose the actual basis. Always check every
@@ -180,6 +186,10 @@ pass does not bless later edits. Incomplete decision-critical checks withhold
 READY; use the decision rules in records, not a guessed fallback.
 
 ## 5. Issue the case
+
+Issue the checked edition prepared from `case.json`; do not amend the rendered
+papers by hand. A correction requires a new record and edition, then examination
+of the affected conclusions.
 
 When issuing a case, append one line for each finding event to the external
 `findings.jsonl` ledger defined in records. Preserve earlier entries; record
