@@ -105,6 +105,23 @@ class AgentsMdTests(unittest.TestCase):
         gate = agents_text().split('- **Baker Street passes:**', 1)[1].split('- **Clean:**', 1)[0]
         self.assertIn('an amendment to the pull-request body, whether or not it is a repair;', gate)
 
+    def test_red_green_covers_pull_request_title(self):
+        rule = agents_text().split('**A pull-request title:**', 1)[-1].split(' - **', 1)[0]
+        self.assertIn('RED is the former title, quoted and shown to fail the finding.', rule)
+        self.assertIn('GREEN is the corrected title, read back from the pull request and checked against the same finding.', rule)
+
+    def test_red_green_covers_commit_messages(self):
+        rule = agents_text().split('**Commit messages:**', 1)[-1].split(' - **', 1)[0]
+        self.assertIn('Record the original commit identity and quote the offending message for RED.', rule)
+        self.assertIn('For GREEN, record the corrected commit identity and read its message from Git', rule)
+        self.assertIn('This rule grants no permission to rewrite published history.', rule)
+
+    def test_red_green_covers_repository_settings(self):
+        rule = agents_text().split('**Repository settings:**', 1)[-1].split(' - **', 1)[0]
+        self.assertIn('Record the repository, setting, and observed former value for RED', rule)
+        self.assertIn('For GREEN, read the effective setting after the authorised correction', rule)
+        self.assertIn('A proposed value or a successful write alone is not proof of the effective setting.', rule)
+
     def test_clean_gate_accepted_means_user_accepted(self):
         # Rule 1 exempts only findings the user explicitly accepted; the clean gate must match.
         self.assertIn('is ACCEPTED by the user or WITHDRAWN',agents_text())
