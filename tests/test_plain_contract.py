@@ -15,3 +15,14 @@ class PlainContractTests(unittest.TestCase):
             "Reports frozen before a recorded change of manner remain unchanged as evidence.",
             instructions,
         )
+
+    def test_publication_guidance_allows_withholding_a_report(self) -> None:
+        """Oracle: the published rule permits the governing privacy refusal."""
+        root = Path(__file__).resolve().parents[1]
+        instructions = " ".join(
+            (root / "examples/plain/README.md").read_text(encoding="utf-8").split()
+        )
+        self.assertIn(
+            "A report may be withheld or shortened when necessary; identify the resulting coverage limit",
+            instructions,
+        )
