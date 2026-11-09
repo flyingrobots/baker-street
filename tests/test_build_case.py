@@ -17,7 +17,9 @@ class CaseBuilderTests(unittest.TestCase):
         cls.module = importlib.util.module_from_spec(spec); spec.loader.exec_module(cls.module)
 
     def record(self):
-        return dict(header={'case_id': 'CASE-1', 'reviewed_head': 'a' * 40}, findings=[],
+        header = {key: 'Recorded fixture value' for key in self.module.packet_schema.REQUIRED}
+        header.update(case_id='CASE-1', tier='triage', plain=False, sealed_basis={'head': 'a' * 40})
+        return dict(header=header, findings=[],
                     errata=[], rulings=[], path_to_ready=[], followups=[], probe_triage=[],
                     coverage_matrix=[], decision='READY', notes='A synthetic account.')
 
@@ -57,6 +59,12 @@ class CaseBuilderTests(unittest.TestCase):
         self.assertIn('F-1', docs['FINDINGS_PROVISIONAL.md']); self.assertIn('F-2', docs['CASE_FILE.md'])
         row['followups'] = ['F-3']
         with self.assertRaises(ValueError): self.module.render(row)
+
+    def test_missing_required_case_header_field_names_the_refusal(self):
+        row = self.record()
+        row['header'].pop('requested_decision', None)
+        with self.assertRaisesRegex(ValueError, 'requested_decision'):
+            self.module.render(row)
 
     def test_current_receipt_cannot_disagree_with_the_edition_chain(self):
         with tempfile.TemporaryDirectory() as tmp:

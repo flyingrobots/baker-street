@@ -2,10 +2,15 @@
 """Prepare the case papers from one authoritative record; preserve former editions."""
 import argparse
 import hashlib
+import importlib.util
 import json
 import os
 from pathlib import Path
 import tempfile
+
+_spec = importlib.util.spec_from_file_location('case_packet_schema', Path(__file__).with_name('build_packet.py'))
+packet_schema = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(packet_schema)
 
 FILES = ('CASE_FILE.md', 'ERRATA.md', 'FINDINGS_PROVISIONAL.md')
 FIELDS = {'header', 'findings', 'errata', 'rulings', 'path_to_ready', 'followups', 'probe_triage', 'coverage_matrix', 'decision'}
@@ -30,6 +35,8 @@ def validate(record):
     if set(record) - (FIELDS | {'notes'}): raise ValueError('Unrecognised case fields')
     if not isinstance(record['header'], dict) or not isinstance(record['header'].get('case_id'), str) or not record['header']['case_id'].strip():
         raise ValueError('header requires case_id')
+    header = record['header']
+    packet_schema.validate('checker' if header.get('reviewer_basis') else 'holmes', header)
     if record['decision'] not in ('READY', 'CHANGES_REQUIRED', 'INVESTIGATION_REQUIRED', 'BLOCKED'):
         raise ValueError('Unrecognised decision')
     for field in FIELDS - {'header', 'decision'}:
