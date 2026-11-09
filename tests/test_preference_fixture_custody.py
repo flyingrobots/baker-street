@@ -6,6 +6,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
+import test_preference_cli as cli_fixture
 import test_preference_header as header_fixture
 from test_preference_command import command
 
@@ -23,6 +24,22 @@ class PreferenceFixtureCustodyTests(unittest.TestCase):
     """Actual inherited Git routing must grant no authority over another fixture."""
 
     def test_linked_fixture_preserves_a_selected_operator_repository(self) -> None:
+        """The linked-worktree commands preserve the selected operator's papers."""
+        self._examine_fixture(
+            header_fixture.PreferenceHeaderTests(
+                "test_linked_worktree_uses_its_own_root_and_preferences"
+            )
+        )
+
+    def test_cli_initializer_preserves_a_selected_operator_repository(self) -> None:
+        """The direct initialization call also receives no operator authority."""
+        self._examine_fixture(
+            cli_fixture.PreferenceCliTests(
+                "test_public_command_success_and_refusals_have_distinct_streams"
+            )
+        )
+
+    def _examine_fixture(self, fixture: unittest.TestCase) -> None:
         """A staged operator sentinel and all its authority bytes remain unchanged."""
         with tempfile.TemporaryDirectory() as temporary:
             base = Path(temporary)
@@ -49,9 +66,7 @@ class PreferenceFixtureCustodyTests(unittest.TestCase):
                 os.environ.update(
                     GIT_DIR=str(operator / ".git"), GIT_WORK_TREE=str(operator)
                 )
-                header_fixture.PreferenceHeaderTests(
-                    "test_linked_worktree_uses_its_own_root_and_preferences"
-                ).run(result)
+                fixture.run(result)
             finally:
                 for key in tuple(os.environ):
                     if key.startswith("GIT_"):

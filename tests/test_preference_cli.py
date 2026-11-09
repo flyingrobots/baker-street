@@ -2,6 +2,7 @@
 
 import io
 import json
+import os
 import shutil
 import subprocess
 import tempfile
@@ -23,9 +24,15 @@ class PreferenceCliTests(unittest.TestCase):
             if executable is None:
                 message = "Git is required for the command fixture"
                 raise RuntimeError(message)
+            environment = {
+                key: value
+                for key, value in os.environ.items()
+                if not key.startswith("GIT_")
+            }
             # policy-exception: PREF-CLI-FIXTURE -- Fixed Git init in an owned directory.
             subprocess.run(  # noqa: S603
                 [executable, "init", "--quiet", str(base / "subject")],
+                env=environment,
                 check=True,
                 timeout=10,
                 stdout=subprocess.DEVNULL,
