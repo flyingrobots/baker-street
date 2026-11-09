@@ -37,8 +37,7 @@
       "diagnostic": "S603",
       "path": "tests/test_preference_header.py",
       "symbols": [
-        "repository",
-        "PreferenceHeaderTests.test_linked_worktree_uses_its_own_root_and_preferences"
+        "repository"
       ],
       "reason": "The fixed Git fixture arguments contain generated owned paths and therefore require manual examination under S603.",
       "risk": "An untrusted executable or argument must not enter these fixture calls.",
@@ -59,17 +58,149 @@
       "approver": "pending independent PR examination"
     },
     {
-      "id": "PREF-UNITTEST",
+      "id": "PREF-WORKTREE-FIXTURE",
       "rule": "PY-EXCEPTIONS",
-      "diagnostic": "PT009,PT027",
-      "path": "tests/test_preference_*.py",
+      "diagnostic": "S603",
+      "path": "tests/test_preference_header.py",
       "symbols": [
-        "unittest.TestCase subclasses"
+        "PreferenceHeaderTests.test_linked_worktree_uses_its_own_root_and_preferences"
       ],
-      "reason": "The repository's established test command uses unittest. These two pytest-conversion recommendations do not govern its assertion or exception APIs.",
-      "risk": "The waiver must not conceal unrelated pytest diagnostics.",
-      "compensating_check": "All other selected PT diagnostics remain enabled; the real unittest suite and named assertion-failure trials remain required.",
-      "approver": "repository unittest convention; applicability to be confirmed by PR examination"
+      "reason": "The fixed Git fixture arguments contain generated owned paths and therefore require manual examination under S603.",
+      "risk": "An untrusted executable or argument must not enter these fixture calls.",
+      "compensating_check": "Examine the literal argument vectors, real temporary repositories and ten-second deadlines. No hook is bypassed.",
+      "approver": "pending independent PR examination"
+    },
+    {
+      "id": "PREF-COMMAND-PT009",
+      "rule": "PY-EXCEPTIONS",
+      "diagnostic": "PT009",
+      "path": "tests/test_preference_command.py",
+      "symbols": [
+        "PreferenceCommandTests"
+      ],
+      "reason": "The established unittest command requires its own assertion and exception-context APIs; a pytest conversion is inapplicable to these TestCase classes.",
+      "risk": "The exception must not conceal a different diagnostic or spread to a different test framework.",
+      "compensating_check": "Examine the named TestCase classes; retain all other PT rules and the complete real unittest suite.",
+      "approver": "pending renewed independent PR examination"
+    },
+    {
+      "id": "PREF-COMMAND-PT027",
+      "rule": "PY-EXCEPTIONS",
+      "diagnostic": "PT027",
+      "path": "tests/test_preference_command.py",
+      "symbols": [
+        "PreferenceCommandTests"
+      ],
+      "reason": "The established unittest command requires its own assertion and exception-context APIs; a pytest conversion is inapplicable to these TestCase classes.",
+      "risk": "The exception must not conceal a different diagnostic or spread to a different test framework.",
+      "compensating_check": "Examine the named TestCase classes; retain all other PT rules and the complete real unittest suite.",
+      "approver": "pending renewed independent PR examination"
+    },
+    {
+      "id": "PREF-HEADER-PT009",
+      "rule": "PY-EXCEPTIONS",
+      "diagnostic": "PT009",
+      "path": "tests/test_preference_header.py",
+      "symbols": [
+        "PreferenceHeaderTests"
+      ],
+      "reason": "The established unittest command requires its own assertion and exception-context APIs; a pytest conversion is inapplicable to these TestCase classes.",
+      "risk": "The exception must not conceal a different diagnostic or spread to a different test framework.",
+      "compensating_check": "Examine the named TestCase classes; retain all other PT rules and the complete real unittest suite.",
+      "approver": "pending renewed independent PR examination"
+    },
+    {
+      "id": "PREF-HEADER-PT027",
+      "rule": "PY-EXCEPTIONS",
+      "diagnostic": "PT027",
+      "path": "tests/test_preference_header.py",
+      "symbols": [
+        "PreferenceHeaderTests"
+      ],
+      "reason": "The established unittest command requires its own assertion and exception-context APIs; a pytest conversion is inapplicable to these TestCase classes.",
+      "risk": "The exception must not conceal a different diagnostic or spread to a different test framework.",
+      "compensating_check": "Examine the named TestCase classes; retain all other PT rules and the complete real unittest suite.",
+      "approver": "pending renewed independent PR examination"
+    },
+    {
+      "id": "PREF-CLI-PT009",
+      "rule": "PY-EXCEPTIONS",
+      "diagnostic": "PT009",
+      "path": "tests/test_preference_cli.py",
+      "symbols": [
+        "PreferenceCliTests"
+      ],
+      "reason": "The established unittest command requires its own assertion and exception-context APIs; a pytest conversion is inapplicable to these TestCase classes.",
+      "risk": "The exception must not conceal a different diagnostic or spread to a different test framework.",
+      "compensating_check": "Examine the named TestCase classes; retain all other PT rules and the complete real unittest suite.",
+      "approver": "pending renewed independent PR examination"
+    },
+    {
+      "id": "PREF-FILE-PT009",
+      "rule": "PY-EXCEPTIONS",
+      "diagnostic": "PT009",
+      "path": "tests/test_preference_file.py",
+      "symbols": [
+        "PreferenceFileTests",
+        "PreferenceDestinationTests"
+      ],
+      "reason": "The established unittest command requires its own assertion and exception-context APIs; a pytest conversion is inapplicable to these TestCase classes.",
+      "risk": "The exception must not conceal a different diagnostic or spread to a different test framework.",
+      "compensating_check": "Examine the named TestCase classes; retain all other PT rules and the complete real unittest suite.",
+      "approver": "pending renewed independent PR examination"
+    },
+    {
+      "id": "PREF-FILE-PT027",
+      "rule": "PY-EXCEPTIONS",
+      "diagnostic": "PT027",
+      "path": "tests/test_preference_file.py",
+      "symbols": [
+        "PreferenceFileTests",
+        "PreferenceDestinationTests"
+      ],
+      "reason": "The established unittest command requires its own assertion and exception-context APIs; a pytest conversion is inapplicable to these TestCase classes.",
+      "risk": "The exception must not conceal a different diagnostic or spread to a different test framework.",
+      "compensating_check": "Examine the named TestCase classes; retain all other PT rules and the complete real unittest suite.",
+      "approver": "pending renewed independent PR examination"
+    },
+    {
+      "id": "PREF-SCHEMA-PT009",
+      "rule": "PY-EXCEPTIONS",
+      "diagnostic": "PT009",
+      "path": "tests/test_preference_schema.py",
+      "symbols": [
+        "PreferenceSchemaTests"
+      ],
+      "reason": "The established unittest command requires its own assertion and exception-context APIs; a pytest conversion is inapplicable to these TestCase classes.",
+      "risk": "The exception must not conceal a different diagnostic or spread to a different test framework.",
+      "compensating_check": "Examine the named TestCase classes; retain all other PT rules and the complete real unittest suite.",
+      "approver": "pending renewed independent PR examination"
+    },
+    {
+      "id": "PREF-SCHEMA-PT027",
+      "rule": "PY-EXCEPTIONS",
+      "diagnostic": "PT027",
+      "path": "tests/test_preference_schema.py",
+      "symbols": [
+        "PreferenceSchemaTests"
+      ],
+      "reason": "The established unittest command requires its own assertion and exception-context APIs; a pytest conversion is inapplicable to these TestCase classes.",
+      "risk": "The exception must not conceal a different diagnostic or spread to a different test framework.",
+      "compensating_check": "Examine the named TestCase classes; retain all other PT rules and the complete real unittest suite.",
+      "approver": "pending renewed independent PR examination"
+    },
+    {
+      "id": "PREF-POLICY-PT009",
+      "rule": "PY-EXCEPTIONS",
+      "diagnostic": "PT009",
+      "path": "tests/test_preference_policy.py",
+      "symbols": [
+        "PreferencePolicyTests"
+      ],
+      "reason": "The established unittest command requires its own assertion and exception-context APIs; a pytest conversion is inapplicable to these TestCase classes.",
+      "risk": "The exception must not conceal a different diagnostic or spread to a different test framework.",
+      "compensating_check": "Examine the named TestCase classes; retain all other PT rules and the complete real unittest suite.",
+      "approver": "pending renewed independent PR examination"
     }
   ]
 }

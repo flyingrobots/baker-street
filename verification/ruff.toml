@@ -9,19 +9,18 @@ select = [
   "PERF", "FBT", "TID", "PT", "T20", "ASYNC", "PGH", "DTZ", "G", "LOG",
   "PLR0911", "PLR0912", "PLR0913", "PLR0915", "PLW0120",
 ]
-ignore = ["D206", "D300"]
 
 [lint.pydocstyle]
 convention = "google"
 
 [lint.per-file-ignores]
-# Exact bounds and review obligations are retained in exceptions.json.
-"scripts/preference_roots.py" = ["S603"]
-"tests/test_preference_command.py" = ["S603", "PT009", "PT027"]
-"tests/test_preference_header.py" = ["S603", "PT009", "PT027"]
-"tests/test_preference_cli.py" = ["S603", "PT009", "PT027"]
-"tests/test_preference_file.py" = ["PT009", "PT027"]
-"tests/test_preference_schema.py" = ["PT009", "PT027"]
+# Framework recommendations alone; each diagnostic has its own registry entry.
+"tests/test_preference_command.py" = ["PT009", "PT027"] # PREF-COMMAND-PT009: unittest assertions; PREF-COMMAND-PT027: unittest exception contexts.
+"tests/test_preference_header.py" = ["PT009", "PT027"] # PREF-HEADER-PT009: unittest assertions; PREF-HEADER-PT027: unittest exception contexts.
+"tests/test_preference_cli.py" = ["PT009"] # PREF-CLI-PT009: unittest assertions.
+"tests/test_preference_file.py" = ["PT009", "PT027"] # PREF-FILE-PT009: unittest assertions; PREF-FILE-PT027: unittest exception contexts.
+"tests/test_preference_schema.py" = ["PT009", "PT027"] # PREF-SCHEMA-PT009: unittest assertions; PREF-SCHEMA-PT027: unittest exception contexts.
+"tests/test_preference_policy.py" = ["PT009"] # PREF-POLICY-PT009: unittest assertions.
 
 [lint.flake8-tidy-imports.banned-api]
 "typing.Any".msg = "Keep untrusted values as object until admission."

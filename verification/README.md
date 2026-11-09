@@ -26,7 +26,7 @@ python3 -m unittest discover -s tests -v
 python3 -O -m unittest discover -s tests -p 'test_preference*.py'
 ```
 
-The type profile must examine all ten named source and test files. An empty
+The type profile must examine all eleven named source and test files. An empty
 selection is not a successful examination. The installed-package test builds
 the actual skill ZIP, extracts it outside the source checkout, removes inherited
 `PYTHONPATH` and `PYTHONHOME`, and passes the prepared header to the installed
@@ -51,10 +51,20 @@ The formatting, lint and strict-type profiles and their CI job are implemented
 for the named preference scope. Their results are authoring evidence until the
 candidate's CI executes them. The existing CI matrix supplies the full
 behavioural suite. The scoped
-`S603` examinations and the inapplicable `pytest` conversion recommendations are
-listed in [exceptions.json](exceptions.json), with their reasons, risks, owner,
-expiry and required independent examination. No approval is inferred from an
-entry whose approver remains pending.
+`S603` examinations are confined to five identified calls, each with an adjacent
+registry identity and reason. Each exception in
+[exceptions.json](exceptions.json) names one diagnostic. The inapplicable
+`PT009` and `PT027` recommendations are confined to the named `unittest` files
+and classes, with identities and reasons beside their configuration entries.
+Unused framework exceptions have been removed. The registry retains reasons,
+risks, owner, expiry and required independent examination. No approval is inferred
+from an entry whose approver remains pending.
+
+The policy trials check the single-diagnostic rule, the prohibition on whole-file
+`S603` exceptions and the adjacent identities at the calls. A fixed unrelated
+process-call input was also passed to Ruff under each of the four formerly
+waived filenames: each now receives `S603`. This is retained authoring evidence;
+the complete exception-integrity CI check remains required below.
 
 Repository-wide migration of legacy formatting and typing, a complete
 rule-to-gate inventory, automated exception-orphan checks, separate coverage

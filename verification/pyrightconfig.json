@@ -9,7 +9,8 @@
     "../tests/test_preference_file.py",
     "../tests/test_preference_header.py",
     "../tests/test_preference_command.py",
-    "../tests/test_preference_cli.py"
+    "../tests/test_preference_cli.py",
+    "../tests/test_preference_policy.py"
   ],
   "extraPaths": [".."],
   "typeCheckingMode": "strict",
