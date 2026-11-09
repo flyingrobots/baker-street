@@ -181,6 +181,10 @@ READY; use the decision rules in records, not a guessed fallback.
 
 ## 5. Issue the case
 
+When issuing a case, append one line for each finding event to the external
+`findings.jsonl` ledger defined in records. Preserve earlier entries; record
+unknown costs honestly. Never place real ledger data in this repository.
+
 Lead with the decision and practical consequence. Include exact basis, scope,
 findings, required actions, unresolved obligations, coverage limits, check result,
 and accessible evidence. Use the layout in records. Aim for one page in triage;
