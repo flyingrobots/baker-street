@@ -72,7 +72,7 @@ def validate(record):
     command = record.get('command')
     if not isinstance(command, list) or not command or any(not isinstance(x, str) or not x or '\0' in x for x in command):
         raise ValueError('command requires nonempty argument strings')
-    if not isinstance(record.get('expected_red'), str) or not record['expected_red'].strip():
+    if not isinstance(record.get('expected_red'), str) or not record['expected_red'].removesuffix('\n'):
         raise ValueError('expected_red requires the intended contract violation')
 
 
@@ -84,10 +84,10 @@ def trial(repo, mutant, out, timeout):
     repo = repo.resolve(strict=True); out = out.resolve()
     # Reject every path into the source worktree or its shared Git authority.
     authority = subprocess.check_output(['git', '-C', str(repo), 'rev-parse', '--git-common-dir'],
-                                        text=True, timeout=10, env=clean_environment()).strip()
+                                        text=True, timeout=10, env=clean_environment()).removesuffix('\n')
     authority = (repo / authority).resolve()
     top = Path(subprocess.check_output(['git', '-C', str(repo), 'rev-parse', '--show-toplevel'],
-                                       text=True, timeout=10, env=clean_environment()).strip()).resolve()
+                                       text=True, timeout=10, env=clean_environment()).removesuffix('\n')).resolve()
     if physically_inside(out, top) or physically_inside(out, authority):
         raise ValueError('The output must lie outside the source checkout and Git authority')
     if out.exists() and (not out.is_dir() or any(out.iterdir())):
@@ -112,17 +112,17 @@ def trial(repo, mutant, out, timeout):
         # Copy the verified bytes before applying; a later source edit cannot substitute another patch.
         saved_patch = out / 'applied.diff'; saved_patch.write_bytes(patch)
         kind = subprocess.check_output(['git', '-C', str(repo), 'cat-file', '-t', record['base_head']],
-                                       text=True, timeout=10, env=clean_environment()).strip()
+                                       text=True, timeout=10, env=clean_environment()).removesuffix('\n')
         if kind != 'commit':
             raise ValueError('base_head must identify a commit object')
         isolated = out / 'source.git'
         object_format = subprocess.check_output(['git', '-C', str(repo), 'rev-parse', '--show-object-format'],
-                                                text=True, timeout=10, env=clean_environment()).strip()
+                                                text=True, timeout=10, env=clean_environment()).removesuffix('\n')
         code = run(['git', 'init', '--bare', '--object-format=' + object_format, str(isolated)], case,
                    out / 'init.stdout', out / 'init.stderr', min(timeout, 30))
         if code: raise ValueError('The isolated Git authority could not be prepared')
         objects = subprocess.check_output(['git', '-C', str(repo), 'rev-parse', '--git-path', 'objects'],
-                                          text=True, timeout=10, env=clean_environment()).strip()
+                                          text=True, timeout=10, env=clean_environment()).removesuffix('\n')
         objects = (repo / objects).resolve()
         if '\n' in str(objects) or '\r' in str(objects):
             raise ValueError('The object-store path contains unsupported line breaks')

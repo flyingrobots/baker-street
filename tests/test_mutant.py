@@ -119,6 +119,14 @@ class MutantTests(unittest.TestCase):
         self.assertEqual(row['outcome'], 'FAILED')
         self.assertEqual((self.root / 'whitespace/scratch/value.txt').read_bytes(), b'bad \n')
 
+    def test_trailing_space_in_source_path_is_not_trimmed(self):
+        renamed = self.root / 'repo '
+        self.repo.rename(renamed); self.repo = renamed
+        (self.root / 'repo').mkdir()
+        run, row = self.run_trial('repo /output')
+        self.assertEqual(run.returncode, 2)
+        self.assertIsNone(row)
+
     def test_nonempty_output_refuses_without_writes(self):
         out = self.root / 'out'; out.mkdir(); (out / 'keep').write_text('unchanged')
         run, row = self.run_trial(); self.assertEqual(run.returncode, 2)
