@@ -218,3 +218,22 @@ class PreferenceCheckTests(unittest.TestCase):
                 PreferenceCheckError, "framework_scope_mismatch"
             ):
                 check_exceptions(root, document, config, TODAY)
+
+    def test_embedded_effective_suppression_cannot_escape_registration(self) -> None:
+        """Ruff accepts an embedded noqa; the prescribed form still forbids it."""
+        for comment in (
+            "# ordinary explanation  # noqa: S603",
+            "# ordinary explanation  # NOQA: S603",
+        ):
+            source = (
+                "import subprocess\n\n"
+                "def inquire(arguments):\n"
+                f"    subprocess.run(arguments, check=True)  {comment}\n"
+            )
+            with (
+                self.subTest(comment=comment),
+                self.assertRaisesRegex(
+                    PreferenceCheckError, "unsupported_source_suppression"
+                ),
+            ):
+                source_exceptions({"example.py": source})

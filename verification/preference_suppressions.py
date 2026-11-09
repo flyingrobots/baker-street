@@ -43,7 +43,7 @@ def source_annotation(
     lines: list[str],
 ) -> tuple[str, str] | None:
     """Require one diagnostic and its immediately preceding identified reason."""
-    directive = re.match(
+    directive = re.search(
         r"#\s*(?:noqa\b|ruff:\s*noqa\b|type:\s*ignore\b|pyright:\s*ignore\b|pragma:\s*no (?:cover|branch)\b)",
         token.string,
         flags=re.IGNORECASE,

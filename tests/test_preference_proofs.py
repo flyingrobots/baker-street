@@ -8,7 +8,7 @@ import unittest
 from contextlib import redirect_stderr, redirect_stdout
 from pathlib import Path
 
-from preference_proof_fixtures import fixture, proof
+from preference_proof_fixtures import fixture, proof, registry
 
 from verification.check_preferences import main
 from verification.preference_coverage import check_coverage
@@ -100,3 +100,30 @@ class PreferenceCheckTests(unittest.TestCase):
             )
             with redirect_stdout(io.StringIO()), redirect_stderr(io.StringIO()):
                 self.assertEqual(main(arguments), 2)
+
+    def test_empty_registry_cannot_admit_an_embedded_effective_suppression(
+        self,
+    ) -> None:
+        """The complete admission route must refuse the actual Ruff-accepted form."""
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            coverage = fixture(root)
+            (root / "scripts/preference_roots.py").write_text(
+                "import subprocess\n\ndef inquire(arguments):\n"
+                "    subprocess.run(arguments, check=True)  # ordinary explanation  # noqa: S603\n",
+                encoding="utf-8",
+            )
+            (root / "verification/exceptions.json").write_text(
+                json.dumps({**registry(), "entries": []}), encoding="utf-8"
+            )
+            stdout, stderr = io.StringIO(), io.StringIO()
+            with redirect_stdout(stdout), redirect_stderr(stderr):
+                result = main(["--root", str(root), "--coverage", str(coverage)])
+            self.assertEqual(result, 2)
+            self.assertEqual(stdout.getvalue(), "")
+            reason = (
+                "require Python 3.13"
+                if sys.version_info < (3, 13)
+                else "unsupported_source_suppression"
+            )
+            self.assertIn(reason, stderr.getvalue())
