@@ -155,8 +155,10 @@ or load that folder using your agent host's skill mechanism; keep `references/`,
 `roles/`, `scripts/`, `agents/`, and `assets/` alongside `SKILL.md`.
 
 The skill is a review protocol, not a standalone agent service. Your host supplies
-the model, tools, fresh agent contexts, permissions, and storage. Python 3.10+
-is needed only for the packet builder and evaluation harness.
+the model, tools, fresh agent contexts, permissions, and storage. The supplied
+packet, case, ledger, mutant, and evaluation instruments require Python 3.10+.
+The mutant instrument also requires POSIX process groups and Git support for
+explicit object-format discovery and initialization.
 
 ```text
 Use Baker Street to check this function's boundary claim. Triage, plain voice.
