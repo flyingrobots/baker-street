@@ -196,6 +196,12 @@ class PreferenceHeaderTests(unittest.TestCase):
             base = Path(temporary)
             root = repository(base)
             linked = base / "linked"
+            with (root / ".git/config").open("a", encoding="utf-8") as configuration:
+                configuration.write(
+                    "\n[commit]\n\tgpgsign = true\n[gpg]\n\tformat = openpgp\n\tprogram = "
+                    + str(base / "unavailable-signing-program")
+                    + "\n"
+                )
             commands = (
                 [
                     "git",
@@ -206,6 +212,7 @@ class PreferenceHeaderTests(unittest.TestCase):
                     "-c",
                     "user.email=fixture@example.invalid",
                     "commit",
+                    "--no-gpg-sign",
                     "--allow-empty",
                     "-m",
                     "Establish the examination fixture",
@@ -222,13 +229,17 @@ class PreferenceHeaderTests(unittest.TestCase):
                 ],
             )
             for command in commands:
-                subprocess.run(
-                    command,
-                    check=True,
-                    timeout=10,
-                    stdout=subprocess.DEVNULL,
-                    stderr=subprocess.DEVNULL,
-                )
+                with (base / "fixture.err").open("w+b") as errors:
+                    result = subprocess.run(
+                        command,
+                        check=False,
+                        timeout=10,
+                        stdout=subprocess.DEVNULL,
+                        stderr=errors,
+                    )
+                    errors.seek(0)
+                    diagnostic = errors.read(4096).decode("utf-8", errors="replace")
+                self.assertEqual(result.returncode, 0, diagnostic)
             write_preferences(root, {"plain": True, "tier": "standard"})
             write_preferences(linked, {"plain": False, "tier": "focused"})
             self.assertEqual(
