@@ -9,7 +9,7 @@ import unittest
 from pathlib import Path
 
 from scripts.preference_header import prepare_header
-from scripts.preference_roots import git_roots
+from scripts.preference_roots import decode_root_names, git_roots
 from scripts.preference_schema import Preferences
 
 
@@ -43,6 +43,34 @@ def write_preferences(root: Path, values: dict[str, object]) -> None:
 
 class PreferenceHeaderTests(unittest.TestCase):
     """Examine the public header preparation route without replacing Git."""
+
+    def test_root_protocol_preserves_filesystem_bytes(self) -> None:
+        """Git supplies filesystem names; only its LF separators divide them."""
+        for suffix in (
+            b"plain",
+            b"\xff",
+            "next\u0085line".encode(),
+            "line\u2028end".encode(),
+        ):
+            with self.subTest(suffix=suffix):
+                root_bytes = b"/owned/subject-" + suffix
+                common_bytes = root_bytes + b"/.git"
+                root, common = decode_root_names(
+                    root_bytes + b"\n" + common_bytes + b"\n"
+                )
+                self.assertEqual(os.fsencode(root), root_bytes)
+                self.assertEqual(os.fsencode(common), common_bytes)
+
+    def test_real_git_roots_preserve_unicode_line_characters(self) -> None:
+        """An actual worktree name is not divided at a Unicode line character."""
+        with tempfile.TemporaryDirectory() as temporary:
+            for name in ("next\u0085line", "line\u2028end"):
+                with self.subTest(name=name):
+                    root = repository(Path(temporary), name)
+                    self.assertEqual(
+                        git_roots(root), (root.resolve(), (root / ".git").resolve())
+                    )
+                    self.assertEqual(prepare_header(root, {})["tier"], "triage")
 
     def test_absent_file_supplies_ordinary_defaults(self) -> None:
         """Unrelated fields and the caller's original header remain intact."""

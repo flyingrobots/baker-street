@@ -41,11 +41,17 @@ def git_roots(repository: Path) -> tuple[Path, Path]:
         "--git-common-dir",
     ]
     content = _bounded_git_output(command, environment)
-    names = content.decode("utf-8").splitlines()
+    root, common = decode_root_names(content)
+    return root.resolve(strict=True), common.resolve(strict=True)
+
+
+def decode_root_names(content: bytes) -> tuple[Path, Path]:
+    """Examine the two names supplied by the bounded Git inquiry."""
+    names = [os.fsdecode(name) for name in content.removesuffix(b"\n").split(b"\n")]
     if len(names) != 2 or any(not Path(name).is_absolute() for name in names):
         message = "Git did not supply two unambiguous absolute roots"
         raise ValueError(message)
-    return Path(names[0]).resolve(strict=True), Path(names[1]).resolve(strict=True)
+    return Path(names[0]), Path(names[1])
 
 
 def _bounded_git_output(command: list[str], environment: dict[str, str]) -> bytes:
