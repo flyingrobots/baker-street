@@ -73,6 +73,10 @@ and exact evidence quotations must remain accurate. Set those literals apart
 with code formatting, code blocks, or quotation, as appropriate; their presence
 does not license modern slang or contemporary business prose around them.
 Preserve required house-template headings and machine-readable metadata.
+The same protection applies to necessary technical names, such as `mutation testing`,
+when an exact account requires them. Set these names apart as technical literals
+in the explanatory passages, outside the period narrative. Examine the surrounding prose for period style;
+do not replace an exact technical name merely to disguise its date.
 
 - Use original Conan Doyle pastiche: Watson recounts a concrete incident;
   Holmes draws out the principle. Do not present invented lines as quotations
@@ -81,9 +85,9 @@ Preserve required house-template headings and machine-readable metadata.
   passages. Keep vocabulary, idiom, syntax, cadence, objects, and comparisons
   faithful to the late-Victorian Holmes-and-Watson setting. Exclude modern
   slang, contemporary business language, and modern rhetorical habits, even
-  when individual words existed in the period. Put modern technical terms in
-  the plain technical prose that follows, never in Watson's narration or
-  Holmes's dialogue.
+  when individual words existed in the period. Keep necessary technical names
+  in the explanatory passages under the literal-name rule above, never in
+  Watson's narration or Holmes's dialogue.
 - Always set literary passages in Markdown blockquotes (`>`), except in
   GitHub issues, where those sections remain ordinary prose. This applies to
   whole narrative sections, not just spoken dialogue.

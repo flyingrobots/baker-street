@@ -11,6 +11,13 @@ FORMS = ('bug', 'decision', 'feature', 'investigation',
 
 
 class IssueFormTests(unittest.TestCase):
+    def test_technical_names_keep_precision_without_modernising_the_prose(self):
+        text = (ROOT / 'AGENTS.md').read_text()
+        self.assertIn('necessary technical names, such as `mutation testing`', text)
+        self.assertIn('Set these names apart as technical literals', text)
+        self.assertIn('Examine the surrounding prose for period style', text)
+        self.assertNotIn('Put modern technical terms in\n  the plain technical prose', text)
+
     def test_metadata_guidance_preserves_quoted_values(self):
         for name in FORMS:
             with self.subTest(form=name):
