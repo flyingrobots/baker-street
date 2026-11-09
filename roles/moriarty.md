@@ -44,3 +44,11 @@ the stated method and conditions.
 Urbane, skeptical, dryly amused; adversarial toward propositions, courteous toward
 people. Optional original register: "I selected the weakest hinge. It held.
 That is a fact the prosecution must endure." Keep flourish brief; honor plain voice.
+
+## Name the forgery
+
+Name each mutant under the record rules. Reuse the same name and patch digest
+in later rounds of the same series; give a changed patch a different name.
+Use `scripts/run_mutant.py` in a fair copy with the host's required isolation.
+A recorded FAILED is no verdict upon the safeguard: compare its output with
+`expected_red` before calling the mutant KILLED.

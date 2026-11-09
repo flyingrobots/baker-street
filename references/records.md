@@ -281,3 +281,46 @@ the user authorizes a repair on the same series, the repair may include them.
 
 In every tier, when stateful code review applies, CASE_FILE.md includes its
 coverage matrix (see references/stateful-code-review.md).
+
+## Mutants
+
+Give each deliberate fault a stable descriptive name, such as
+`reserve-rejects-exact-fill`: lowercase words joined by hyphens. Within one
+review series, the same name must identify the same patch SHA-256; a different
+patch requires another name. The reviewer compares the case records to enforce
+this rule; the runner does not consult the findings ledger.
+
+A mutant JSON record contains `name`, `base_head` (full lowercase commit ID),
+`patch` (an object with case-relative `path` and `sha256`), `command` (an argument
+list including the intended filter), and `expected_red` (the contract violation
+which the trial must report). The JSON file's directory is the case directory.
+
+`scripts/run_mutant.py --repo PATH --mutant RECORD.json --out DIRECTORY
+--timeout SECONDS` exports tracked files at `base_head` with `git archive`,
+applies the verified patch bytes with `git apply`, and runs the command in the
+fair copy. An existing nonempty output is refused without writes. Output within
+the source checkout or shared Git authority, including resolved symlink aliases,
+is refused. Archive links and unsafe paths are unsupported and give BLOCKED.
+The per-file output allowance is 128 MiB; extracted source also has a 128 MiB
+allowance. The host must account for aggregate concurrent stores and logs.
+
+`result.json` records `name`, `patch_sha256`, `base_head`, `command`, `exit_code`,
+relative stdout/stderr paths, `elapsed_seconds`, and `outcome`. PASSED means the
+patched command exited zero; FAILED means it started and exited nonzero. BLOCKED
+means export, digest, patch, command startup, or timeout prevented a completed
+trial; `reason` explains the obstacle. Refused arguments produce exit 2 before
+output; a recorded BLOCKED result also exits 2. PASSED and FAILED exit 0 from
+the runner; consult the recorded outcome, not the runner's exit alone.
+
+Only the reviewer may record KILLED, after the failure output is checked against
+`expected_red`. A failed import alone is not diagnostic RED. Retain the result,
+patch, command output and source identity with the case.
+
+The runner's own writes remain in the output directory; the supplied command
+is arbitrary code and a fair copy is not a sandbox. A command can deliberately
+write through absolute paths, create files elsewhere, or detach from its process
+group. Such commands require host-enforced isolation protecting the source,
+credentials, network and storage. The POSIX runner kills its process group on
+timeout and completion; descendants which remain in that group cannot continue.
+No claim is made about descendants which deliberately establish a new session.
+Docker is optional host provision, not a requirement of the protocol.
