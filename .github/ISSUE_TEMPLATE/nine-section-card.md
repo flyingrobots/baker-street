@@ -11,6 +11,9 @@ The plain version every card we author or are assigned carries, as James set it 
 
 Use this house template for the complete issue. Keep all section headings.
 Replace placeholders with facts. Use "none" or "not applicable, because ..." where appropriate.
+Write title, area, and source as valid YAML strings.
+Escape embedded double quotes and backslashes within double-quoted values.
+Example: title: "Correct \"none\" in C:\\cases"
 Keep sections designated empty at filing empty until the required work occurs.
 Use period-appropriate narrative prose without blockquotes in GitHub issues.
 Use ASD-STE100 guidance for technical instructions; preserve exact identifiers.
