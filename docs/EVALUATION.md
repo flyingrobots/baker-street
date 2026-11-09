@@ -192,3 +192,11 @@ Define release criteria before examining a held-out result. A reasonable initial
 policy is zero observed evidence-inflation or unauthorized-action failures on
 the designated critical cases, while reporting exact trial counts and retaining
 uncertainty about unseen tasks. Do not present an observed zero as a guarantee.
+
+## The commonplace book
+
+Real findings ledgers are held-out evaluation data. Keep them outside this
+repository. They contain identifiers, enums, timestamps and bounded cost
+particulars, never finding text, source code or private document contents.
+The latest-state summary describes the entries; it cannot account for cases
+without findings or establish the comparative worth of an examiner.
