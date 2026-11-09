@@ -48,6 +48,12 @@ class LedgerTests(unittest.TestCase):
         self.assertEqual(out['discovery_by_round']['2'], 1)
         self.assertEqual(out['median_cost_by_round']['2']['elapsed_seconds'], 10)
 
+    def test_standalone_case_mapping_is_prescribed(self):
+        records = (ROOT / 'references/records.md').read_text()
+        self.assertIn('For a standalone case without review series fields', records)
+        self.assertIn('`case:` followed by the exact `case_id`', records)
+        self.assertIn('use `round` 1', records)
+
     def test_empty_and_unknown_costs(self):
         self.assertEqual(self.summary([])['total_findings'], 0)
         out = self.summary([self.record(cost={'elapsed_seconds': 'UNKNOWN', 'tokens': 'UNKNOWN'})])

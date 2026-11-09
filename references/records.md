@@ -289,7 +289,13 @@ Append one JSON object per finding event. Never edit or delete an earlier entry;
 record a correction in a later line. Never include finding text, source code,
 or private document contents. Real books remain held-out evaluation material.
 
-Required fields: `series` (the header's `review_series`), `case_id`, `round`,
+For a standalone case without review series fields, use `series` equal to
+`case:` followed by the exact `case_id`, and use `round` 1. This is a ledger
+projection only: do not require new series fields in the case or alter the
+packet header. A later linked series uses its recorded series identity; do not
+silently join earlier standalone entries.
+
+Required fields: `series` (the header's `review_series`, or the standalone mapping), `case_id`, `round`,
 `reviewed_head` (full lowercase commit ID, or `N/A` with `reviewed_head_reason`),
 `tier`, `finding_id`, `raised_by`, `event`, `severity`, `status`, `disposition`,
 `recorded_at` (ISO 8601 with timezone), and `cost`. Use the existing severity,
