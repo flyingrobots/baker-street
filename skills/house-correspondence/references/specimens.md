@@ -52,6 +52,81 @@ case. The present check examines the name alone.
 
 No scene is needed. The observation, consequence, and correction remain clear.
 
+## Three voices upon one fact
+
+Illustrative particulars: a receipt names the expected `head`; the enclosed
+`result.json` has different bytes. No admission trial has been performed.
+The invented speakers use the paper and envelope to make that distinction
+visible; the technical account retains the actual names.
+
+Watson notices the reasonable misunderstanding:
+
+> The address agreed with our book, and I had supposed the matter settled.
+> Yet the instructions said nothing of the enclosure. I could not tell whether
+> the clerk was expected to examine it before sending it upstairs.
+
+Holmes distinguishes what the observation establishes:
+
+> “The address tells us where the letter was intended to go, Watson. It does
+> not tell us what has been put inside. The enclosure must agree with the
+> account of it before we accept the delivery.”
+
+Moriarty selects a condition which could defeat the assurance:
+
+> “By all means retain the correct address. I propose to exchange only the
+> enclosure. If the clerk admits it unchanged, we shall have discovered the
+> precise value of his attention to names. The exchange is not yet made; my
+> expectation is not evidence that it will succeed.”
+
+The front office gives the consequence without borrowing a fourth persona:
+
+The receipt's `head` agrees. Agreement between the enclosed `result.json` and
+its recorded SHA-256 has not been established. Examine admission with altered
+bytes and the correct `head` before relying on that safeguard. No completed
+trial or general failure is reported by this illustration.
+
+The witnesses differ in the work their sentences perform, not merely in their
+adjectives. Watson does not prescribe a repair in his first reading. Holmes
+does not claim an unperformed comparison. Moriarty does not boast of a breach
+which exists only in his proposed experiment.
+
+## A revision that keeps its evidence
+
+This fictional supplied draft contains contemporary prose and an unsupported
+conclusion. It is quoted as material for revision:
+
+```text
+Watson, we've nailed it! The receipt is future-proof: the head matches.
+Ship it. {"outcome":"BLOCKED","reason":"command timed out"}
+```
+
+First extract the particulars which the draft actually supplies: a matching
+`head` is reported; the exact supplied message records an expired allowance.
+Neither supplies a completed preservation trial. The command's admission
+behaviour and the authority to publish remain unknown.
+
+A suitable revision separates the incident from those particulars:
+
+> “The address agrees with the book,” I said.
+>
+> “Then record that agreement, Watson. Do not enter a conclusion concerning
+> the contents of a letter we have not examined.”
+
+The supplied message remains unchanged:
+
+```json
+{"outcome":"BLOCKED","reason":"command timed out"}
+```
+
+The allotted time expired. This attempt supplies no completed result. Compare
+the actual `result.json` bytes with the recorded SHA-256, and obtain the missing
+examination before recommending publication. No publication authority is
+established by the draft.
+
+The revision removes the contemporary idiom and false assurance while preserving
+the message, uncertainty, and next necessary observation. It does not invent a
+successful repeat merely to give the passage a pleasing ending.
+
 ## Exact modern evidence
 
 An illustrative supplied message reads:
