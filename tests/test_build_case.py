@@ -1,6 +1,7 @@
 """Examine the clerk's derived copies and preserved former editions."""
 import importlib.util
 import json
+import os
 from pathlib import Path
 import subprocess
 import sys
@@ -31,6 +32,16 @@ class CaseBuilderTests(unittest.TestCase):
                 target = packet.repin('holmes', row['header'], head, root / 'packets')
                 updated = dict(row['header'], sealed_basis=dict(row['header']['sealed_basis'], head=head))
                 self.assertEqual(target.read_bytes(), packet.build('holmes', updated).encode('utf-8'))
+
+    def test_non_utf8_host_can_repeat_non_ascii_case(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp); record = root / 'case.json'; out = root / 'papers'
+            row = self.record(); row['notes'] = 'caf\u00e9'; record.write_text(json.dumps(row), encoding='utf-8')
+            command = [sys.executable, str(ROOT / 'scripts/build_case.py'), '--record', str(record), '--out', str(out)]
+            env = dict(os.environ, LC_ALL='C', PYTHONUTF8='0', PYTHONCOERCECLOCALE='0')
+            for _ in range(2):
+                result = subprocess.run(command, capture_output=True, text=True, timeout=10, env=env)
+                self.assertEqual(result.returncode, 0, result.stderr)
 
     @classmethod
     def setUpClass(cls):

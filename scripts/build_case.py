@@ -103,7 +103,7 @@ def write_case(record, out):
     manifest_path = out / 'manifest.json'; old = None
     if out.exists() and any(out.iterdir()):
         if not manifest_path.is_file(): raise ValueError('Existing output has no case manifest')
-        old = json.loads(manifest_path.read_text())
+        old = json.loads(manifest_path.read_text(encoding='utf-8'))
         if not isinstance(old.get('versions'), list) or not old['versions'] or old.get('current') != old['versions'][-1]:
             raise ValueError('The current receipt disagrees with the edition chain')
         if len(set(old['versions'])) != len(old['versions']):
@@ -122,7 +122,7 @@ def write_case(record, out):
             archive = out / 'versions' / previous
             if {p.name for p in archive.iterdir()} != set(FILES) | {'case.json'}:
                 raise ValueError('Unrecorded particulars remain in a former edition')
-            original = json.loads((archive / 'case.json').read_text())
+            original = json.loads((archive / 'case.json').read_text(encoding='utf-8'))
             if identity(original) != previous: raise ValueError('A former input lost its identity')
             expected_docs = render(original)
             for name in FILES:
@@ -132,7 +132,7 @@ def write_case(record, out):
             if (out / name).read_bytes() != (out / 'versions' / old['current'] / name).read_bytes():
                 raise ValueError('The current papers disagree with their recorded edition')
         if old['current'] == digest:
-            if any((out / name).read_text() != docs[name] for name in FILES): raise ValueError('Unchanged input disagrees with its papers')
+            if any((out / name).read_text(encoding='utf-8') != docs[name] for name in FILES): raise ValueError('Unchanged input disagrees with its papers')
             return digest
     out.mkdir(parents=True, exist_ok=True)
     version = out / 'versions' / digest
