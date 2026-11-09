@@ -2,7 +2,7 @@
 
 The installation profiles govern `scripts/install.py`, `scripts/install_paths.py`,
 `scripts/release_payload.py`, the named installation tests, and
-`check_install_coverage.py`. The type profile names ten files. The older release
+`check_install_coverage.py`. The type profile names eleven files. The older release
 builder retains its existing source conventions; this amendment shares its
 payload reader and preserves its archive bytes for unchanged selected inputs.
 It does not pronounce the whole repository compliant with a new standard.

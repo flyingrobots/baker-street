@@ -14,6 +14,7 @@ select = [
 convention = "google"
 
 [lint.per-file-ignores]
+"tests/test_install_workflow.py" = ["PT009"] # INSTALL-WORKFLOW-PT009: unittest assertions.
 "tests/test_install_coverage.py" = ["PT009", "PT027"] # INSTALL-COVERAGE-PT009: unittest assertions; INSTALL-COVERAGE-PT027: unittest exception contexts.
 "tests/test_install_admission.py" = ["PT009", "PT027"] # INSTALL-ADMISSION-PT009: unittest assertions; INSTALL-ADMISSION-PT027: unittest exception contexts.
 "tests/test_install_command.py" = ["PT009"] # INSTALL-COMMAND-PT009: unittest assertions.

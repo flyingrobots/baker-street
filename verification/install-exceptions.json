@@ -121,6 +121,19 @@
       "risk": "The exception must not conceal a different diagnostic or spread beyond the named TestCase class.",
       "compensating_check": "Examine the named class and keep all other source rules active.",
       "approver": "pending independent PR examination"
+    },
+    {
+      "id": "INSTALL-WORKFLOW-PT009",
+      "rule": "PY-EXCEPTIONS",
+      "diagnostic": "PT009",
+      "path": "tests/test_install_workflow.py",
+      "symbols": [
+        "InstallWorkflowTests"
+      ],
+      "reason": "The established unittest command requires its own assertion and exception-context APIs.",
+      "risk": "The exception must not conceal a different diagnostic or spread beyond the named TestCase class.",
+      "compensating_check": "Examine the named class and keep all other source rules active.",
+      "approver": "pending independent PR examination"
     }
   ]
 }
