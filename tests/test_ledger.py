@@ -54,6 +54,15 @@ class LedgerTests(unittest.TestCase):
         self.assertIn('`case:` followed by the exact `case_id`', records)
         self.assertIn('use `round` 1', records)
 
+    def test_invalid_utf8_reports_the_physical_line(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / 'bad.jsonl'
+            path.write_bytes((json.dumps(self.record()) + '\n').encode() * 2 + b'\xff\n')
+            result = subprocess.run([sys.executable, str(SCRIPT), 'summarize', '--ledger', str(path)],
+                                    capture_output=True, text=True, timeout=10)
+            self.assertEqual(result.returncode, 2)
+            self.assertIn('line 3', result.stderr)
+
     def test_empty_and_unknown_costs(self):
         self.assertEqual(self.summary([])['total_findings'], 0)
         out = self.summary([self.record(cost={'elapsed_seconds': 'UNKNOWN', 'tokens': 'UNKNOWN'})])

@@ -54,10 +54,10 @@ def blank():
 
 def summarize(path):
     latest = {}; first = {}
-    with path.open(encoding='utf-8') as source:
+    with path.open('rb') as source:
         for number, line in enumerate(source, 1):
             try:
-                row = validate(json.loads(line))
+                row = validate(json.loads(line.decode('utf-8')))
             except (ValueError, TypeError, OverflowError) as exc:
                 raise ValueError('line ' + str(number) + ': ' + str(exc)) from exc
             key = (row['series'], row['finding_id'])
