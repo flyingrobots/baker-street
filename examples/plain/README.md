@@ -105,7 +105,10 @@ are not performed; name that omission once rather than inventing their reports.
 ## Enclose the reports without restoring the flourish
 
 An authorised PR posting begins with the concise decision and canonical case.
-Then enclose each report actually produced in its own `<details>` section.
+Ordinarily enclose each report actually produced in its own `<details>` section,
+only when its disclosure is authorised and safe. A report may be withheld or
+shortened when necessary; identify the resulting coverage limit and preserve
+its material conclusions, disagreements and corrections where authorised and safe.
 Identify its actual author and reviewer basis. For example, this is an
 illustrative enclosure of the check above, not a newly commissioned check:
 
