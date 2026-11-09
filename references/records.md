@@ -304,7 +304,9 @@ which the trial must report). The JSON file's directory is the case directory.
 
 `scripts/run_mutant.py --repo PATH --mutant RECORD.json --out DIRECTORY
 --timeout SECONDS` exports tracked files at `base_head` with `git archive`,
-applies the verified patch bytes with `git apply`, and runs the command in the
+uses a case-owned bare Git authority with read-only object-store alternates,
+unsets export-ignore/export-subst attributes, applies the verified patch bytes
+with an explicit work-tree through `git apply`, and runs the command in the
 fair copy. An existing nonempty output is refused without writes. Output within
 the source checkout or shared Git authority, including resolved symlink aliases,
 is refused. Archive links and unsafe paths are unsupported and give BLOCKED.

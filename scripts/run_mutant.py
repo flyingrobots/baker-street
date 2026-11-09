@@ -115,8 +115,19 @@ def trial(repo, mutant, out, timeout):
                                        text=True, timeout=10, env=clean_environment()).strip()
         if kind != 'commit':
             raise ValueError('base_head must identify a commit object')
+        isolated = out / 'source.git'
+        code = run(['git', 'init', '--bare', str(isolated)], case,
+                   out / 'init.stdout', out / 'init.stderr', min(timeout, 30))
+        if code: raise ValueError('The isolated Git authority could not be prepared')
+        objects = subprocess.check_output(['git', '-C', str(repo), 'rev-parse', '--git-path', 'objects'],
+                                          text=True, timeout=10, env=clean_environment()).strip()
+        objects = (repo / objects).resolve()
+        if '\n' in str(objects) or '\r' in str(objects):
+            raise ValueError('The object-store path contains unsupported line breaks')
+        (isolated / 'objects/info/alternates').write_text(str(objects) + '\n')
+        (isolated / 'info/attributes').write_text('* -export-ignore -export-subst\n')
         archive = out / 'source.tar'
-        code = run(['git', '-C', str(repo), 'archive', '--format=tar', record['base_head']],
+        code = run(['git', '--git-dir=' + str(isolated), 'archive', '--format=tar', record['base_head']],
                    case, archive, out / 'export.stderr', min(timeout, 30))
         if code:
             raise ValueError('The source export failed')
@@ -130,7 +141,8 @@ def trial(repo, mutant, out, timeout):
                 if not inside(target, scratch) or not (member.isfile() or member.isdir()):
                     raise ValueError('The archive contains an unsafe path or unsupported link')
             source.extractall(scratch, members=members)
-        code = run(['git', 'apply', '--no-index', str(saved_patch)], scratch,
+        code = run(['git', '--git-dir=' + str(isolated), '--work-tree=' + str(scratch),
+                    '-c', 'core.bare=false', 'apply', '--no-index', str(saved_patch)], scratch,
                    out / 'apply.stdout', out / 'apply.stderr', min(timeout, 30))
         if code:
             raise ValueError('The patch could not be applied')

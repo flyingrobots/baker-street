@@ -80,6 +80,25 @@ class MutantTests(unittest.TestCase):
         self.assertEqual(row['outcome'], 'PASSED')
         self.assertEqual((self.root / 'replacement/scratch/value.txt').read_text(), 'bad\n')
 
+    def test_enclosing_repository_cannot_suppress_the_patch(self):
+        subprocess.run(['git', 'init', '-q', str(self.root)], check=True, timeout=10)
+        run, row = self.run_trial('nested')
+        self.assertEqual(row['outcome'], 'FAILED')
+        self.assertEqual((self.root / 'nested/scratch/value.txt').read_text(), 'bad\n')
+
+    def test_export_attributes_cannot_remove_the_sealed_files(self):
+        for mode in ('tracked', 'local'):
+            with self.subTest(mode=mode):
+                if mode == 'tracked':
+                    (self.repo / '.gitattributes').write_text('value.txt export-ignore\n')
+                    self.git('add', '.gitattributes'); self.git('commit', '-qm', 'Record export advice')
+                    self.record['base_head'] = self.git('rev-parse', 'HEAD').strip()
+                else:
+                    (self.repo / '.git/info/attributes').write_text('value.txt export-ignore\n')
+                run, row = self.run_trial(mode)
+                self.assertEqual(row['outcome'], 'FAILED')
+                self.assertEqual((self.root / mode / 'scratch/value.txt').read_text(), 'bad\n')
+
     def test_nonempty_output_refuses_without_writes(self):
         out = self.root / 'out'; out.mkdir(); (out / 'keep').write_text('unchanged')
         run, row = self.run_trial(); self.assertEqual(run.returncode, 2)
