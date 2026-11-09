@@ -30,7 +30,14 @@ def prepare_header(
     result["plain"] = _plain_choice(header, preferences, choices)
     result["tier"] = _tier_choice(header, preferences, choices)
     if "write_directory" not in result:
-        destination = case_destination(preferences, case_root, root, common)
+        try:
+            destination = case_destination(preferences, case_root, root, common)
+        except OSError as error:
+            message = (
+                f"The case destination could not be admitted (errno {error.errno}); "
+                "check --case-root"
+            )
+            raise ValueError(message) from error
         if destination is not None:
             result["write_directory"] = str(destination)
     return result

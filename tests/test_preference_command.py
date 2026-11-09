@@ -1,5 +1,6 @@
 """Exercise the installed preference command and its packet-builder handoff."""
 
+import errno
 import json
 import os
 import subprocess
@@ -48,6 +49,44 @@ def command(
 
 class PreferenceCommandTests(unittest.TestCase):
     """Verify real installed imports; source-checkout imports cannot hide omissions."""
+
+    def test_destination_filesystem_failure_names_the_destination(self) -> None:
+        """A regular-file ancestor is refused without blaming repository reads."""
+        with tempfile.TemporaryDirectory() as temporary:
+            base = Path(temporary)
+            subject = base / "subject"
+            code, _, error = command(
+                ["git", "init", "--quiet", str(subject)], base, base / "git"
+            )
+            self.assertEqual(code, 0, error.decode())
+            (subject / ".bakerstreetrc").write_text(
+                '{"schema_version":1,"case_directory":"reviews"}', encoding="utf-8"
+            )
+            header = base / "header.json"
+            header.write_text("{}", encoding="utf-8")
+            blocker = base / "PRIVATE-DESTINATION-SENTINEL"
+            blocker.write_text("ordinary file", encoding="utf-8")
+            code, stdout, stderr = command(
+                [
+                    sys.executable,
+                    "-m",
+                    "scripts.prepare_header",
+                    "--repository",
+                    str(subject),
+                    "--header",
+                    str(header),
+                    "--case-root",
+                    str(blocker / "missing"),
+                ],
+                ROOT,
+                base / "refusal",
+            )
+            self.assertEqual(code, 2)
+            self.assertEqual(stdout, b"")
+            self.assertIn(b"case destination", stderr)
+            self.assertIn(f"errno {errno.ENOTDIR}".encode(), stderr)
+            self.assertNotIn(b"repository files", stderr)
+            self.assertNotIn(b"PRIVATE-DESTINATION-SENTINEL", stderr)
 
     def test_command_preserves_unicode_through_an_ascii_stdout(self) -> None:
         """The receiving stream does not restrict valid text in the prepared header."""
