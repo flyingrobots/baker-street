@@ -1,5 +1,11 @@
 # Evaluating Baker Street
 
+The prospective [independent trial](INDEPENDENT-TRIAL.md) records the next
+inquiry and its admission conditions. Its present answer is unanswerable for
+want of appointed independent human examiners and a supplied held-out sample;
+no trial or favourable result is claimed. It leaves the historical human
+review pending.
+
 A persuasive case file is an output. Whether it deserves belief is an evaluation.
 
 ## What runs today
