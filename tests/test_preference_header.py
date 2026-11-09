@@ -209,6 +209,19 @@ class PreferenceHeaderTests(unittest.TestCase):
             self.assertEqual(
                 prepare_header(linked, {}), {"plain": False, "tier": "focused"}
             )
+            write_preferences(linked, {"case_directory": "reviews"})
+            authority_alias = root / ".GIT"
+            if not authority_alias.exists():
+                authority_alias.mkdir()
+            if authority_alias.samefile(root / ".git"):
+                with self.assertRaisesRegex(ValueError, "outside the subject"):
+                    prepare_header(linked, {}, case_root=authority_alias)
+            else:
+                result = prepare_header(linked, {}, case_root=authority_alias)
+                self.assertEqual(
+                    result["write_directory"],
+                    str(authority_alias.resolve() / "reviews"),
+                )
 
     def test_root_names_with_newlines_are_refused_as_ambiguous(self) -> None:
         """The two-line root protocol cannot silently reinterpret a root name."""

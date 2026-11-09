@@ -70,6 +70,27 @@ def _case_path(path: Path) -> Path:
     return resolved
 
 
+def _inside_protected_directory(path: Path, parent: Path) -> bool:
+    """Recognise lexical containment and physical aliases of existing ancestors."""
+    if path.is_relative_to(parent):
+        return True
+    try:
+        protected = parent.stat()
+    except FileNotFoundError:
+        return False
+    for ancestor in (path, *path.parents):
+        try:
+            information = ancestor.stat()
+        except FileNotFoundError:
+            continue
+        if (information.st_dev, information.st_ino) == (
+            protected.st_dev,
+            protected.st_ino,
+        ):
+            return True
+    return False
+
+
 def case_destination(
     preferences: Preferences,
     case_root: Path | None,
@@ -96,7 +117,7 @@ def case_destination(
         message = "The preferred destination escapes the operator case root"
         raise ValueError(message)
     for forbidden in (repository_root.resolve(), git_common_directory.resolve()):
-        if destination.is_relative_to(forbidden):
+        if _inside_protected_directory(destination, forbidden):
             message = "The preferred destination must remain outside the subject"
             raise ValueError(message)
     return destination

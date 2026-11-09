@@ -209,3 +209,43 @@ class PreferenceDestinationTests(unittest.TestCase):
                         base / "subject",
                         base / "authority",
                     )
+
+    def test_subject_aliases_follow_physical_identity_not_letter_case(self) -> None:
+        """Case aliases are forbidden; distinct directories remain valid."""
+        with tempfile.TemporaryDirectory() as temporary:
+            base = Path(temporary)
+            subject = base / "subject"
+            subject.mkdir()
+            alias = base / "SUBJECT"
+            if not alias.exists():
+                alias.mkdir()
+            preferences = Preferences(case_directory="reviews")
+            if alias.samefile(subject):
+                with self.assertRaisesRegex(ValueError, "outside the subject"):
+                    case_destination(preferences, alias, subject, base / "authority")
+            else:
+                self.assertEqual(
+                    case_destination(preferences, alias, subject, base / "authority"),
+                    alias.resolve() / "reviews",
+                )
+
+    def test_common_authority_alias_is_distinct_from_subject_exclusion(self) -> None:
+        """A physical alias of shared authority is forbidden outside the subject too."""
+        with tempfile.TemporaryDirectory() as temporary:
+            base = Path(temporary)
+            subject = base / "subject"
+            subject.mkdir()
+            authority = base / "authority"
+            authority.mkdir()
+            alias = base / "AUTHORITY"
+            if not alias.exists():
+                alias.mkdir()
+            preferences = Preferences(case_directory="reviews")
+            if alias.samefile(authority):
+                with self.assertRaisesRegex(ValueError, "outside the subject"):
+                    case_destination(preferences, alias, subject, authority)
+            else:
+                self.assertEqual(
+                    case_destination(preferences, alias, subject, authority),
+                    alias.resolve() / "reviews",
+                )
