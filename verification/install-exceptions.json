@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "owner": "Baker Street maintainers",
+  "tracking": "https://github.com/flyingrobots/baker-street/issues/29",
+  "review_condition": "The PR examination must assess each named call and TestCase class; remove an entry when that use ends.",
+  "expires": "2027-02-01",
+  "entries": [
+    {
+      "id": "INSTALL-COMMAND-PT009",
+      "rule": "PY-EXCEPTIONS",
+      "diagnostic": "PT009",
+      "path": "tests/test_install_command.py",
+      "symbols": [
+        "InstallCommandTests"
+      ],
+      "reason": "The established unittest command requires its own assertion and exception-context APIs.",
+      "risk": "The exception must not conceal a different diagnostic or spread beyond the named TestCase class.",
+      "compensating_check": "Examine the named class and keep all other source rules active.",
+      "approver": "pending independent PR examination"
+    },
+    {
+      "id": "INSTALL-PAYLOAD-PT009",
+      "rule": "PY-EXCEPTIONS",
+      "diagnostic": "PT009",
+      "path": "tests/test_install_payload.py",
+      "symbols": [
+        "InstallPayloadTests"
+      ],
+      "reason": "The established unittest command requires its own assertion and exception-context APIs.",
+      "risk": "The exception must not conceal a different diagnostic or spread beyond the named TestCase class.",
+      "compensating_check": "Examine the named class and keep all other source rules active.",
+      "approver": "pending independent PR examination"
+    },
+    {
+      "id": "INSTALL-PRESERVATION-PT009",
+      "rule": "PY-EXCEPTIONS",
+      "diagnostic": "PT009",
+      "path": "tests/test_install_preservation.py",
+      "symbols": [
+        "InstallPreservationTests"
+      ],
+      "reason": "The established unittest command requires its own assertion and exception-context APIs.",
+      "risk": "The exception must not conceal a different diagnostic or spread beyond the named TestCase class.",
+      "compensating_check": "Examine the named class and keep all other source rules active.",
+      "approver": "pending independent PR examination"
+    },
+    {
+      "id": "INSTALL-PRESERVATION-PT027",
+      "rule": "PY-EXCEPTIONS",
+      "diagnostic": "PT027",
+      "path": "tests/test_install_preservation.py",
+      "symbols": [
+        "InstallPreservationTests"
+      ],
+      "reason": "The established unittest command requires its own assertion and exception-context APIs.",
+      "risk": "The exception must not conceal a different diagnostic or spread beyond the named TestCase class.",
+      "compensating_check": "Examine the named class and keep all other source rules active.",
+      "approver": "pending independent PR examination"
+    },
+    {
+      "id": "INSTALL-FIXTURE-COMMAND",
+      "rule": "PY-EXCEPTIONS",
+      "diagnostic": "S603",
+      "path": "tests/install_fixtures.py",
+      "symbols": [
+        "command"
+      ],
+      "reason": "All callers pass fixed Python or Make commands and owned fixture paths; shell interpretation is absent.",
+      "risk": "An unrelated caller could obtain executable arguments from received material.",
+      "compensating_check": "Examine every caller, its fixed arguments, stripped Python lookup settings and ten-second timeout.",
+      "approver": "pending independent PR examination"
+    },
+    {
+      "id": "INSTALL-ADMISSION-PT009",
+      "rule": "PY-EXCEPTIONS",
+      "diagnostic": "PT009",
+      "path": "tests/test_install_admission.py",
+      "symbols": [
+        "InstallAdmissionTests"
+      ],
+      "reason": "The established unittest command requires its own assertion and exception-context APIs.",
+      "risk": "The exception must not conceal a different diagnostic or spread beyond the named TestCase class.",
+      "compensating_check": "Examine the named class and keep all other source rules active.",
+      "approver": "pending independent PR examination"
+    },
+    {
+      "id": "INSTALL-ADMISSION-PT027",
+      "rule": "PY-EXCEPTIONS",
+      "diagnostic": "PT027",
+      "path": "tests/test_install_admission.py",
+      "symbols": [
+        "InstallAdmissionTests"
+      ],
+      "reason": "The established unittest command requires its own assertion and exception-context APIs.",
+      "risk": "The exception must not conceal a different diagnostic or spread beyond the named TestCase class.",
+      "compensating_check": "Examine the named class and keep all other source rules active.",
+      "approver": "pending independent PR examination"
+    },
+    {
+      "id": "INSTALL-COVERAGE-PT009",
+      "rule": "PY-EXCEPTIONS",
+      "diagnostic": "PT009",
+      "path": "tests/test_install_coverage.py",
+      "symbols": [
+        "InstallCoverageTests"
+      ],
+      "reason": "The established unittest command requires its own assertion and exception-context APIs.",
+      "risk": "The exception must not conceal a different diagnostic or spread beyond the named TestCase class.",
+      "compensating_check": "Examine the named class and keep all other source rules active.",
+      "approver": "pending independent PR examination"
+    },
+    {
+      "id": "INSTALL-COVERAGE-PT027",
+      "rule": "PY-EXCEPTIONS",
+      "diagnostic": "PT027",
+      "path": "tests/test_install_coverage.py",
+      "symbols": [
+        "InstallCoverageTests"
+      ],
+      "reason": "The established unittest command requires its own assertion and exception-context APIs.",
+      "risk": "The exception must not conceal a different diagnostic or spread beyond the named TestCase class.",
+      "compensating_check": "Examine the named class and keep all other source rules active.",
+      "approver": "pending independent PR examination"
+    }
+  ]
+}

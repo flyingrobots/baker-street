@@ -36,3 +36,43 @@ jobs:
           GIT_CONFIG_COUNT: '1'
           GIT_CONFIG_KEY_0: maintenance.auto
           GIT_CONFIG_VALUE_0: 'false'
+
+  installation-quality:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      COVERAGE_FILE: ${{ runner.temp }}/installation.coverage
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.13.15'
+      - name: Prepare the pinned examination tools
+        run: python -m pip install --require-hashes -r verification/requirements.txt
+      - name: Examine installation format and source rules
+        run: |
+          ruff format --check --config verification/install-ruff.toml .
+          ruff check --config verification/install-ruff.toml .
+      - name: Examine installation types
+        run: pyright --project verification/install-pyrightconfig.json
+      - name: Measure the actual installation and its admission instrument
+        run: |
+          coverage erase
+          coverage run --branch --parallel-mode --source=scripts.install,scripts.install_paths,scripts.release_payload,verification.check_install_coverage -m unittest discover -s tests -p 'test_install*.py'
+          coverage run --branch --parallel-mode --source=scripts.install,scripts.install_paths,scripts.release_payload,verification.check_install_coverage -m scripts.install --destination "$RUNNER_TEMP/installed-coverage-fixture"
+          coverage combine
+          coverage json -o "$RUNNER_TEMP/installation-coverage.json"
+          python -m verification.check_install_coverage "$RUNNER_TEMP/installation-coverage.json"
+      - name: Examine installation with assertions disabled
+        run: python -O -m unittest discover -s tests -p 'test_install*.py'
+      - name: Retain the measured coverage inventory
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: installation-coverage
+          path: ${{ runner.temp }}/installation-coverage.json
+          if-no-files-found: error
+          retention-days: 7

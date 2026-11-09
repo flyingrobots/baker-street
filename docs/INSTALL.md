@@ -29,31 +29,69 @@ and [prospective independent examination](INDEPENDENT-TRIAL.md) accompany this
 edition in the source repository. They are not included in the general review
 ZIP. The writing guide does not impose the house manner upon unrelated reviews.
 
-## Codex CLI, IDE extension, and desktop Codex
+## Install from a reviewed checkout
 
-Save this as `install.py` beside the downloaded files and run `python3 install.py`:
+> Holmes put the complete packet beside the visitor's unfinished copy.
+> "Keep the earlier papers," he said. "The new set must stand complete
+> before its first sheet is offered to the reader."
 
-```python
-import hashlib
-from pathlib import Path
-import zipfile
+Use a reviewed source checkout containing `scripts/install.py`. A downloaded
+skill ZIP alone does not supply this source-installation command. From the
+checkout's root, with Python `3.10` or later on `PATH`, run:
 
-archive = Path('baker-street-v3.3.0.zip')
-expected, filename = Path('SHA256SUMS').read_text().strip().split('  ', 1)
-if filename != archive.name or hashlib.sha256(archive.read_bytes()).hexdigest() != expected:
-    raise SystemExit('Archive checksum mismatch')
-parent = Path.home() / '.agents' / 'skills'
-if (parent / 'baker-street').exists():
-    raise SystemExit('Baker Street already exists; preserve or move it before installing')
-with zipfile.ZipFile(archive) as bundle:
-    bundle.extractall(parent)
-print(parent / 'baker-street' / 'SKILL.md')
+```sh
+make install
 ```
 
-For a project-only installation, change `parent` to
-`Path('/absolute/path/to/your/project/.agents/skills')`. This prevents mixed
-versions by refusing an existing installation. Preserve the old folder before
-an upgrade. In Codex, type `$baker-street` or select it through `/skills`.
+The default is `~/.agents/skills/baker-street`. To choose an explicit destination,
+including one with spaces, run:
+
+```sh
+python3 -m scripts.install --destination '/absolute/path/agent skills/baker-street'
+```
+
+For `make install`, the dedicated environment choice is:
+
+```sh
+BAKER_STREET_DESTINATION='/absolute/path/agent skills/baker-street' make install
+```
+
+The explicit argument precedes `BAKER_STREET_DESTINATION`, which precedes the
+default. Relative choices are relative to the current directory. The command
+prints one `JSON` object containing the actual installed `entrypoint`; refusal
+returns status `2` with its account on standard error. An empty choice is refused.
+No dependency or agent configuration is installed or altered.
+
+This route requires POSIX directory descriptors, as supplied by supported Linux
+and macOS hosts. Existing parent directories must not be symbolic links. Where
+an ordinary temporary-directory name is a system link, choose its physical path.
+The final destination must be absent: an existing file, directory or link is
+refused. Missing parents are created deliberately. Before any destination is
+created, every file in the reviewed release inclusion list is read and admitted:
+regular files only, at most one MiB per file and four MiB together. Source links
+are refused. The copied files and per-file `SHA256SUMS` match a release built from
+the same source bytes. The general review skill excludes evaluation answers,
+private papers and the separate correspondence guide.
+
+Each destination file is created exclusively and its bytes are read back.
+The incomplete marker remains while the resources are copied; `SKILL.md` is
+published only after those checks. On success, the temporary names are removed.
+The tests admit the observed files and directory identities. Concurrent alteration
+by another writer and recovery after loss of power remain outside their scope.
+
+For an upgrade, preserve or move the earlier installation before choosing the
+new destination. On failure, inspect the reported destination and any
+`.baker-street-incomplete` marker; the command retains its partial files and any
+created parents. A complete `SKILL.md` may already exist if interruption followed
+its publication. A second attempt refuses that occupied destination. Preserve
+the uncertain copy and choose a fresh destination rather than treating a failed
+attempt as a successful installation.
+
+## Codex CLI, IDE extension, and desktop Codex
+
+For a project-only installation, select
+`/absolute/path/to/your/project/.agents/skills/baker-street` explicitly.
+In Codex, type `$baker-street` or select it through `/skills`.
 Restart the host if it has not detected the new folder.
 These locations and explicit invocation follow the
 [official local skill instructions](https://learn.chatgpt.com/docs/build-skills).

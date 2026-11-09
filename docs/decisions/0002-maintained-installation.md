@@ -1,7 +1,8 @@
 # Install the skill from a reviewed checkout
 
 Status: design recorded for [issue #29](https://github.com/flyingrobots/baker-street/issues/29);
-implementation and its execution evidence remain pending.
+implementation and authoring trials are recorded. The required independent
+examination remains pending.
 
 ## Occasion
 
