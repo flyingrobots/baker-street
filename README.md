@@ -359,6 +359,12 @@ counterexamples, and a practical revision procedure. It belongs to this
 repository or an express request for its voice. The general review skill retains
 its plain-voice provision; its installation ZIP does not include the writing guide.
 
+Moriarty’s brief gives his conditional challenge a distinct manner. The review
+instructions ordinarily enclose the reports actually produced beneath separate
+`<details>` sections when a case is posted to a GitHub pull request. The final
+account weighs their evidence in a restrained voice; absent testimony is not
+invented, and redaction and publication authority remain necessary.
+
 The [prospective independent examination](docs/INDEPENDENT-TRIAL.md) records the
 necessary human appointments, sealed sample, actual separation, expense limits,
 and separate measures. Its present question is unanswerable for want of appointed
