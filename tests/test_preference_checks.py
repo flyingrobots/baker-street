@@ -29,7 +29,8 @@ TODAY = date(2026, 11, 8)
 SOURCE = (
     "import subprocess\n\n"
     "def inquire():\n"
-    "    subprocess.run(arguments)  # noqa: S603  # PREF-EXAMPLE: Fixed inquiry.\n"
+    "    # policy-exception: PREF-EXAMPLE -- Fixed inquiry.\n"
+    "    subprocess.run(arguments)  # noqa: S603\n"
 )
 
 
@@ -129,6 +130,49 @@ def fixture(root: Path) -> Path:
 
 class PreferenceCheckTests(unittest.TestCase):
     """Reject each missing obligation independently of a passing combined figure."""
+
+    def test_suppression_requires_the_prescribed_preceding_comment(self) -> None:
+        """A factual reason uses the recorded grammar at the immediately prior line."""
+        valid = (
+            "def inquire():\n"
+            "    # policy-exception: PREF-EXAMPLE -- Fixed inquiry.\n"
+            "    subprocess.run(arguments)  # noqa: S603\n"
+        )
+        for source in (
+            valid,
+            valid.replace(
+                "Fixed inquiry.", "Fixed inquiry; noqa names one diagnostic."
+            ),
+        ):
+            with self.subTest(source=source):
+                self.assertEqual(
+                    source_exceptions({"example.py": source}),
+                    {
+                        "PREF-EXAMPLE": ("S603", "example.py", ("inquire",)),
+                    },
+                )
+
+    def test_legacy_detached_and_multiple_diagnostic_annotations_are_refused(
+        self,
+    ) -> None:
+        """The old trailing form and misplaced metadata cannot replace the protocol."""
+        prefix = (
+            "def inquire():\n    # policy-exception: PREF-EXAMPLE -- Fixed inquiry.\n"
+        )
+        invalid = (
+            "def inquire():\n    subprocess.run(arguments)  # noqa: S603  # PREF-EXAMPLE: Fixed inquiry.\n",
+            "def inquire():\n    subprocess.run(arguments)  # noqa: S603\n",
+            prefix + "\n    subprocess.run(arguments)  # noqa: S603\n",
+            prefix.replace("Fixed inquiry.", " ")
+            + "    subprocess.run(arguments)  # noqa: S603\n",
+            prefix + "    subprocess.run(arguments)  # noqa: S603, S602\n",
+            "def inquire():\n    value = 1 # policy-exception: PREF-EXAMPLE -- Fixed inquiry.\n    subprocess.run(arguments)  # noqa: S603\n",
+            "# policy-exception: PREF-EXAMPLE -- Fixed inquiry.\nsubprocess.run(arguments)  # noqa: S603\n",
+            "# pragma: no branch\n",
+        )
+        for source in invalid:
+            with self.subTest(source=source), self.assertRaises(PreferenceCheckError):
+                source_exceptions({"example.py": source})
 
     def test_real_producer_projection_preserves_the_coverage_schema(self) -> None:
         """Retained real producer keys catch a mistaken hand-built count field."""
@@ -429,7 +473,8 @@ class PreferenceCheckTests(unittest.TestCase):
             (root / path).write_text(
                 "import unittest\nclass Example(unittest.TestCase):\n"
                 "    def inquire(self):\n"
-                "        subprocess.run(arguments)  # noqa: S603  # PREF-EXAMPLE-PT009: Conflicting identity.\n",
+                "        # policy-exception: PREF-EXAMPLE-PT009 -- Conflicting identity.\n"
+                "        subprocess.run(arguments)  # noqa: S603\n",
                 encoding="utf-8",
             )
             with self.assertRaisesRegex(

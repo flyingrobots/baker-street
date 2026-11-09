@@ -83,17 +83,19 @@ class PreferencePolicyTests(unittest.TestCase):
                 message = "An exception needs a string identity and path"
                 raise TypeError(message)
             source = (ROOT / path).read_text(encoding="utf-8")
-            comments = [
-                token.string
+            comments = {
+                token.start[0]: token.string
                 for token in tokenize.generate_tokens(io.StringIO(source).readline)
                 if token.type == tokenize.COMMENT
-            ]
-            pattern = rf"# noqa: S603  # {re.escape(identifier)}: \S.+"
+            }
+            pattern = rf"# policy-exception: {re.escape(identifier)} -- \S.+"
             with self.subTest(identifier=identifier):
                 self.assertEqual(
                     sum(
-                        re.fullmatch(pattern, comment) is not None
-                        for comment in comments
+                        comment == "# noqa: S603"
+                        and re.fullmatch(pattern, comments.get(line - 1, ""))
+                        is not None
+                        for line, comment in comments.items()
                     ),
                     1,
                 )

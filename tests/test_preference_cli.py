@@ -23,7 +23,8 @@ class PreferenceCliTests(unittest.TestCase):
             if executable is None:
                 message = "Git is required for the command fixture"
                 raise RuntimeError(message)
-            subprocess.run(  # noqa: S603  # PREF-CLI-FIXTURE: Fixed Git init in an owned directory.
+            # policy-exception: PREF-CLI-FIXTURE -- Fixed Git init in an owned directory.
+            subprocess.run(  # noqa: S603
                 [executable, "init", "--quiet", str(base / "subject")],
                 check=True,
                 timeout=10,

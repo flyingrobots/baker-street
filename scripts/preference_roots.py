@@ -57,7 +57,8 @@ def decode_root_names(content: bytes) -> tuple[Path, Path]:
 def _bounded_git_output(command: list[str], environment: dict[str, str]) -> bytes:
     """Read only this fixed Git inquiry, with a deadline and finite buffer."""
     deadline = time.monotonic() + 5
-    with subprocess.Popen(  # noqa: S603  # PREF-SUBPROCESS: Fixed read-only Git inquiry.
+    # policy-exception: PREF-SUBPROCESS -- Fixed read-only Git inquiry.
+    with subprocess.Popen(  # noqa: S603
         command,
         stdin=subprocess.DEVNULL,
         stdout=subprocess.PIPE,

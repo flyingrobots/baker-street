@@ -68,8 +68,12 @@ The formatting, lint and strict-type profiles and their CI job are implemented
 for the named preference scope. Their results are authoring evidence until the
 candidate's CI executes them. The existing CI matrix supplies the full
 behavioural suite. The scoped
-`S603` examinations are confined to five identified calls, each with an adjacent
-registry identity and reason. Each exception in
+`S603` examinations are confined to five identified calls. Each has one
+`# noqa: S603` comment and an immediately preceding
+`# policy-exception: EX-ID -- factual reason` comment, resolved to the registry.
+The former trailing-identity form, detached reasons, empty reasons and combined
+diagnostics are refused. Ordinary remarks which mention a diagnostic are not
+suppression directives. Each exception in
 [exceptions.json](exceptions.json) names one diagnostic. The inapplicable
 `PT009` and `PT027` recommendations are confined to the named `unittest` files
 and classes, with identities and reasons beside their configuration entries.

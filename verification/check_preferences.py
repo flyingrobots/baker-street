@@ -199,31 +199,50 @@ def definitions(source: str) -> dict[str, tuple[int, int, str]]:
     return result
 
 
+def source_annotation(
+    token: tokenize.TokenInfo,
+    previous: tokenize.TokenInfo | None,
+    lines: list[str],
+) -> tuple[str, str] | None:
+    """Require one diagnostic and its immediately preceding identified reason."""
+    directive = re.match(
+        r"#\s*(?:noqa\b|ruff:\s*noqa\b|type:\s*ignore\b|pyright:\s*ignore\b|pragma:\s*no (?:cover|branch)\b)",
+        token.string,
+        flags=re.IGNORECASE,
+    )
+    if directive is None:
+        return None
+    diagnostic = re.fullmatch(r"# noqa: (S603)", token.string)
+    if diagnostic is None:
+        raise PreferenceCheckError("unsupported_source_suppression")
+    if previous is None:
+        raise PreferenceCheckError("preceding_reason_required")
+    reason = re.fullmatch(
+        r"# policy-exception: ([A-Z][A-Z0-9-]+) -- \S.*", previous.string
+    )
+    if reason is None or lines[previous.start[0] - 1].strip() != previous.string:
+        raise PreferenceCheckError("preceding_reason_required")
+    return diagnostic.group(1), reason.group(1)
+
+
 def source_exceptions(
     sources: dict[str, str],
 ) -> dict[str, tuple[str, str, tuple[str, ...]]]:
     """Inventory exact source suppressions and their actual enclosing symbols."""
     result: dict[str, tuple[str, str, tuple[str, ...]]] = {}
-    pattern = r"# noqa: (S603)  # ([A-Z][A-Z0-9-]+): \S.+"
     for path, source in sources.items():
         symbols = definitions(source)
-        for token in tokenize.generate_tokens(io.StringIO(source).readline):
-            if token.type != tokenize.COMMENT:
+        comments = {
+            token.start[0]: token
+            for token in tokenize.generate_tokens(io.StringIO(source).readline)
+            if token.type == tokenize.COMMENT
+        }
+        lines = source.split("\n")
+        for line, token in comments.items():
+            annotation = source_annotation(token, comments.get(line - 1), lines)
+            if annotation is None:
                 continue
-            if not any(
-                marker in token.string.lower()
-                for marker in (
-                    "noqa",
-                    "type: ignore",
-                    "pyright: ignore",
-                    "pragma: no cover",
-                )
-            ):
-                continue
-            match = re.fullmatch(pattern, token.string)
-            if match is None:
-                raise PreferenceCheckError("unsupported_source_suppression")
-            diagnostic, identifier = match.groups()
+            diagnostic, identifier = annotation
             candidates = [
                 name
                 for name, (start, end, kind) in symbols.items()

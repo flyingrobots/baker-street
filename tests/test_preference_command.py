@@ -30,7 +30,8 @@ def command(
         outputs.with_suffix(".out").open("wb") as stdout,
         outputs.with_suffix(".err").open("wb") as stderr,
     ):
-        result = subprocess.run(  # noqa: S603  # PREF-FIXTURE-COMMAND: Literal commands and owned fixture paths.
+        # policy-exception: PREF-FIXTURE-COMMAND -- Literal commands and owned fixture paths.
+        result = subprocess.run(  # noqa: S603
             arguments,
             cwd=directory,
             env=environment,

@@ -23,7 +23,8 @@ def repository(parent: Path, name: str = "subject") -> Path:
     environment = {
         key: value for key, value in os.environ.items() if not key.startswith("GIT_")
     }
-    subprocess.run(  # noqa: S603  # PREF-GIT-FIXTURE: Fixed Git init in an owned directory.
+    # policy-exception: PREF-GIT-FIXTURE -- Fixed Git init in an owned directory.
+    subprocess.run(  # noqa: S603
         [executable, "init", "--quiet", str(root)],
         check=True,
         timeout=10,
@@ -230,7 +231,8 @@ class PreferenceHeaderTests(unittest.TestCase):
             )
             for command in commands:
                 with (base / "fixture.err").open("w+b") as errors:
-                    result = subprocess.run(  # noqa: S603  # PREF-WORKTREE-FIXTURE: Fixed Git fixture commands.
+                    # policy-exception: PREF-WORKTREE-FIXTURE -- Fixed Git fixture commands.
+                    result = subprocess.run(  # noqa: S603
                         command,
                         check=False,
                         timeout=10,
