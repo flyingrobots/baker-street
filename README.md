@@ -280,6 +280,11 @@ attempts and the coverage matrix the case must carry. The builder neither copies
 access control, blindness, sandboxing, or authorization. Verify those separately.
 Without Python, assemble the same packet manually.
 
+For standing choices of manner, tier and case subdirectory, see
+[repository preferences](docs/repository-preferences.md). The preparation command
+reads `.bakerstreetrc` at the subject's Git root and supplies an actual header to
+the packet builder; the file grants no additional authority.
+
 ## Test the Agency
 
 > It was Holmes's practice, every so often, to set a false trail for his own

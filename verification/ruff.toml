@@ -1,0 +1,35 @@
+# This profile covers the new preference path; it is not a legacy-tree waiver.
+target-version = "py310"
+include = ["scripts/preference_*.py", "scripts/prepare_header.py", "tests/*preference*.py", "verification/preference_*.py", "verification/check_preferences.py", "verification/__init__.py"]
+
+[lint]
+select = [
+  "E4", "E7", "E9", "F", "I", "UP", "B", "SIM", "C4", "C90",
+  "N", "S", "BLE", "A", "ARG", "RUF", "D", "ANN", "RET", "TRY",
+  "PERF", "FBT", "TID", "PT", "T20", "ASYNC", "PGH", "DTZ", "G", "LOG",
+  "PLR0911", "PLR0912", "PLR0913", "PLR0915", "PLW0120",
+]
+
+[lint.pydocstyle]
+convention = "google"
+
+[lint.per-file-ignores]
+"tests/test_preference_fixture_custody.py" = ["PT009"] # PREF-CUSTODY-PT009: unittest assertions.
+# Framework recommendations alone; each diagnostic has its own registry entry.
+"tests/test_preference_command.py" = ["PT009", "PT027"] # PREF-COMMAND-PT009: unittest assertions; PREF-COMMAND-PT027: unittest exception contexts.
+"tests/test_preference_header.py" = ["PT009", "PT027"] # PREF-HEADER-PT009: unittest assertions; PREF-HEADER-PT027: unittest exception contexts.
+"tests/test_preference_cli.py" = ["PT009"] # PREF-CLI-PT009: unittest assertions.
+"tests/test_preference_file.py" = ["PT009", "PT027"] # PREF-FILE-PT009: unittest assertions; PREF-FILE-PT027: unittest exception contexts.
+"tests/test_preference_schema.py" = ["PT009", "PT027"] # PREF-SCHEMA-PT009: unittest assertions; PREF-SCHEMA-PT027: unittest exception contexts.
+"tests/test_preference_policy.py" = ["PT009"] # PREF-POLICY-PT009: unittest assertions.
+"tests/test_preference_checks.py" = ["PT009", "PT027"] # PREF-CHECKS-PT009: unittest assertions; PREF-CHECKS-PT027: unittest exception contexts.
+"tests/test_preference_exceptions.py" = ["PT009", "PT027"] # PREF-EXCEPTIONS-PT009: unittest assertions; PREF-EXCEPTIONS-PT027: unittest exception contexts.
+"tests/test_preference_proofs.py" = ["PT009", "PT027"] # PREF-PROOFS-PT009: unittest assertions; PREF-PROOFS-PT027: unittest exception contexts.
+
+[lint.flake8-tidy-imports.banned-api]
+"typing.Any".msg = "Keep untrusted values as object until admission."
+"typing_extensions.Any".msg = "Keep untrusted values as object until admission."
+"pickle".msg = "Object deserialization requires a separately reviewed boundary."
+"marshal".msg = "Interpreter object serialization is not an admission protocol."
+"builtins.eval".msg = "Do not execute input data."
+"builtins.exec".msg = "Do not execute input data."

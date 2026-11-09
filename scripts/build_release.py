@@ -16,6 +16,10 @@ SKILL_FILES = (
     'references/stateful-code-review.md',
     'roles/holmes.md', 'roles/watson.md', 'roles/moriarty.md', 'roles/checker.md',
     'scripts/build_packet.py', 'scripts/ledger.py', 'scripts/run_mutant.py', 'scripts/build_case.py',
+    'scripts/preference_schema.py', 'scripts/preference_file.py',
+    'scripts/__init__.py',
+    'scripts/preference_roots.py', 'scripts/preference_header.py', 'scripts/prepare_header.py',
+    'docs/repository-preferences.md', 'docs/decisions/0001-repository-preferences.md',
 )
 
 

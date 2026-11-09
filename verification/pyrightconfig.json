@@ -1,0 +1,37 @@
+{
+  "include": [
+    "../scripts/preference_schema.py",
+    "../scripts/preference_file.py",
+    "../scripts/preference_roots.py",
+    "../scripts/preference_header.py",
+    "../scripts/prepare_header.py",
+    "../tests/test_preference_schema.py",
+    "../tests/test_preference_file.py",
+    "../tests/test_preference_header.py",
+    "../tests/test_preference_command.py",
+    "../tests/test_preference_cli.py",
+    "../tests/test_preference_policy.py",
+    "../tests/test_preference_checks.py",
+    "../verification/__init__.py",
+    "../verification/check_preferences.py",
+    "../tests/preference_proof_fixtures.py",
+    "../tests/test_preference_exceptions.py",
+    "../tests/test_preference_proofs.py",
+    "../verification/preference_coverage.py",
+    "../verification/preference_exceptions.py",
+    "../verification/preference_proofs.py",
+    "../verification/preference_suppressions.py",
+    "../tests/test_preference_fixture_custody.py"
+  ],
+  "extraPaths": [".."],
+  "typeCheckingMode": "strict",
+  "pythonVersion": "3.10",
+  "reportImportCycles": "error",
+  "reportImplicitOverride": "error",
+  "enableTypeIgnoreComments": false,
+  "executionEnvironments": [
+    {"root": ".", "pythonVersion": "3.13"},
+    {"root": "../tests", "pythonVersion": "3.10"},
+    {"root": "../scripts", "pythonVersion": "3.10"}
+  ]
+}

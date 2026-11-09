@@ -74,6 +74,30 @@ work by contract, with explicit responsibility for cross-component interfaces.
 
 ## 1. Seal the basis
 
+Before settling ordinary defaults, read `.bakerstreetrc` only at the subject's
+identified Git worktree root, using `python3 -m scripts.prepare_header` from
+this skill's directory. Supply the operator's input header with `--header` and
+the subject with `--repository`. Use the prepared JSON as the packet builder's
+actual header; do not treat a preference summary as application of the choices.
+For `plain` and `tier`, apply ordinary defaults, file defaults, explicit header
+fields, then explicit invocation options. Preserve explicit false. Validate the
+whole file before considering overrides. Omit template-populated fields when
+they are intended to come from the file; an existing header field is explicit.
+
+A `case_directory` preference requires the operator's `--case-root` unless an
+explicit header `write_directory` supersedes it. The reader confines the proposed
+destination outside the subject and shared Git authority; the eventual writer
+must repeat admission when it acts. The file supplies no execution, publication,
+credential or permission authority and cannot weaken governing rules or host
+limits. An absent file preserves ordinary and explicit choices. Refuse malformed
+or unsafe preferences; do not silently proceed as though the file were absent.
+Record the observed choices and preparation command with the configuration
+evidence; do not attribute a later file hash to the snapshot the reader consumed.
+The reader supports POSIX admission on Linux and macOS; it makes no Windows
+claim. A host without the reader must disclose the missing capability and obtain
+equivalent bounded admission before claiming that repository preferences were
+applied. See the repository's preference guide for the full format contract.
+
 Record repository identity and full head/base/merge-base IDs when applicable.
 Distinguish the requested commit from the working tree. List reviewed dirty and
 untracked inputs with digests; do not attribute them to HEAD. Snapshot material
