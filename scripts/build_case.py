@@ -97,6 +97,10 @@ def write_case(record, out):
     if out.exists() and any(out.iterdir()):
         if not manifest_path.is_file(): raise ValueError('Existing output has no case manifest')
         old = json.loads(manifest_path.read_text())
+        if not isinstance(old.get('versions'), list) or not old['versions'] or old.get('current') != old['versions'][-1]:
+            raise ValueError('The current receipt disagrees with the edition chain')
+        if len(set(old['versions'])) != len(old['versions']):
+            raise ValueError('The edition chain repeats an identity')
         for name in FILES:
             expected = old['files'][name]
             if hashlib.sha256((out / name).read_bytes()).hexdigest() != expected:
@@ -109,8 +113,11 @@ def write_case(record, out):
             if identity(original) != previous: raise ValueError('A former input lost its identity')
             expected_docs = render(original)
             for name in FILES:
-                if (archive / name).read_text() != expected_docs[name]:
+                if (archive / name).read_bytes() != expected_docs[name].encode('utf-8'):
                     raise ValueError('A former edition was amended by hand')
+        for name in FILES:
+            if (out / name).read_bytes() != (out / 'versions' / old['current'] / name).read_bytes():
+                raise ValueError('The current papers disagree with their recorded edition')
         if old['current'] == digest:
             if any((out / name).read_text() != docs[name] for name in FILES): raise ValueError('Unchanged input disagrees with its papers')
             return digest

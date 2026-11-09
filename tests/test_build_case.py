@@ -58,6 +58,16 @@ class CaseBuilderTests(unittest.TestCase):
         row['followups'] = ['F-3']
         with self.assertRaises(ValueError): self.module.render(row)
 
+    def test_current_receipt_cannot_disagree_with_the_edition_chain(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            out = Path(tmp); row = self.record(); self.module.write_case(row, out)
+            path = out / 'manifest.json'; manifest = json.loads(path.read_text())
+            manifest['current'] = '0' * 64; path.write_text(json.dumps(manifest))
+            row['notes'] = 'new edition'
+            before = {str(p.relative_to(out)): p.read_bytes() for p in out.rglob('*') if p.is_file()}
+            with self.assertRaises(ValueError): self.module.write_case(row, out)
+            self.assertEqual(before, {str(p.relative_to(out)): p.read_bytes() for p in out.rglob('*') if p.is_file()})
+
     def test_missing_field_duplicate_id_and_tampering_are_refused(self):
         row = self.record(); del row['coverage_matrix']
         with self.assertRaisesRegex(ValueError, 'coverage_matrix'): self.module.render(row)
