@@ -108,6 +108,10 @@ def write_case(record, out):
             raise ValueError('The current receipt disagrees with the edition chain')
         if len(set(old['versions'])) != len(old['versions']):
             raise ValueError('The edition chain repeats an identity')
+        if {p.name for p in out.iterdir()} != set(FILES) | {'manifest.json', 'versions'}:
+            raise ValueError('Unrecorded output remains in the case directory')
+        if {p.name for p in (out / 'versions').iterdir()} != set(old['versions']):
+            raise ValueError('The receipt omits or invents a preserved edition')
         for name in FILES:
             expected = old['files'][name]
             if hashlib.sha256((out / name).read_bytes()).hexdigest() != expected:
@@ -116,6 +120,8 @@ def write_case(record, out):
             if not isinstance(previous, str) or len(previous) != 64 or any(c not in '0123456789abcdef' for c in previous):
                 raise ValueError('Invalid former edition identity')
             archive = out / 'versions' / previous
+            if {p.name for p in archive.iterdir()} != set(FILES) | {'case.json'}:
+                raise ValueError('Unrecorded particulars remain in a former edition')
             original = json.loads((archive / 'case.json').read_text())
             if identity(original) != previous: raise ValueError('A former input lost its identity')
             expected_docs = render(original)

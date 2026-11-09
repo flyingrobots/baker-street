@@ -76,6 +76,17 @@ class CaseBuilderTests(unittest.TestCase):
             with self.assertRaises(ValueError): self.module.write_case(row, out)
             self.assertEqual(before, {str(p.relative_to(out)): p.read_bytes() for p in out.rglob('*') if p.is_file()})
 
+    def test_receipt_cannot_omit_a_preserved_edition(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            out = Path(tmp); row = self.record(); self.module.write_case(row, out)
+            row['notes'] = 'second'; self.module.write_case(row, out)
+            path = out / 'manifest.json'; manifest = json.loads(path.read_text())
+            manifest['versions'] = manifest['versions'][-1:]; path.write_text(json.dumps(manifest))
+            row['notes'] = 'third'
+            before = {str(p.relative_to(out)): p.read_bytes() for p in out.rglob('*') if p.is_file()}
+            with self.assertRaises(ValueError): self.module.write_case(row, out)
+            self.assertEqual(before, {str(p.relative_to(out)): p.read_bytes() for p in out.rglob('*') if p.is_file()})
+
     def test_missing_field_duplicate_id_and_tampering_are_refused(self):
         row = self.record(); del row['coverage_matrix']
         with self.assertRaisesRegex(ValueError, 'coverage_matrix'): self.module.render(row)
