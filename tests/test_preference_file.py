@@ -161,3 +161,51 @@ class PreferenceDestinationTests(unittest.TestCase):
                 case_destination(
                     Preferences(case_directory="again"), root, root / "subject", root
                 )
+
+    def test_symlink_cycles_are_refused_as_unresolved_destinations(self) -> None:
+        """A link cycle cannot become the case root, destination or ancestor."""
+        with tempfile.TemporaryDirectory() as temporary:
+            base = Path(temporary)
+            root = base / "cases"
+            root.mkdir()
+            cycle = root / "cycle"
+            cycle.symlink_to(cycle, target_is_directory=True)
+            for case_root, directory in (
+                (cycle, "reviews"),
+                (root, "cycle"),
+                (root, "cycle/new"),
+            ):
+                with (
+                    self.subTest(directory=directory),
+                    self.assertRaises((ValueError, OSError)),
+                ):
+                    case_destination(
+                        Preferences(case_directory=directory),
+                        case_root,
+                        base / "subject",
+                        base / "authority",
+                    )
+
+    def test_regular_files_cannot_be_case_directory_ancestors(self) -> None:
+        """A regular file cannot serve as the case root, destination or ancestor."""
+        with tempfile.TemporaryDirectory() as temporary:
+            base = Path(temporary)
+            root = base / "cases"
+            root.mkdir()
+            folio = root / "folio"
+            folio.write_text("ordinary file", encoding="utf-8")
+            for case_root, directory in (
+                (folio, "reviews"),
+                (root, "folio"),
+                (root, "folio/new"),
+            ):
+                with (
+                    self.subTest(directory=directory),
+                    self.assertRaises((ValueError, OSError)),
+                ):
+                    case_destination(
+                        Preferences(case_directory=directory),
+                        case_root,
+                        base / "subject",
+                        base / "authority",
+                    )

@@ -56,7 +56,8 @@ scope and other particulars; defaults do not invent those particulars.
 An explicit header `write_directory` supersedes the directory preference.
 Otherwise, `case_directory` requires `--case-root`; its resolved destination
 must lie beneath that root and outside the subject checkout and shared Git
-authority. Existing links cannot take it outside those bounds. A later writer
+authority. Existing links cannot take it outside those bounds. Preparation
+refuses unresolved link cycles and non-directory ancestors. The later writer
 must repeat destination admission when it acts: an earlier resolution does not
 protect against a later change to a filesystem name.
 

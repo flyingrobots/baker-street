@@ -52,6 +52,24 @@ def read_preferences(repository_root: Path) -> Preferences:
         os.close(root_descriptor)
 
 
+def _case_path(path: Path) -> Path:
+    """Resolve existing links and admit only directory ancestors or missing tails."""
+    try:
+        resolved = path.resolve()
+    except RuntimeError as error:
+        message = "A case destination contains an unresolved symbolic link"
+        raise ValueError(message) from error
+    for ancestor in (resolved, *resolved.parents):
+        try:
+            information = ancestor.lstat()
+        except FileNotFoundError:
+            continue
+        if not stat.S_ISDIR(information.st_mode):
+            message = "A case destination requires resolved directory ancestors"
+            raise ValueError(message)
+    return resolved
+
+
 def case_destination(
     preferences: Preferences,
     case_root: Path | None,
@@ -72,8 +90,8 @@ def case_destination(
     if case_root is None:
         message = "A case_directory preference requires an operator case root"
         raise ValueError(message)
-    root = case_root.resolve()
-    destination = (root / preferences.case_directory).resolve()
+    root = _case_path(case_root)
+    destination = _case_path(root / preferences.case_directory)
     if destination == root or not destination.is_relative_to(root):
         message = "The preferred destination escapes the operator case root"
         raise ValueError(message)

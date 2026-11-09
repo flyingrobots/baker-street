@@ -55,8 +55,11 @@ For a preference-derived destination, require a trusted operator to supply the
 case root. Reject absolute paths, traversal components, empty components and
 control characters in `case_directory`. Resolve it beneath that root, refuse an
 escape through an existing symlink, and refuse a destination inside the subject
-checkout or shared Git authority. A supplied header's explicit destination is
-an invocation input, not a permission granted by the preference file.
+checkout or shared Git authority. Resolve existing directory ancestors; refuse
+unresolved link cycles and non-directory ancestors. Missing directory tails
+remain permitted. A supplied
+header's explicit destination is an invocation input, not a permission granted
+by the preference file.
 
 The reader creates no directory and writes no case. Its output is data for the
 commission. A later writer must establish its own destination admission at the
