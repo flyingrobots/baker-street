@@ -39,6 +39,12 @@ review_series, round, and prior_case together, or omit all three:
 - round_budget: optional integer of 1 or more; default 2. It requires the other
   three fields.
 
+Optional `review_basis` is `FULL`, or an object with `method` equal to
+`DELTA_ANCESTOR` or `DELTA_RANGE_DIFF`, and full lowercase commit IDs `from_head`
+and `to_head`. A delta requires `round` above 1, `from_head` equal to
+`prior_case.reviewed_head`, and different heads. The front office verifies that
+`to_head` is the sealed candidate. Omission preserves the former packet format.
+
 ## Evidence manifest
 
 Each material source: ID, locator, saved case-relative path, full object ID or
@@ -216,6 +222,7 @@ holds. Every non-READY decision names the exact, minimal set of repair IDs (and 
 obligations) whose completion would make it READY, each tied to its finding IDs,
 so the case states the path to READY in one place. Judge each round against the
 recorded acceptance criteria and these rules, never relative to a prior round.
+A delta basis narrows what the case examines; it does not change the standard of judgment.
 Do not repeat reviews to reach a target decision. A decision does not replace the
 repository's own review or publishing authorization.
 
