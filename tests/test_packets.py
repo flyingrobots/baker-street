@@ -54,6 +54,7 @@ class PacketTests(unittest.TestCase):
     def test_same_head_reassessment_uses_full_basis(self):
         skill = (SKILL / 'SKILL.md').read_text()
         self.assertIn('If the heads are identical, use `FULL`', skill)
+        self.assertIn('for any reassessment permitted by the governing repository rules', skill)
         self.module.build('holmes', self.series(2, review_basis='FULL'))
 
     def test_absent_review_basis_does_not_change_packet(self):

@@ -81,8 +81,8 @@ mutable sources with retrieval time. Record relevant runtime, dependency,
 lockfile, configuration, and image identities actually observed.
 
 For a later case, choose and record `review_basis`. If the heads are identical, use `FULL`
-for a permitted reassessment of changed scope, body, base, or environment;
-record the material change under the repository rules. Otherwise, if the prior reviewed head
+for any reassessment permitted by the governing repository rules;
+record the material change. Otherwise, if the prior reviewed head
 is an ancestor of the new head, use `DELTA_ANCESTOR` and examine
 `git diff <from_head>..<to_head>`. Otherwise use `DELTA_RANGE_DIFF` only when
 `git range-diff` accounts for every previously reviewed commit and examination
