@@ -99,6 +99,17 @@ class MutantTests(unittest.TestCase):
                 self.assertEqual(row['outcome'], 'FAILED')
                 self.assertEqual((self.root / mode / 'scratch/value.txt').read_text(), 'bad\n')
 
+    def test_sha256_source_keeps_its_object_format(self):
+        source = self.root / 'sha256-repo'
+        init = subprocess.run(['git', 'init', '-q', '--object-format=sha256', str(source)], capture_output=True, text=True, timeout=10)
+        if init.returncode: self.skipTest('Git does not support SHA-256 repositories')
+        self.repo = source
+        self.git('config', 'user.name', 'Trial'); self.git('config', 'user.email', 'trial@example.invalid')
+        (source / 'value.txt').write_text('good\n'); self.git('add', '.'); self.git('commit', '-qm', 'Establish a SHA-256 book')
+        self.record['base_head'] = self.git('rev-parse', 'HEAD').strip()
+        run, row = self.run_trial('sha256')
+        self.assertEqual(row['outcome'], 'FAILED')
+
     def test_nonempty_output_refuses_without_writes(self):
         out = self.root / 'out'; out.mkdir(); (out / 'keep').write_text('unchanged')
         run, row = self.run_trial(); self.assertEqual(run.returncode, 2)

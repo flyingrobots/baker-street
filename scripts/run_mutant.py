@@ -116,7 +116,9 @@ def trial(repo, mutant, out, timeout):
         if kind != 'commit':
             raise ValueError('base_head must identify a commit object')
         isolated = out / 'source.git'
-        code = run(['git', 'init', '--bare', str(isolated)], case,
+        object_format = subprocess.check_output(['git', '-C', str(repo), 'rev-parse', '--show-object-format'],
+                                                text=True, timeout=10, env=clean_environment()).strip()
+        code = run(['git', 'init', '--bare', '--object-format=' + object_format, str(isolated)], case,
                    out / 'init.stdout', out / 'init.stderr', min(timeout, 30))
         if code: raise ValueError('The isolated Git authority could not be prepared')
         objects = subprocess.check_output(['git', '-C', str(repo), 'rev-parse', '--git-path', 'objects'],
