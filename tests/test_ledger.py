@@ -69,6 +69,12 @@ class LedgerTests(unittest.TestCase):
                             self.record(finding_id='F-2', cost=dict(tokens=huge, elapsed_seconds=huge))])
         self.assertEqual(out['median_cost_by_round']['1']['tokens'], huge)
 
+    def test_excessively_nested_line_is_a_numbered_refusal(self):
+        result = self.run_summary([self.record(), '[' * 2000 + '0' + ']' * 2000])
+        self.assertEqual(result.returncode, 2)
+        self.assertIn('line 2', result.stderr)
+        self.assertNotIn('Traceback', result.stderr)
+
     def test_empty_and_unknown_costs(self):
         self.assertEqual(self.summary([])['total_findings'], 0)
         out = self.summary([self.record(cost={'elapsed_seconds': 'UNKNOWN', 'tokens': 'UNKNOWN'})])

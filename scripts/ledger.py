@@ -67,7 +67,7 @@ def summarize(path):
         for number, line in enumerate(source, 1):
             try:
                 row = validate(json.loads(line.decode('utf-8')))
-            except (ValueError, TypeError, OverflowError) as exc:
+            except (ValueError, TypeError, OverflowError, RecursionError) as exc:
                 raise ValueError('line ' + str(number) + ': ' + str(exc)) from exc
             key = (row['series'], row['finding_id'])
             if key in first and row['raised_by'] != first[key]['raised_by']:
