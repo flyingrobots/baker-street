@@ -146,7 +146,7 @@ sequential. Nobody earns an independence badge by changing hats.
 > these comforts it was in fact given.
 
 Start with [installation instructions](docs/INSTALL.md), the
-[v3.1.0 skill package](https://github.com/flyingrobots/baker-street/releases/tag/v3.1.0),
+[v3.2.0 skill package](https://github.com/flyingrobots/baker-street/releases/tag/v3.2.0),
 and the [minimal worked example](examples/triage/README.md).
 
 This repository includes the complete skill and its development companion.
@@ -323,17 +323,28 @@ reviewer; an author of Baker Street cannot perform it.
 > do my agents, after a fashion. What we want is a stranger's trap, and a
 > stranger to judge us by it." He has been looking for such a stranger ever since.
 
-## In preparation
+## The correspondent’s amendments
 
 > A correspondent from the provinces, who had employed the agency upon real
 > affairs, wrote to tell us where our methods had cost him dear. Holmes read the
 > letter twice, the second time with evident pleasure.
 
-The round budget with referral to the user and the consequence floor for required
-repairs are implemented on main. Still planned: delta reviews for follow-up cases,
-a findings ledger, and named mutants run in a scratch copy. The field report and
-remaining work are tracked in
+The correspondent’s five requests are now answered: a round budget and referral;
+a consequence floor for required repairs; delta examinations which retain the
+fresh blind pass; an external findings book; and named forgeries tried upon a
+fair copy. The completed correspondence is retained in
 [flyingrobots/baker-street#6](https://github.com/flyingrobots/baker-street/issues/6).
+
+The clerk also prepares the case papers from one authoritative `case.json`,
+preserving former editions and refusing contradictory receipts. The packet
+builder supplies a header form and preserves earlier packets when a new head
+is named. The installed skill includes the three instruments:
+`build_case.py`, `ledger.py`, and `run_mutant.py`.
+
+These amendments reduce opportunities for clerical disagreement. They do not
+establish that the Agency finds more faults, costs less, or runs faster than
+another method. The external findings book excludes cases without findings;
+its figures must not be read as a complete account of the Agency’s expense.
 
 ## Repository contents and history
 

@@ -15,16 +15,16 @@ class FollowupRuleTests(unittest.TestCase):
         self.assertIn('All tiers: apply the adverse-consequence rule in records to required repairs.', text)
         self.assertNotIn('All tiers: tie required repairs to contracts or acceptance criteria.', text)
 
-    def test_readme_distinguishes_implemented_rules_from_planned_work(self):
-        section = words('README.md').split('## In preparation', 1)[1].split('## Repository contents', 1)[0]
-        self.assertIn('The round budget with referral to the user and the consequence floor for required repairs are implemented on main.', section)
-        planned = section.split('Still planned:', 1)[1].split('.', 1)[0]
-        self.assertIn('delta reviews for follow-up cases', planned)
-        self.assertIn('a findings ledger', planned)
-        self.assertIn('named mutants run in a scratch copy', planned)
-        self.assertNotIn('round budget', planned)
-        self.assertNotIn('consequence floor', planned)
+    def test_readme_records_the_delivered_correspondence(self):
+        section = words('README.md').split('## The correspondent’s amendments', 1)[1].split('## Repository contents', 1)[0]
+        for phrase in ('round budget and referral', 'consequence floor', 'delta examinations',
+                       'external findings book', 'named forgeries', 'authoritative `case.json`'):
+            self.assertIn(phrase, section)
+        self.assertNotIn('Still planned:', section)
         self.assertNotIn('None of it is in the current release.', section)
+        for name in ('build_case.py', 'ledger.py', 'run_mutant.py'):
+            self.assertIn(name, section)
+            self.assertTrue((ROOT / 'scripts' / name).is_file(), name)
 
     def test_consequence_fallback_allows_explicit_acceptance(self):
         rule = words('references/records.md').split('Adverse consequence:', 1)[1].split('## Attempts', 1)[0]
