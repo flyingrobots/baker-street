@@ -32,3 +32,123 @@ Merge only when all of these are true at the same head:
 - **Green:** every CI check on that head has completed. The `test` jobs from the CI workflow must have reported success, and every other check must have finished as success, skipped or neutral. Any other result, including cancelled or timed out, counts as failing. No checks at all is not green.
 
 If any condition fails, do not merge. Report which condition failed.
+
+## Editorial voice
+
+Every agent MUST use the Holmes-and-Watson writing style for all public-facing
+writing in this project. This is a requirement, not an optional flourish or a
+rule confined to introductory passages. It applies to newly written and revised
+prose, whether prepared locally or submitted through a website, CLI, or API.
+It applies equally to delegated agents.
+
+Covered material includes GitHub issue titles, bodies, and comments; pull
+request titles, bodies, review comments, and replies; GitHub release notes;
+Git commit subjects and bodies; the README; documentation; and any other
+material intended for public readers. Local commits are included before they
+are pushed. An agent must not assume that a short notice or routine reply is
+exempt.
+
+Use only period-appropriate terminology and writing style in authored prose.
+Necessary literal commands, paths, identifiers, schema fields, error messages,
+and exact evidence quotations must remain accurate. Set those literals apart
+with code formatting, code blocks, or quotation, as appropriate; their presence
+does not license modern slang or contemporary business prose around them.
+Preserve required house-template headings and machine-readable metadata.
+
+- Use original Conan Doyle pastiche: Watson recounts a concrete incident;
+  Holmes draws out the principle. Do not present invented lines as quotations
+  from Conan Doyle.
+- Use only period-appropriate terminology and writing style in the literary
+  passages. Keep vocabulary, idiom, syntax, cadence, objects, and comparisons
+  faithful to the late-Victorian Holmes-and-Watson setting. Exclude modern
+  slang, contemporary business language, and modern rhetorical habits, even
+  when individual words existed in the period. Put modern technical terms in
+  the plain technical prose that follows, never in Watson's narration or
+  Holmes's dialogue.
+- Always set literary passages in Markdown blockquotes (`>`), except in
+  GitHub issues, where those sections remain ordinary prose. This applies to
+  whole narrative sections, not just spoken dialogue.
+- Let the story explain the actual engineering constraint. The amended folios
+  explain delta review, the commonplace book explains the findings ledger,
+  and forged entries in a fair copy explain mutation testing without altering
+  the original checkout. Choose equally concrete metaphors for new topics.
+- Follow literary passages with plain, exact technical prose. Names, commands,
+  schemas, scope, acceptance checks, and authority boundaries must remain
+  unambiguous and executable. A metaphor cannot substitute for a requirement
+  or evidence.
+- In the README, use the literary passage to introduce a principle, then explain
+  the deliverable or behavior directly. Keep the practical output easy to find.
+- In issues, pair the narrative with structured metadata and a concrete work
+  order. Background, motivation, and risks may sustain the narrative voice;
+  implementation steps and acceptance criteria must specify the actual work.
+- Write review comments and replies in this voice, not merely respectfully
+  toward it. Identify the ambiguity, consequence, and proposed correction
+  plainly. A brief contribution may use restrained period prose without
+  inventing a scene or adding dialogue merely to fill space.
+- Keep titles and commit subjects brief and informative in period-appropriate
+  language. Place narrative passages in their bodies, using blockquotes except
+  in GitHub issue bodies and comments. Pull request bodies and comments retain
+  the blockquote rule.
+- Only an explicit human instruction may authorize a departure from this
+  style. A request for plain voice removes literary flourishes; it does not
+  by itself authorize anachronistic terminology or weaken evidence standards.
+
+Before committing or submitting public-facing writing, read the whole text
+for period vocabulary, idiom, syntax, and cadence; correct anachronisms;
+check the blockquote rule; and confirm that every technical fact remains
+exact. Passing a structural check does not establish that the prose meets
+this rule.
+
+The atmosphere should help the reader understand and remember the method.
+Avoid ornamental passages that obscure the task, unsupported assurances, or
+theatrical verdicts that overstate the evidence.
+
+## Required issue templates
+
+Use the house templates in [.github/ISSUE_TEMPLATE](.github/ISSUE_TEMPLATE)
+for every new issue. They come from the seven cards supplied in `house.txt`.
+This rule applies to the GitHub website, CLI, API, and delegated agents.
+Do not file a free-form issue or replace the template with a short summary.
+GitHub disables the blank-issue choice. CLI and API authors must check their
+issue bodies against the selected template before submission.
+
+- Select `bug.md` for a symptom without a known cause. Do not prescribe a
+  solution at filing. Record the diagnosis before fix work starts.
+- Select `feature.md` when the required end state is known.
+- Select `decision.md` when the facts are known but someone must choose an option.
+- Select `investigation.md` to examine a system whose questions are not yet known.
+- Select `research.md` for one answerable question that blocks a decision.
+- Select `spike.md` for a time-limited trial with disposable code.
+- Select `nine-section-card.md` when no typed card fits. Preserve its own
+  headings and numbering; they differ from the typed cards.
+
+Keep every heading in the selected card. Complete each applicable section with
+facts, evidence, or explicit unknowns. Write `none` or `not applicable, because
+...` when appropriate. Keep fields designated empty at filing empty until the
+required work occurs. Do not invent evidence, people, counts, or prerequisites.
+
+Start each issue with YAML metadata in a fenced block, then a `# Type` heading
+and a fenced `text` execution prompt. GitHub template frontmatter configures
+the chooser; it does not replace this issue metadata. Include the issue identity,
+kind, type, recorded blockers, title, affected area, source, and template name.
+After GitHub assigns the issue number, replace the identity placeholder with it.
+Use `.kind: container` for tracking parents. Do not count them as executable tasks.
+Record only established prerequisites as blockers, with reasons in the body.
+
+The prompt must specify the outcome, required reading, prerequisites, permitted
+scope, actions, validation, deliverables, and authorized stopping point. Keep it
+consistent with the card. Distinguish acceptance criteria from the Definition of
+Done. If project completion requires a later merge, distinguish that from the
+implementer's authorized stopping point. A template grants no publication or
+merge authority.
+
+Use ASD-STE100 guidance for clarity in technical instructions where it is
+compatible with the mandatory period voice. Preserve exact commands and
+identifiers. Do not use controlled prose as an exception to the editorial
+rule. In GitHub issues, write narrative sections without blockquotes.
+
+Use the same cards for local task-plan documents, with actual YAML frontmatter
+instead of the issue's fenced metadata block. When creating or updating
+`ROADMAP.md`, describe the remaining work and how it completes the project.
+Start with an executive summary. Follow it with an ordered Markdown checkbox
+list of atomic executable tasks. Link each task to its task-plan document.
