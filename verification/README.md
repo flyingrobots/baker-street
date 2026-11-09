@@ -99,7 +99,9 @@ waived filenames: each now receives `S603`. This remains retained authoring
 evidence rather than a claim that a future unrelated call has been reviewed.
 
 The admission command reconciles source annotations and the parsed Ruff
-configuration with the registry in both directions. It refuses missing,
+configuration with the registry in both directions. The selected
+`verification/__init__.py` is examined for source waivers independently of the
+five executable modules in the measured admission group. It refuses missing,
 orphaned, duplicated and expired entries; unknown paths or absent symbols;
 whole-file process exceptions; and missing adjacent identities and reasons.
 Parent `owner`, `tracking`, `review_condition` and `expires` fields are explicit

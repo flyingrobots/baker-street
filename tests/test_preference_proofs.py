@@ -163,3 +163,32 @@ class PreferenceCheckTests(unittest.TestCase):
                         self.assertNotIn("Traceback", stderr.getvalue())
                 finally:
                     path.write_bytes(original)
+
+    def test_empty_registry_cannot_admit_an_initializer_file_waiver(self) -> None:
+        """The actual command scans the lint-selected initializer independently of coverage."""
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            coverage = fixture(root)
+            (root / "scripts/preference_roots.py").write_text(
+                "pass\n", encoding="utf-8"
+            )
+            (root / "verification/exceptions.json").write_text(
+                json.dumps({**registry(), "entries": []}), encoding="utf-8"
+            )
+            (root / "verification/__init__.py").write_text(
+                '# ruff: noqa: S603\n"""Owned initializer waiver fixture."""\n'
+                "import subprocess\n\ndef inquire(arguments):\n"
+                "    subprocess.run(arguments, check=True)\n",
+                encoding="utf-8",
+            )
+            stdout, stderr = io.StringIO(), io.StringIO()
+            with redirect_stdout(stdout), redirect_stderr(stderr):
+                result = main(["--root", str(root), "--coverage", str(coverage)])
+            self.assertEqual(result, 2)
+            self.assertEqual(stdout.getvalue(), "")
+            reason = (
+                "require Python 3.13"
+                if sys.version_info < (3, 13)
+                else "unsupported_source_suppression"
+            )
+            self.assertIn(reason, stderr.getvalue())

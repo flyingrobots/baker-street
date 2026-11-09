@@ -237,3 +237,22 @@ class PreferenceCheckTests(unittest.TestCase):
                 ),
             ):
                 source_exceptions({"example.py": source})
+
+    def test_lint_selected_initializer_is_scanned_for_source_waivers(self) -> None:
+        """An unmeasured namespace marker still belongs to the inspected source set."""
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            fixture(root)
+            initializer = root / "verification/__init__.py"
+            initializer.write_text('"""Owned namespace marker."""\n', encoding="utf-8")
+            self.assertEqual(check_exceptions(root, registry(), {"lint": {}}, TODAY), 1)
+            initializer.write_text(
+                '# ruff: noqa: S603\n"""Owned initializer waiver fixture."""\n'
+                "import subprocess\n\ndef inquire(arguments):\n"
+                "    subprocess.run(arguments, check=True)\n",
+                encoding="utf-8",
+            )
+            with self.assertRaisesRegex(
+                PreferenceCheckError, "unsupported_source_suppression"
+            ):
+                check_exceptions(root, registry(), {"lint": {}}, TODAY)

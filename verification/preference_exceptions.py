@@ -132,7 +132,11 @@ def check_exceptions(root: Path, registry: object, config: object, today: date) 
     }
     paths.update(
         root / name
-        for name in ("scripts/prepare_header.py", *CHECKER_FILES)
+        for name in (
+            "scripts/prepare_header.py",
+            "verification/__init__.py",
+            *CHECKER_FILES,
+        )
         if (root / name).exists()
     )
     sources = {str(path.relative_to(root)): read_text(path) for path in paths}
