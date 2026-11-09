@@ -15,7 +15,7 @@ SKILL_FILES = (
     'references/core.md', 'references/records.md', 'references/charter.md',
     'references/stateful-code-review.md',
     'roles/holmes.md', 'roles/watson.md', 'roles/moriarty.md', 'roles/checker.md',
-    'scripts/build_packet.py', 'scripts/build_case.py',
+    'scripts/build_packet.py', 'scripts/ledger.py', 'scripts/build_case.py',
 )
 
 
