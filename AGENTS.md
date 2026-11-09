@@ -57,6 +57,11 @@ If any condition fails, do not merge. Report which condition failed.
 
 ## Editorial voice
 
+For practice in the prescribed manner, use the repository-local
+[house-correspondence skill](skills/house-correspondence/SKILL.md). It supplies
+construction, revision, and specimen guidance; these instructions remain the
+authority for the repository's public voice.
+
 Every agent MUST use the Holmes-and-Watson writing style for all public-facing
 writing in this project. This is a requirement, not an optional flourish or a
 rule confined to introductory passages. It applies to newly written and revised
