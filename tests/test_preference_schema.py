@@ -141,6 +141,29 @@ class PreferenceSchemaTests(unittest.TestCase):
                 ).encode()
             )
 
+    def test_c1_controls_are_refused_without_rejecting_adjacent_text(self) -> None:
+        """Refuse every C1 control and retain the next printable code point."""
+        for codepoint in range(0x80, 0xA0):
+            with (
+                self.subTest(codepoint=codepoint),
+                self.assertRaisesRegex(ValueError, "forbidden character"),
+            ):
+                decode_preferences(
+                    json.dumps(
+                        {
+                            "schema_version": 1,
+                            "case_directory": "reviews/" + chr(codepoint),
+                        }
+                    ).encode()
+                )
+        directory = "reviews/" + chr(0xA0) + "folio"
+        self.assertEqual(
+            decode_preferences(
+                json.dumps({"schema_version": 1, "case_directory": directory}).encode()
+            ).case_directory,
+            directory,
+        )
+
     def test_file_size_is_bounded_before_decoding(self) -> None:
         """A valid padded document cannot bypass the admission byte ceiling."""
         ordinary = b'{"schema_version":1}'

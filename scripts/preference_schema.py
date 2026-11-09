@@ -38,7 +38,7 @@ def _directory(value: object) -> str | None:
         message = "The case_directory preference exceeds 1024 UTF-8 bytes"
         raise ValueError(message)
     if "\\" in value or any(
-        ord(character) < 32 or ord(character) == 127 for character in value
+        ord(character) < 32 or 127 <= ord(character) <= 159 for character in value
     ):
         message = "The case_directory preference contains a forbidden character"
         raise ValueError(message)

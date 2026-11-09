@@ -81,8 +81,9 @@ The preference file is flat UTF-8 JSON, at most 8192 bytes. Duplicate or unknown
 fields, nested containers, optional `null`, unsupported versions, floats,
 nonfinite numbers and integer tokens exceeding eight characters are refused.
 Final symlinks and nonregular files, including pipes, are refused. Absolute
-directory names, traversal, empty or dot components, control characters,
-backslashes, and drive or scheme prefixes are refused.
+directory names, traversal, empty or dot components, control characters
+(`U+0000`–`U+001F` and `U+007F`–`U+009F`), backslashes, and drive or scheme
+prefixes are refused.
 
 The explicit header input is bounded to 262144 bytes and integer tokens to 128
 characters. It must be a JSON object. Nonfinite values and strings which cannot
