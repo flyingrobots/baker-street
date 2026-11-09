@@ -1,9 +1,9 @@
 {
-  "fixture_note": "Projection of actual Coverage.py 7.11.0 output. These retained authoring counts are a format fixture, not a current measurement.",
+  "fixture_note": "Projection of actual Coverage.py 7.11.0 output. These retained authoring counts are a format fixture, not a current measurement. The producing run had one error while renewing the former fixture inventory.",
   "meta": {
     "format": 3,
     "version": "7.11.0",
-    "timestamp": "2026-11-08T22:03:46.751814",
+    "timestamp": "2026-11-08T23:47:42.027130",
     "branch_coverage": true,
     "show_contexts": false
   },
@@ -85,16 +85,76 @@
     },
     "verification/check_preferences.py": {
       "summary": {
-        "covered_lines": 225,
-        "num_statements": 229,
-        "percent_covered": 97.61194029850746,
-        "percent_covered_display": "98",
-        "missing_lines": 4,
+        "covered_lines": 34,
+        "num_statements": 37,
+        "percent_covered": 87.8048780487805,
+        "percent_covered_display": "88",
+        "missing_lines": 3,
         "excluded_lines": 0,
-        "num_branches": 106,
-        "num_partial_branches": 4,
-        "covered_branches": 102,
-        "missing_branches": 4
+        "num_branches": 4,
+        "num_partial_branches": 2,
+        "covered_branches": 2,
+        "missing_branches": 2
+      },
+      "excluded_lines": []
+    },
+    "verification/preference_coverage.py": {
+      "summary": {
+        "covered_lines": 47,
+        "num_statements": 47,
+        "percent_covered": 100.0,
+        "percent_covered_display": "100",
+        "missing_lines": 0,
+        "excluded_lines": 0,
+        "num_branches": 24,
+        "num_partial_branches": 0,
+        "covered_branches": 24,
+        "missing_branches": 0
+      },
+      "excluded_lines": []
+    },
+    "verification/preference_exceptions.py": {
+      "summary": {
+        "covered_lines": 77,
+        "num_statements": 77,
+        "percent_covered": 100.0,
+        "percent_covered_display": "100",
+        "missing_lines": 0,
+        "excluded_lines": 0,
+        "num_branches": 40,
+        "num_partial_branches": 0,
+        "covered_branches": 40,
+        "missing_branches": 0
+      },
+      "excluded_lines": []
+    },
+    "verification/preference_proofs.py": {
+      "summary": {
+        "covered_lines": 51,
+        "num_statements": 51,
+        "percent_covered": 100.0,
+        "percent_covered_display": "100",
+        "missing_lines": 0,
+        "excluded_lines": 0,
+        "num_branches": 20,
+        "num_partial_branches": 0,
+        "covered_branches": 20,
+        "missing_branches": 0
+      },
+      "excluded_lines": []
+    },
+    "verification/preference_suppressions.py": {
+      "summary": {
+        "covered_lines": 51,
+        "num_statements": 51,
+        "percent_covered": 100.0,
+        "percent_covered_display": "100",
+        "missing_lines": 0,
+        "excluded_lines": 0,
+        "num_branches": 24,
+        "num_partial_branches": 0,
+        "covered_branches": 24,
+        "missing_branches": 0
       },
       "excluded_lines": []
     }

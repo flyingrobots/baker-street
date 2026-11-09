@@ -51,12 +51,30 @@ def entries() -> list[dict[str, object]]:
 class PreferencePolicyTests(unittest.TestCase):
     """Check suppression contracts independently of the runtime preferences."""
 
+    def test_preference_sources_stay_within_the_unexcepted_locality_limit(self) -> None:
+        """No preference file has approval to exceed 300 nonblank, non-comment lines."""
+        paths = {
+            *ROOT.glob("scripts/preference_*.py"),
+            *ROOT.glob("tests/*preference*.py"),
+            *ROOT.glob("verification/preference_*.py"),
+            ROOT / "scripts/prepare_header.py",
+            ROOT / "verification/check_preferences.py",
+        }
+        for path in sorted(paths):
+            lines = path.read_text(encoding="utf-8").splitlines()
+            count = sum(
+                bool(line.strip()) and not line.lstrip().startswith("#")
+                for line in lines
+            )
+            with self.subTest(path=str(path.relative_to(ROOT))):
+                self.assertLessEqual(count, 300)
+
     def test_ci_runs_coverage_and_exception_admission(self) -> None:
         """The quality job must execute the checks rather than merely describe them."""
         workflow = (ROOT / ".github/workflows/ci.yml").read_text(encoding="utf-8")
         self.assertIn("coverage run --branch", workflow)
         self.assertIn("coverage json", workflow)
-        self.assertIn("python verification/check_preferences.py --coverage", workflow)
+        self.assertIn("python -m verification.check_preferences --coverage", workflow)
 
     def test_each_registry_entry_names_one_diagnostic(self) -> None:
         """An entry cannot silently combine separately justified diagnostics."""

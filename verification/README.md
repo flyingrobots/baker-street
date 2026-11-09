@@ -26,13 +26,13 @@ ruff check --config verification/ruff.toml .
 pyright --project verification/pyrightconfig.json
 python3 -m unittest discover -s tests -v
 coverage erase
-coverage run --branch --source=scripts.preference_schema,scripts.preference_file,scripts.preference_roots,scripts.preference_header,scripts.prepare_header,verification.check_preferences -m unittest discover -s tests -p 'test_preference*.py'
+coverage run --branch --source=scripts.preference_schema,scripts.preference_file,scripts.preference_roots,scripts.preference_header,scripts.prepare_header,verification.check_preferences,verification.preference_coverage,verification.preference_exceptions,verification.preference_proofs,verification.preference_suppressions -m unittest discover -s tests -p 'test_preference*.py'
 coverage json -o preference-coverage.json
-python3 verification/check_preferences.py --coverage preference-coverage.json
+python3 -m verification.check_preferences --coverage preference-coverage.json
 python3 -O -m unittest discover -s tests -p 'test_preference*.py'
 ```
 
-The type profile must examine all fourteen named source and test files. An empty
+The type profile must examine all twenty-one named source and test files. An empty
 selection is not a successful examination. The installed-package test builds
 the actual skill ZIP, extracts it outside the source checkout, removes inherited
 `PYTHONPATH` and `PYTHONHOME`, and passes the prepared header to the installed
@@ -45,7 +45,12 @@ dimension requires at least 95 percent. Inspect each file's uncovered paths as
 well. A combined percentage alone is insufficient. Retain the JSON inventory
 and exact counts; an absent or empty expected module is a failed measurement.
 The admission instrument is a second, separately measured scope with the same
-two floors. Its result cannot compensate for a deficit in the five runtime
+two floors. Its five modules have distinct duties: `check_preferences.py` owns
+the command, `preference_proofs.py` owns bounded reads and primitive admission,
+`preference_coverage.py` owns source inventories and coverage,
+`preference_suppressions.py` locates source symbols and comments, and
+`preference_exceptions.py` reconciles registry and configuration records. Its
+result cannot compensate for a deficit in the five runtime
 modules. The command compares integer counts without rounding, requires branch
 measurement, and refuses excluded lines, empty modules and changed inventories.
 
@@ -80,6 +85,12 @@ and classes, with identities and reasons beside their configuration entries.
 Unused framework exceptions have been removed. The registry retains reasons,
 risks, owner, expiry and required independent examination. No approval is inferred
 from an entry whose approver remains pending.
+
+The policy trials count nonblank physical lines other than full-line comments,
+including docstrings, throughout the preference source and tests. No file in
+that scope has an approved locality exception; each must remain at or below
+300 such lines. The target remains 200. This check establishes the file-size
+limit; it does not purport to measure every function or complexity requirement.
 
 The policy trials check the single-diagnostic rule, the prohibition on whole-file
 `S603` exceptions and the adjacent identities at the calls. A fixed unrelated
