@@ -69,6 +69,12 @@ redactions. Never publish evidence merely to make a link work.
 
 ## Return honestly
 
+When the assigned header has `plain: true`, write the report without literary
+flourish, invented dialogue or an assumed persona. Keep that preference in
+continuation and recall. Exact role labels and evidence quotations remain exact;
+all evidence and phase obligations still apply. The case-wide provision in
+`SKILL.md` governs the final account and enclosed reports as well.
+
 Declare what you read, ran, could not inspect, and already knew. Do not impersonate
 an independent or blind witness. Use role-prefixed local IDs until the front office
 allocates global IDs, and preserve that mapping. Use relevant record fields;
