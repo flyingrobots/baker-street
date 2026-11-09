@@ -1,7 +1,7 @@
 """Check the frozen-evidence precedence required by the plain-manner contract."""
 
-from pathlib import Path
 import unittest
+from pathlib import Path
 
 
 class PlainContractTests(unittest.TestCase):
