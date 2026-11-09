@@ -89,7 +89,7 @@ class CaseBuilderTests(unittest.TestCase):
 
     def test_repin_refuses_contradictory_or_incomplete_receipts(self):
         packet = self.module.packet_schema
-        for corruption in ('head', 'role', 'status', 'orphan'):
+        for corruption in ('head', 'head_sameprefix', 'role', 'status', 'orphan'):
             with self.subTest(corruption=corruption), tempfile.TemporaryDirectory() as tmp:
                 out = Path(tmp); header = self.record()['header']
                 packet.repin('holmes', header, 'a' * 40, out)
@@ -97,11 +97,48 @@ class CaseBuilderTests(unittest.TestCase):
                 if corruption == 'orphan':
                     (out / 'holmes-cccccccccccc.md').write_text('interrupted packet')
                 else:
-                    manifest['packets'][0][corruption] = {'head': 'c' * 40, 'role': 'watson', 'status': 'INVENTED'}[corruption]
+                    field = 'head' if corruption == 'head_sameprefix' else corruption
+                    manifest['packets'][0][field] = {'head': 'c' * 40, 'head_sameprefix': 'a' * 12 + 'c' * 28, 'role': 'watson', 'status': 'INVENTED'}[corruption]
                     path.write_text(json.dumps(manifest))
                 before = {p.name: p.read_bytes() for p in out.iterdir()}
                 with self.assertRaises(ValueError): packet.repin('holmes', header, 'b' * 40, out)
                 self.assertEqual(before, {p.name: p.read_bytes() for p in out.iterdir()})
+
+    def test_case_cli_preserves_editions_and_refuses_an_interrupted_receipt(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp); source = root / 'case.json'; out = root / 'papers'
+            row = self.record(); source.write_text(json.dumps(row))
+            command = [sys.executable, str(ROOT / 'scripts/build_case.py'), '--record', str(source), '--out', str(out)]
+            def invoke():
+                return subprocess.run(command, capture_output=True, text=True, timeout=10)
+            first = invoke(); self.assertEqual(first.returncode, 0, first.stderr)
+            before = {str(p.relative_to(out)): p.read_bytes() for p in out.rglob('*') if p.is_file()}
+            self.assertEqual(invoke().returncode, 0)
+            self.assertEqual(before, {str(p.relative_to(out)): p.read_bytes() for p in out.rglob('*') if p.is_file()})
+            row['errata'] = [{'id': 'ER-1', 'correction': 'A recorded amendment'}]
+            source.write_text(json.dumps(row)); second = invoke()
+            self.assertEqual(second.returncode, 0, second.stderr)
+            old_digest = first.stdout.strip()
+            self.assertEqual((out / 'versions' / old_digest / 'CASE_FILE.md').read_bytes(), before['CASE_FILE.md'])
+            row['notes'] = 'A third edition'; source.write_text(json.dumps(row))
+            controller = ("import importlib.util,json,sys;from pathlib import Path;"
+                          "s=importlib.util.spec_from_file_location('trial',sys.argv[1]);"
+                          "m=importlib.util.module_from_spec(s);s.loader.exec_module(m);"
+                          "original=m.os.replace; count=[0]\n"
+                          "def interrupted(a,b):\n"
+                          " count[0]+=1\n"
+                          " if count[0]==2: raise OSError('controlled interruption')\n"
+                          " original(a,b)\n"
+                          "m.os.replace=interrupted\n"
+                          "m.write_case(json.loads(Path(sys.argv[2]).read_text()),Path(sys.argv[3]))\n")
+            broken = subprocess.run([sys.executable, '-c', controller, str(ROOT / 'scripts/build_case.py'), str(source), str(out)],
+                                    capture_output=True, text=True, timeout=10)
+            self.assertNotEqual(broken.returncode, 0)
+            self.assertIn('controlled interruption', broken.stderr)
+            interrupted_state = {str(p.relative_to(out)): p.read_bytes() for p in out.rglob('*') if p.is_file()}
+            retry = invoke(); self.assertEqual(retry.returncode, 2)
+            self.assertIn('Case refused', retry.stderr)
+            self.assertEqual(interrupted_state, {str(p.relative_to(out)): p.read_bytes() for p in out.rglob('*') if p.is_file()})
 
     def test_header_template_and_repin_preserve_former_packet(self):
         command = [sys.executable, str(ROOT / 'scripts/build_packet.py')]
