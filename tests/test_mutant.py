@@ -109,6 +109,10 @@ class MutantTests(unittest.TestCase):
         self.record['base_head'] = self.git('rev-parse', 'HEAD').strip()
         run, row = self.run_trial('sha256')
         self.assertEqual(row['outcome'], 'FAILED')
+        self.record['base_head'] = self.record['base_head'][:40]
+        run, row = self.run_trial('sha256-short')
+        self.assertEqual(row['outcome'], 'BLOCKED')
+        self.assertIn('full', row['reason'])
 
     def test_global_whitespace_policy_cannot_change_patch_bytes(self):
         config = self.root / 'config/git'; config.mkdir(parents=True)

@@ -118,6 +118,8 @@ def trial(repo, mutant, out, timeout):
         isolated = out / 'source.git'
         object_format = subprocess.check_output(['git', '-C', str(repo), 'rev-parse', '--show-object-format'],
                                                 text=True, timeout=10, env=clean_environment()).removesuffix('\n')
+        if len(record['base_head']) != {'sha1': 40, 'sha256': 64}.get(object_format):
+            raise ValueError('base_head requires a full ID in the source object format')
         code = run(['git', 'init', '--bare', '--object-format=' + object_format, str(isolated)], case,
                    out / 'init.stdout', out / 'init.stderr', min(timeout, 30))
         if code: raise ValueError('The isolated Git authority could not be prepared')
