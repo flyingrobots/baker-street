@@ -92,6 +92,14 @@ class MutantTests(unittest.TestCase):
             run, row = self.run_trial(name)
             self.assertEqual(run.returncode, 2); self.assertIsNone(row)
 
+    def test_case_alias_output_cannot_enter_the_source(self):
+        alias = self.root / 'REPO'
+        if not alias.exists() or not alias.samefile(self.repo):
+            self.skipTest('The fixture filesystem distinguishes letter case')
+        run, row = self.run_trial('REPO/output')
+        self.assertEqual(run.returncode, 2)
+        self.assertIsNone(row)
+
     @unittest.skipUnless(os.name == 'posix', 'Process-group examination requires POSIX')
     def test_timeout_stops_the_command_and_grandchild(self):
         code = ('import subprocess,sys,time; from pathlib import Path; '

@@ -24,6 +24,13 @@ def inside(path, parent):
     return path == parent or parent in path.parents
 
 
+def physically_inside(path, parent):
+    if inside(path, parent): return True
+    for ancestor in (path, *path.parents):
+        if ancestor.exists() and ancestor.samefile(parent): return True
+    return False
+
+
 def stop_group(process):
     try:
         os.killpg(process.pid, signal.SIGKILL)
@@ -81,7 +88,7 @@ def trial(repo, mutant, out, timeout):
     authority = (repo / authority).resolve()
     top = Path(subprocess.check_output(['git', '-C', str(repo), 'rev-parse', '--show-toplevel'],
                                        text=True, timeout=10, env=clean_environment()).strip()).resolve()
-    if inside(out, top) or inside(out, authority):
+    if physically_inside(out, top) or physically_inside(out, authority):
         raise ValueError('The output must lie outside the source checkout and Git authority')
     if out.exists() and (not out.is_dir() or any(out.iterdir())):
         raise ValueError('The output exists and is not empty')
