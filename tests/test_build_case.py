@@ -6,11 +6,32 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 
 
 class CaseBuilderTests(unittest.TestCase):
+    def test_digest_bound_papers_preserve_bytes_with_windows_text_defaults(self):
+        original_open = Path.open
+
+        def windows_open(path, mode='r', *args, **kwargs):
+            if 'b' not in mode and ('w' in mode or 'x' in mode):
+                kwargs.setdefault('newline', '\r\n')
+            return original_open(path, mode, *args, **kwargs)
+
+        with tempfile.TemporaryDirectory() as tmp, patch.object(Path, 'open', windows_open):
+            root = Path(tmp); row = self.record(); out = root / 'case'
+            digest = self.module.write_case(row, out)
+            for name, text in self.module.render(row).items():
+                self.assertEqual((out / name).read_bytes(), text.encode('utf-8'))
+            self.assertEqual(self.module.write_case(row, out), digest)
+            packet = self.module.packet_schema
+            for head in ('a' * 40, 'b' * 40):
+                target = packet.repin('holmes', row['header'], head, root / 'packets')
+                updated = dict(row['header'], sealed_basis=dict(row['header']['sealed_basis'], head=head))
+                self.assertEqual(target.read_bytes(), packet.build('holmes', updated).encode('utf-8'))
+
     @classmethod
     def setUpClass(cls):
         spec = importlib.util.spec_from_file_location('case_builder', ROOT / 'scripts/build_case.py')

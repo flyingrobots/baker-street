@@ -173,7 +173,7 @@ def repin(role, header, head, out, include_charter=False, include_stateful_revie
         if entry['role'] == role: entry['status'] = 'SUPERSEDED'
     manifest['packets'].append(dict(role=role, head=head, path=name, status='CURRENT',
                                     sha256=hashlib.sha256(packet.encode()).hexdigest()))
-    with target.open('x', encoding='utf-8') as stream: stream.write(packet)
+    with target.open('xb') as stream: stream.write(packet.encode('utf-8'))
     with tempfile.NamedTemporaryFile(mode='w', encoding='utf-8', dir=out, delete=False) as stream:
         temporary = Path(stream.name)
         json.dump(manifest, stream, indent=2, sort_keys=True); stream.write('\n')

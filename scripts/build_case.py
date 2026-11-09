@@ -138,14 +138,14 @@ def write_case(record, out):
     version = out / 'versions' / digest
     if version.exists(): raise ValueError('This former edition already exists; it must not be overwritten')
     version.mkdir(parents=True)
-    for name, text in docs.items(): (version / name).write_text(text, encoding='utf-8')
+    for name, text in docs.items(): (version / name).write_bytes(text.encode('utf-8'))
     (version / 'case.json').write_bytes(canonical(record) + b'\n')
     manifest = dict(current=digest, versions=(old['versions'] if old else []) + [digest],
                     files={name: hashlib.sha256(text.encode()).hexdigest() for name, text in docs.items()})
     # The manifest is the last receipt. An interruption is detectable on the next call.
     with tempfile.TemporaryDirectory(prefix='.case-', dir=out) as tmp:
         stage = Path(tmp)
-        for name, text in docs.items(): (stage / name).write_text(text, encoding='utf-8')
+        for name, text in docs.items(): (stage / name).write_bytes(text.encode('utf-8'))
         (stage / 'manifest.json').write_text(json.dumps(manifest, indent=2, sort_keys=True) + '\n')
         for name in (*FILES, 'manifest.json'): os.replace(stage / name, out / name)
     return digest
