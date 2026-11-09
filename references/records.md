@@ -334,6 +334,53 @@ timeout and completion; descendants which remain in that group cannot continue.
 No claim is made about descendants which deliberately establish a new session.
 Docker is optional host provision, not a requirement of the protocol.
 
+## The authoritative case record
+
+Keep `case.json` outside the subject checkout. Its required fields are `header`
+(an object containing nonempty `case_id` and the case particulars above),
+`findings` (objects with unique `id`, `mechanism`, `severity`, `status`, `basis`
+as a list of evidence enums, `sources` as locator strings, and `disposition`),
+`errata`, `rulings`, `path_to_ready`, `followups`, `probe_triage`, `coverage_matrix`,
+and `decision`. Empty collections are lists. `notes` is optional, and every
+entry object admits its own `notes`. Record HIGH acceptance under a finding's
+`user_acceptance` as the explicit human decision and its basis; the builder
+cannot authenticate the person or judge the truth of that evidence.
+
+`path_to_ready` names finding IDs. A supplied nonempty `followups` list must
+agree with the IDs derived from active FOLLOW_UP findings; an empty list requests
+derivation. Counts include all recorded findings by severity. The “why READY
+is withheld” list is derived from active critical/high, required-repair, and
+investigation obligations, retaining the explicit HIGH user-acceptance exception.
+The builder refuses a READY decision with any such unresolved obligation.
+It checks structural consistency; it does not replace consequence judgment,
+testimony, a checker, or the complete decision rules.
+
+`scripts/build_case.py --record case.json --out DIRECTORY` prepares the three
+case papers with a SHA-256 of canonical UTF-8 JSON (sorted keys, compact separators,
+no NaN). Repeating unchanged input verifies the papers and makes no writes.
+Changed input produces another immutable `versions/<digest>/` edition, including
+its input record; the former edition remains. The current root papers are replaced
+only after preparation, and `manifest.json` is the last receipt. The receipt
+binds current file hashes and the edition chain. Hand amendments, missing papers,
+and unknown pre-existing output are refused. An interrupted multi-file replacement
+is detectable and refused on retry; retain the last complete edition for recovery.
+These files are evidence, not a claim of filesystem transaction isolation.
+
+Append errata to the input record; never erase earlier testimony. The renderer
+retains prior input editions, but the author and checker still judge whether a
+new correction faithfully preserves and supersedes the original assertions.
+
+The packet header schema is the Case header section above. Obtain its complete
+field form with `scripts/build_packet.py --print-header-template`; replace all
+`REPLACE` values with the recorded facts before assignment. The form has a
+structured `sealed_basis.head`. `--repin FULL_HEAD --out DIRECTORY` writes
+`<role>-<first-12-head-digits>.md` beneath that directory, records full identities
+and packet digests in `manifest.json`, and marks older packets of that role
+SUPERSEDED. It changes the copied header's head (and delta `to_head`, if present),
+not the supplied header file. It refuses an existing packet name, including a
+short-prefix collision, and preserves prior packet bytes. No Git object existence,
+access control, or target evidence export is inferred from packet preparation.
+
 ## Findings ledger
 
 Keep `findings.jsonl` in the user's case store, outside the subject checkout.
