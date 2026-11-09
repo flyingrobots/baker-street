@@ -1,0 +1,4 @@
+interface:
+  display_name: "The Agency's correspondence"
+  short_description: "Write in the Agency's period manner"
+  default_prompt: "Use $house-correspondence to prepare this account in the Agency's manner, preserving its evidence and exact particulars."
