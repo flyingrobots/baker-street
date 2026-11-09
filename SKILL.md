@@ -234,6 +234,27 @@ steps. Select repairs by status, disposition, scope, and explicit IDs rather tha
 overall verdict. Validate the repaired candidate and give it a separate decision.
 A mended latch does not alter last night's testimony.
 
+### Plain manner throughout the case
+
+Treat `--plain` or an equivalent plain-voice request as a case-wide preference.
+Set `plain: true` in every initial and continuation packet, including recall,
+repair and decision checking. Preserve it when repinning a packet or preparing
+a successor case; an explicit later change of manner must be recorded.
+
+Remove invented scenes, dialogue, assumed personae, literary comparisons and
+ornamental openings and closings from every report and the final account,
+including reports enclosed in `<details>`. Removing only the introduction is
+insufficient. Names such as Holmes and Moriarty may remain as exact role labels;
+they do not require acting a part. An exact evidence quotation remains exact,
+even when its source uses a different manner.
+
+Keep the canonical decision, source identities, claims, uncertainty, disagreements,
+frozen first testimony, corrections, repair evidence and actual reviewer basis.
+Plain manner grants no permission to omit a phase, invent an absent report,
+alter evidence or publish. Governing repository diction requirements still apply.
+When hosting another repository, do not import this repository's literary policy
+into its plain account.
+
 Keep tables, evidence, repairs, and decisions literal. Permit at most a brief
 opening and closing flourish per testimony; omit them with --plain or plain
 voice. The checker always speaks plainly. The fog belongs outside the window.
