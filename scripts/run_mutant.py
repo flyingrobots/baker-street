@@ -127,7 +127,7 @@ def trial(repo, mutant, out, timeout):
         if '\n' in str(objects) or '\r' in str(objects):
             raise ValueError('The object-store path contains unsupported line breaks')
         (isolated / 'objects/info/alternates').write_text(str(objects) + '\n')
-        (isolated / 'info/attributes').write_text('* -export-ignore -export-subst\n')
+        (isolated / 'info/attributes').write_text('* -export-ignore -export-subst -text -eol\n')
         archive = out / 'source.tar'
         code = run(['git', '--git-dir=' + str(isolated), 'archive', '--format=tar', record['base_head']],
                    case, archive, out / 'export.stderr', min(timeout, 30))
@@ -144,7 +144,7 @@ def trial(repo, mutant, out, timeout):
                     raise ValueError('The archive contains an unsafe path or unsupported link')
             source.extractall(scratch, members=members)
         code = run(['git', '--git-dir=' + str(isolated), '--work-tree=' + str(scratch),
-                    '-c', 'core.bare=false', 'apply', '--no-index', '--whitespace=nowarn', str(saved_patch)], scratch,
+                    '-c', 'core.bare=false', '-c', 'core.autocrlf=false', '-c', 'core.eol=lf', 'apply', '--no-index', '--whitespace=nowarn', str(saved_patch)], scratch,
                    out / 'apply.stdout', out / 'apply.stderr', min(timeout, 30))
         if code:
             raise ValueError('The patch could not be applied')
