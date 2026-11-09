@@ -133,6 +133,23 @@ class MutantTests(unittest.TestCase):
         self.assertEqual(run.returncode, 2)
         self.assertIsNone(row)
 
+    def test_global_autocrlf_cannot_undo_a_line_ending_patch(self):
+        self.git('config', 'core.autocrlf', 'false')
+        (self.repo / 'value.txt').write_bytes(b'good\r\n')
+        self.git('add', 'value.txt'); self.git('commit', '-qm', 'Record the original line endings')
+        self.record['base_head'] = self.git('rev-parse', 'HEAD').strip()
+        self.patch.write_bytes(b'diff --git a/value.txt b/value.txt\n--- a/value.txt\n+++ b/value.txt\n@@ -1 +1 @@\n-good\r\n+good\n')
+        self.record['patch']['sha256'] = hashlib.sha256(self.patch.read_bytes()).hexdigest()
+        self.record['command'] = [sys.executable, '-c', 'from pathlib import Path; assert Path("value.txt").read_bytes()==b"good\\r\\n"']
+        config = self.root / 'config/git'; config.mkdir(parents=True)
+        (config / 'config').write_text('[core]\nautocrlf = true\n')
+        run, row = self.run_trial('autocrlf', env=dict(os.environ, XDG_CONFIG_HOME=str(config.parent)))
+        self.assertEqual(row['outcome'], 'FAILED')
+        self.assertEqual((self.root / 'autocrlf/scratch/value.txt').read_bytes(), b'good\n')
+        attributes = (self.root / 'autocrlf/source.git/info/attributes').read_text()
+        for guard in ('-text', '-eol', '-filter', '-ident'):
+            self.assertIn(guard, attributes)
+
     def test_nonempty_output_refuses_without_writes(self):
         out = self.root / 'out'; out.mkdir(); (out / 'keep').write_text('unchanged')
         run, row = self.run_trial(); self.assertEqual(run.returncode, 2)
