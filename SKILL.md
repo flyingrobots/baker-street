@@ -241,7 +241,15 @@ Set `plain: true` in every initial and continuation packet, including recall,
 repair and decision checking. Preserve it when repinning a packet or preparing
 a successor case; an explicit later change of manner must be recorded.
 
-Remove invented scenes, dialogue, assumed personae, literary comparisons and
+Reports frozen before a recorded change of manner remain unchanged as evidence.
+Retain their original wording, including earlier flourish; identify the earlier
+manner when enclosing an authorised copy. Apply plain manner only to newly
+written material after the change. If redaction or withholding is necessary,
+retain the original privately and label the public copy and its coverage limit.
+Never rewrite frozen evidence merely to satisfy the later preference.
+
+For newly written material, remove invented scenes, dialogue, assumed personae,
+literary comparisons and
 ornamental openings and closings from every report and the final account,
 including reports enclosed in `<details>`. Removing only the introduction is
 insufficient. Names such as Holmes and Moriarty may remain as exact role labels;

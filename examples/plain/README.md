@@ -126,6 +126,12 @@ must survive inside the collapsed sections. Redaction remains necessary.
 
 ## Preserve exact evidence
 
+A later choice of plain manner does not rewrite a report already frozen under
+another manner. Retain that original unchanged and identify its earlier manner
+when enclosing an authorised copy. Newly composed recall and final conclusions
+are plain. Necessary redaction or withholding affects the labelled public copy,
+not the privately retained original; disclose the resulting coverage limit.
+
 An illustrative supplied execution message may read:
 
 ```json
