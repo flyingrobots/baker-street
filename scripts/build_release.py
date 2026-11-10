@@ -6,6 +6,11 @@ from pathlib import Path
 import re
 import zipfile
 
+if __name__ == '__main__' and not __package__:
+    from release_payload import read_payload
+else:
+    from scripts.release_payload import read_payload
+
 ROOT = Path(__file__).resolve().parents[1]
 # Explicit inclusion prevents evaluation answers and future repository files
 # from becoming implicit inputs to an investigator's installed skill.
@@ -23,17 +28,7 @@ def build(root, destination, version):
     if not re.fullmatch(r'[0-9]+\.[0-9]+\.[0-9]+(?:-[a-zA-Z0-9.-]+)?', version):
         raise ValueError('Version must be a release number such as 3.0.0.')
     root, destination = Path(root).resolve(), Path(destination)
-    payload = {}
-    for name in sorted(SKILL_FILES):
-        source = root / name
-        if any(p.is_symlink() for p in (source, *source.parents)):
-            raise ValueError(f'Symlinks are not release inputs: {name}')
-        payload[name] = source.read_bytes()
-    manifest = ''.join(
-        f'{hashlib.sha256(data).hexdigest()}  {name}\n'
-        for name, data in payload.items()
-    ).encode()
-    payload['SHA256SUMS'] = manifest
+    payload = read_payload(root, SKILL_FILES)
     destination.mkdir(parents=True, exist_ok=False)
     archive = destination / f'baker-street-v{version}.zip'
     with zipfile.ZipFile(archive, 'x', compression=zipfile.ZIP_STORED) as bundle:
