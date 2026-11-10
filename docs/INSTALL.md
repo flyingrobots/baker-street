@@ -92,7 +92,7 @@ evidence of a separate installer for those surfaces.
 The supplied packet, case, ledger, mutant and evaluation instruments require
 Python 3.10 or later. The mutant instrument additionally requires POSIX process
 groups and Git support for explicit object-format discovery and initialization.
-These download instructions do not check those requirements.
+These download and extraction instructions do not check those requirements.
 The host must supply them before the instruments can be used.
 
 Download `baker-street-v3.3.0.zip` and `SHA256SUMS` from the
