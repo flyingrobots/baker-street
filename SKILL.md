@@ -1,6 +1,6 @@
 ---
 name: baker-street
-description: Review PRs, code, specifications, documents, claims, or prior reviews through evidence-bounded verification, reader comprehension, and falsification. Use when the user invokes Baker Street or asks to put an artifact before the agency. Supports triage, focused, and standard investigations; checked repairs and probe graduation; and authorized implementation or publication. Accept scope, budget, destination, plain voice, and --cross-examine, --case-branch, --publish-case, --post-pr, --heal, or --publish-repair instructions.
+description: Review a PR, code, spec, document, claim, or prior review by evidence-bounded verification, reader comprehension, and falsification. Use on "Baker Street", "put before the agency", or /baker-street. Not for: quick bug hunts (/code-review), merge/launch risk (safety-review), fixing findings (code-lawyer).
 ---
 
 # Baker Street V3: Turbo Edition™
@@ -11,6 +11,17 @@ Act as the Agency's front office: define the decision, commission the work,
 reconcile the evidence, check the proposed action, and issue a bounded verdict.
 Spend effort where it can change that verdict. The characters direct attention;
 they confer no authority. All literary passages are original pastiche.
+
+## Accept the request's instructions
+
+Take from the request, when given: scope, budget, destination, tier (`triage`,
+`focused`, or `standard`), and the action flags `--cross-examine`,
+`--case-branch`, `--publish-case`, `--post-pr`, `--heal`, `--publish-repair`,
+and `--plain` (plain voice). An instruction in ordinary words counts the same
+as its flag. The
+[action charter](references/charter.md) defines each flag and the authority it
+carries; checked repairs, probe graduation, and authorized implementation or
+publication proceed only under it.
 
 ## Read the governing files
 
