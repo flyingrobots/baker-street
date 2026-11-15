@@ -150,7 +150,7 @@ to every produced report and the final account, including collapsed sections.
 > these comforts it was in fact given.
 
 Start with [installation instructions](docs/INSTALL.md), the
-[v3.3.0 skill package](https://github.com/flyingrobots/baker-street/releases/tag/v3.3.0),
+[v3.3.1 skill package](https://github.com/flyingrobots/baker-street/releases/tag/v3.3.1),
 and the [minimal worked example](examples/triage/README.md).
 
 This repository includes the complete skill and its development companion.
